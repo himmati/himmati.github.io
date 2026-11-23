@@ -488,6 +488,7 @@ body.locked main,body.locked nav,body.locked header{visibility:hidden}
     <form class="box" id="fProf">
       <label>اسمك اللي يظهر للكل<input id="pName" required maxlength="30" placeholder="مثال: دعاء"></label>
       <p class="note" id="pNameNote" style="margin:-4px 0 0"></p>
+      <div><label style="margin-bottom:6px">الجنس (عشان نخاطبك صح)</label><div class="seg" id="pGen" style="margin:0"><button type="button" data-g="f">أنثى</button><button type="button" data-g="m">ذكر</button></div></div>
       <p class="note" style="margin:0">اللي عليها قفل تشترينها بنقاطك. اضغطي عليها عشان تشوفين سعرها.</p>
       <div><label style="margin-bottom:6px">اختاري شخصيتك</label><div class="avs" id="pAv"></div></div>
       <div class="pv" id="pPrev"></div>
@@ -841,6 +842,21 @@ function applyPrefs(){const r=document.documentElement.style,a=okc(PREF.bead)?PR
   r.setProperty('--dfs',([18,21,25,29].includes(+PREF.fs)?+PREF.fs:21)+'px')}
 const vib=p=>{if(+PREF.vib)try{navigator.vibrate&&navigator.vibrate(p)}catch(_){}};
 applyPrefs();
+/* ===== تذكير/تأنيث الكلام ===== */
+const GMAP={'أتممتِ':'أتممتَ','أتمّيها':'أتمّها','أحسنتِ':'أحسنتَ','أضفتِ':'أضفتَ','أضيفيها':'أضفها','أضيفي':'أضف','ارفعيه':'ارفعه','واختاري':'واختر','اختاري':'اختر','اضغطي':'اضغط','افتحيه':'افتحه','افتحي':'افتح','اقفليه':'اقفله','اكتبي':'اكتب','انتظري':'انتظر',
+ 'تاخذين':'تاخذ','تثبّتين':'تثبّت','تسجّلين':'تسجّل','تشترين':'تشتري','تشوفين':'تشوف','تصرفين':'تصرف','تغيّرين':'تغيّر','تقدرين':'تقدر','تنسين':'تنسى','وتجمعين':'وتجمع','تصبحين':'تصبح','وجرّبي':'وجرّب','جرّبي':'جرّب','ثبّتي':'ثبّت','وحطي':'وحط','حطي':'حط','خلصتي':'خلصت',
+ 'ذكّريني':'ذكّرني','رجّعيه':'رجّعه','رجّعي':'رجّع','روحي':'روح','سجّلي':'سجّل','شوفي':'شوف','ضعي':'ضع','غيّري':'غيّر','فعّلي':'فعّل','قرأتيها':'قرأتها','كمّلي':'كمّل','نبّهيني':'نبّهني','واتبعي':'واتبع','وصلتِ':'وصلتَ','داخلة':'داخل','متأكدة':'متأكد','أتممتها':'أتممتها'};
+const GRX=new RegExp('(^|[^\\u0600-\\u06FF])('+Object.keys(GMAP).sort((a,b)=>b.length-a.length).join('|')+')(?=$|[^\\u0600-\\u06FF])','g');
+let GEN='f';try{GEN=localStorage.getItem('wird-gen')==='m'?'m':'f'}catch(_){}
+const gtx=t=>GEN==='m'&&t?t.replace(GRX,(m0,a,w)=>a+GMAP[w]):t;
+function gNode(n){if(n.nodeType===3){if(n.__m!==n.nodeValue)n.__o=n.nodeValue;const v=GEN==='m'?gtx(n.__o):n.__o;if(v!==n.nodeValue)n.nodeValue=v;n.__m=v;return}
+  if(n.nodeType!==1||n.tagName==='SCRIPT'||n.tagName==='STYLE'||n.tagName==='svg')return;
+  if(n.classList&&n.classList.contains('ar'))return;
+  for(const at of ['placeholder','aria-label','title']){if(!n.hasAttribute||!n.hasAttribute(at))continue;const k='__'+at,km='__m'+at,cur=n.getAttribute(at);if(n[km]!==cur)n[k]=cur;const v=GEN==='m'?gtx(n[k]):n[k];if(v!==cur)n.setAttribute(at,v);n[km]=v}
+  for(const c of n.childNodes)gNode(c)}
+let gQ=false;const gRun=()=>{gQ=false;gObs.disconnect();gNode(document.body);gObs.observe(document.body,{childList:true,subtree:true,characterData:true})};
+const gObs=new MutationObserver(()=>{if(!gQ){gQ=true;requestAnimationFrame(gRun)}});
+function setGen(g){GEN=g==='m'?'m':'f';try{localStorage.setItem('wird-gen',GEN)}catch(_){}gRun()}
 const LK='wird-'+today();
 try{S.left=JSON.parse(localStorage.getItem(LK))||{}}catch(e){}
 const saveLeft=()=>{try{localStorage.setItem(LK,JSON.stringify(S.left))}catch(e){}};
@@ -1046,18 +1062,19 @@ $('#bOk').onclick=async()=>{if(!BUY)return;
     $('#buy').hidden=true;BUY=null;chime();toast('مبروك! صار لك');done();render()}else b.disabled=false};
 const colRow=(id,key,list)=>{$(id).innerHTML=list.map(c=>{const k=ckey(key,c),lk=!owns(k);return `<button type="button" data-c="${c}" style="--c:${c}" class="${P[key]===c?'on':''}${lk?' lk':''}" aria-label="${lk?'مقفل ':''}${c}">${lk?`<span class="lk1">${LOCK}</span>`:''}</button>`}).join('')};
 function renderProfile(){if(!S.me)return;const p=prof(S.me);
-  if(!P.loaded&&S.members[S.me]){P.loaded=true;P.av=AV[p.av]?p.av:'moon';P.bg=hx(p.color,COLS[0]);P.fg=hx(p.fg,'#ffffff');P.dt=hx(p.dt,'#ffd166');$('#pName').value=p.name||S.names[S.me]||'';$('#pBio').value=p.bio||''}
+  if(!P.loaded&&S.members[S.me]){P.loaded=true;P.gen=p.gender==='m'?'m':'f';setGen(P.gen);P.av=AV[p.av]?p.av:'moon';P.bg=hx(p.color,COLS[0]);P.fg=hx(p.fg,'#ffffff');P.dt=hx(p.dt,'#ffd166');$('#pName').value=p.name||S.names[S.me]||'';$('#pBio').value=p.bio||''}
   pickers();
   const t=bal(S.me);
   $('#pHero').innerHTML=avatar(S.me,64)+`<div><h3>${esc(nm(S.me))} ${lvChip(S.me)}</h3><p>${p.bio?esc(p.bio)+' · ':''}رصيدك ${balTxt(t)}</p></div>`;
   $('#pHero').classList.toggle('leg',lvl(S.me)===6);$('#pLv').innerHTML=lvCard(S.me);
   $('#meBtn').innerHTML=avatar(S.me,42);$('#meBtn').hidden=false;
   $('#welcome').hidden=!!p.name;nameNote()}
-function pickers(){
+function pickers(){document.querySelectorAll('#pGen [data-g]').forEach(b=>b.classList.toggle('on',b.dataset.g===(P.gen||'f')));
   const btn=k=>{const lk=!owns('av:'+k);return `<button type="button" data-av="${k}" class="${P.av===k?'on':''}${lk?' lk':''}">${ico(k,P.bg,P.fg,P.dt,44)}${AV[k][0]}${lockTag('av:'+k)}</button>`};
   $('#pAv').innerHTML='<p class="avh">التخصصات</p>'+PRO.map(btn).join('')+'<p class="avh">الحيوانات</p>'+ANI.map(btn).join('')+'<p class="avh">شخصيات عامة</p>'+Object.keys(AV).filter(k=>!PRO.includes(k)&&!ANI.includes(k)).map(btn).join('');
   $('#pPrev').innerHTML=ico(P.av,P.bg,P.fg,P.dt,96);
   colRow('#cBg','bg',COLS);colRow('#cFg','fg',FGS);colRow('#cDt','dt',FGS)}
+$('#pGen').addEventListener('click',e=>{const b=e.target.closest('[data-g]');if(!b)return;P.gen=b.dataset.g;setGen(P.gen);pickers()});
 $('#pAv').addEventListener('click',e=>{const b=e.target.closest('[data-av]');if(!b)return;const v=b.dataset.av,go=()=>{P.av=v;pickers()};
   owns('av:'+v)?go():openBuy('av:'+v,AV[v][0],ico(v,P.bg,P.fg,P.dt,96),go)});
 document.querySelectorAll('.cols[data-key]').forEach(row=>{const key=row.dataset.key;
@@ -1080,7 +1097,7 @@ $('#sReset').onclick=()=>{Object.assign(PREF,PDEF);setPref('fs',PDEF.fs);toast('
 $('#meBtn').onclick=()=>location.hash='profile';
 function nameNote(){const m=S.members[S.me]||{},old=m.profile?.name,c=+m.nameChanges||0,el=$('#pNameNote');if(!el)return;
   el.textContent=!old?'':c<1?'تقدرين تغيّرين اسمك مرة وحدة مجاناً، وبعدها كل تغيير بـ ١٠ ياقوت.':'تغيير الاسم الحين بـ ١٠ ياقوت.'}
-async function saveProf(name,extra){const prof={name,av:P.av,color:P.bg,fg:P.fg,dt:P.dt,bio:$('#pBio').value.trim()};
+async function saveProf(name,extra){const prof={name,av:P.av,color:P.bg,fg:P.fg,dt:P.dt,bio:$('#pBio').value.trim(),gender:P.gen==='m'?'m':'f'};
   const ok=await wr(S.db.doc('members/'+S.me).update({profile:prof,...extra}));
   if(ok){const m=S.members[S.me]=S.members[S.me]||{};m.profile=prof;if(extra.nameChanges!=null)m.nameChanges=extra.nameChanges;if(extra.fees)m.fees={...(m.fees||{}),...extra.fees};}return ok}
 $('#fProf').onsubmit=async e=>{e.preventDefault();if(!S.db||!S.me)return;const name=$('#pName').value.trim();if(!name)return;
@@ -1178,7 +1195,7 @@ $('#myTasks').addEventListener('click',async e=>{
   try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='wird-task.ics';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);toast('افتحي الملف عشان ينضاف للتقويم مع المنبّه')}catch(_){toast('ما انحفظ ملف التقويم')}});
 
 $('#themeBtn').onclick=()=>{S.theme=S.theme==='day'?'night':'day';try{localStorage.setItem('wird-theme',S.theme)}catch(_){}sky()};
-sky();render();route();
+sky();render();route();gRun();
 
 /* ===== المنشورات ===== */
 S.posts=[];let PF=[];
@@ -1336,6 +1353,7 @@ function start(u,fs){if(S.started===u.uid)return;S.started=u.uid;
     const mine=S.members[S.me];if(mine&&!S.pending)S.tally={...(mine.tally||{})};
     if(mine?.prefs&&!S.prefLoaded){S.prefLoaded=true;Object.assign(PREF,mine.prefs);try{localStorage.setItem('wird-prefs',JSON.stringify(PREF))}catch(_){}applyPrefs()}
     if(mine&&!mine.profile?.name&&!S.asked){S.asked=true;location.hash='profile'}
+    if(mine?.profile?.gender&&mine.profile.gender!==GEN)setGen(mine.profile.gender);
     ok();render();window.__prDraw&&window.__prDraw()},err));
   (async()=>{const ref=db.doc('members/'+S.me);
     try{const g=await ref.get();if(!g.exists){const d={joined:Date.now(),done:{},tally:{},adhkar:{}};if(u.displayName)d.profile={name:u.displayName.slice(0,30),av:'moon',color:COLS[0],fg:'#ffffff',dt:'#ffd166'};await ref.set(d)}}
