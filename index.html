@@ -394,7 +394,7 @@ body.locked main,body.locked nav,body.locked header{visibility:hidden}
 .msend{display:flex;gap:8px;align-items:flex-end}.msend textarea{flex:1;min-height:48px;resize:none}.msend .btn{margin:0;flex:none}
 .mhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.mhead h2{margin:0}.mhead .btn{margin:0}
 .thr{display:flex;align-items:center;gap:10px;width:100%;text-align:start;padding:10px 12px;margin-bottom:10px;border-radius:24px;border:1px solid rgba(214,204,255,.14);color:var(--ink);background:var(--card);box-shadow:var(--sh-out),var(--sh-in)}
-.thr span{flex:1;display:grid;gap:2px;min-width:0}.thr small{color:var(--mut);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.thr i{font-style:normal;font-size:11px;color:var(--mut)}
+.thr>span:not(.fr){flex:1;display:grid;gap:2px;min-width:0}.thr .fr,.cwho .fr,.cp .fr{flex:none}.thr small{color:var(--mut);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.thr i{font-style:normal;font-size:11px;color:var(--mut)}
 .thr.new{border-color:var(--pink1)}.thr.new b::after{content:' •';color:var(--gold2)}
 nav a{font-size:10.5px}
 
@@ -409,6 +409,45 @@ nav a{font-size:10.5px}
 .rcap{position:absolute;bottom:0;inset-inline:0;padding:60px 18px 28px;background:linear-gradient(#0000,#000a);color:#fff;pointer-events:none}.rcap p{margin:0 0 4px;font-size:16px;line-height:1.6}.rcap small{opacity:.75;font-size:12px}
 .rdel{position:absolute;bottom:90px;inset-inline-start:14px;z-index:2}
 .rplay{position:absolute;inset:0;display:none;place-items:center;font-size:64px;color:#fff;text-shadow:0 4px 20px #000;pointer-events:none}.reel.paused .rplay{display:grid}
+
+
+/* ===== الشات المخفي ===== */
+.cpeople{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;max-height:300px;overflow-y:auto;margin:10px 0 16px}
+.cp{display:grid;place-items:center;gap:4px;padding:10px 4px;border-radius:22px;border:1px solid rgba(214,204,255,.14);background:var(--card);color:var(--ink);font-size:12px;box-shadow:var(--sh-out)}
+.cp b{font-weight:500;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#cPick input{margin-bottom:4px}#cMode{margin-bottom:12px}
+.cwho{display:flex;align-items:center;gap:8px;flex:1;justify-content:center;min-width:0}.cwho b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bn{display:block;font-size:11px;opacity:.8;margin-bottom:2px}
+
+.vis{display:flex!important;align-items:center;justify-content:space-between;gap:12px}.vis .btn{margin:0;flex:none}
+
+nav a{-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
+#navAdhkar.hint svg{filter:drop-shadow(0 0 3px var(--gold1))}
+#navAdhkar.hold svg{transform:scale(1.25);transition:transform 3s linear}
+
+.rpost{background:radial-gradient(60% 40% at 80% 10%,rgba(255,143,196,.25),transparent 70%),linear-gradient(180deg,#2a2060,#151036)}
+.rpc{width:min(92%,520px);max-height:78vh;overflow-y:auto;padding:22px 18px;border-radius:28px;background:var(--card);border:1px solid rgba(214,204,255,.16);box-shadow:var(--sh-out),var(--sh-in);color:var(--ink)}
+.rpt{margin:0 0 12px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:18px;line-height:1.9}.rpc small{display:block;margin-top:10px;color:var(--mut);font-size:12px}
+.rpc .pm img,.rpc .yt{border-radius:18px}
+.reels .rdel{z-index:3}
+
+.reel .rcap{padding-bottom:118px}
+.rctl{position:absolute;bottom:62px;inset-inline:0;display:flex;justify-content:center;gap:10px;z-index:3;direction:ltr}
+.rctl button{min-width:56px;height:40px;border-radius:999px;border:0;color:#fff;font:600 14px "IBM Plex Sans Arabic",sans-serif;background:rgba(255,255,255,.18);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.rctl button:active{transform:scale(.94)}.rctl .pp{font-size:20px}
+.rbar{position:absolute;bottom:20px;inset-inline:16px;display:flex;align-items:center;gap:10px;z-index:3;direction:ltr}
+.rseek{flex:1;min-height:0!important;height:24px;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;accent-color:var(--pink2)}
+.rtime{color:#fff;font-size:12px;white-space:nowrap;opacity:.85}
+.reels .rdel{bottom:170px}
+
+.chpeople{display:grid;gap:8px;max-height:320px;overflow-y:auto}
+.chp{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:20px;border:2px solid transparent;background:rgba(255,255,255,.07);color:var(--ink);text-align:start}
+.chp b{flex:1;font-weight:500}.chp i{font-style:normal;font-size:12px;color:var(--mut)}
+.chp.on{border-color:#86efac;background:rgba(34,197,94,.15)}.chp.on i{color:#86efac}
+
+#cEsc{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:60;width:40px;height:56px;border:0;border-radius:16px 0 0 16px;background:rgba(255,255,255,.16);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);font-size:20px;box-shadow:-2px 2px 10px rgba(0,0,0,.15);touch-action:manipulation}
+#cEsc[hidden]{display:none}
+body.noanim .view.on,body.noanim *{animation:none!important;transition:none!important}
 </style>
 </head>
 <body>
@@ -503,6 +542,7 @@ nav a{font-size:10.5px}
 
   <section class="view" id="v-board">
     <h2>لوحة الترتيب</h2>
+    <p class="note" id="boardHid" hidden style="color:var(--gold1)">🙈 هذي الصفحة مخفية عن الأعضاء الحين، وأنتِ بس تشوفينها.</p>
     <p class="note">الترتيب بمجموع النقاط (الياقوتة = ٢٠ زرقاء). يظهر العضو بعد ما يفتح الموقع أول مرة.</p>
     <div id="board"></div>
   </section>
@@ -546,35 +586,42 @@ nav a{font-size:10.5px}
   </section>
 
   <section class="view" id="v-posts">
-    <div class="mhead"><h2>المنشورات</h2><button type="button" class="btn sm p" id="openReels">🎬 الريلز</button></div>
+    <h2>ريلز</h2>
     <div id="feed"></div>
   </section>
 
+  <button type="button" id="cEsc" aria-label="ألوان الشخصية" hidden>🎨</button>
   <section class="view" id="v-msgs">
-    <div id="mUser">
-      <h2>رسائلك مع المنظم</h2>
-      <div class="chat" id="mChat"></div>
-      <form class="msend" id="fMsg"><textarea id="mText" rows="2" maxlength="1000" placeholder="اكتبي رسالتك…"></textarea><button class="btn p">إرسال</button></form>
+    <div id="cList">
+      <div class="mhead"><button type="button" class="btn sm" id="cClose">✕</button><h2>الشات 💬</h2><button type="button" class="btn sm p" id="cNew">＋ محادثة</button></div>
+      <div class="seg" id="cMode" hidden><button type="button" data-m="mine" class="on">محادثاتي</button><button type="button" data-m="all">كل المحادثات</button></div>
+      <div id="cPick" hidden>
+        <input id="cSearch" placeholder="ابحثي عن اسم…" autocomplete="off">
+        <div class="cpeople" id="cPeople"></div>
+      </div>
+      <div id="cThreads"></div>
     </div>
-    <div id="mAdmin" hidden>
-      <div id="mList">
-        <div class="mhead"><h2>الرسائل</h2><button type="button" class="btn sm p" id="mNew">✉️ رسالة جديدة</button></div>
-        <form class="box" id="fNew" hidden>
-          <label>إلى<select id="nTo"></select></label>
-          <label>الرسالة<textarea id="nText" rows="3" maxlength="1000"></textarea></label>
-          <button class="btn p">إرسال</button>
-        </form>
-        <div id="mThreads"></div>
-      </div>
-      <div id="mThread" hidden>
-        <div class="mhead"><button type="button" class="btn sm" id="mBack">→ رجوع</button><b id="mWho"></b><button type="button" class="btn sm x" id="mHideAll">إخفاء المحادثة</button></div>
-        <div class="chat" id="aChat"></div>
-        <form class="msend" id="fReply"><textarea id="rText" rows="2" maxlength="1000" placeholder="اكتبي ردّك…"></textarea><button class="btn p">إرسال</button></form>
-      </div>
+    <div id="cThread" hidden>
+      <div class="mhead"><button type="button" class="btn sm" id="cBack">→</button><span class="cwho" id="cWho"></span><button type="button" class="btn sm x" id="cHide" hidden>إخفاء</button></div>
+      <div class="chat" id="cChat"></div>
+      <form class="msend" id="cSend"><textarea id="cText" rows="2" maxlength="1000" placeholder="اكتبي رسالتك…"></textarea><button class="btn p">إرسال</button></form>
     </div>
   </section>
 
   <section class="view" id="v-admin">
+    <h2>إظهار الأعضاء</h2>
+    <form class="box vis" onsubmit="return false">
+      <div><b>لوحة الترتيب (الأعضاء ونقاطهم)</b><p class="note" id="visTxt" style="margin:2px 0 0"></p></div>
+      <button type="button" class="btn" id="visBtn"></button>
+    </form>
+
+    <h2>الشات</h2>
+    <form class="box" id="fChat" onsubmit="return false">
+      <div class="seg" id="chMode" style="margin:0"><button type="button" data-c="all">مفتوح للكل</button><button type="button" data-c="some">لأشخاص معيّنين</button><button type="button" data-c="none">مقفل للكل</button></div>
+      <p class="note" id="chTxt" style="margin:0"></p>
+      <div id="chPeople" class="chpeople" hidden></div>
+    </form>
+
     <h2>المتجر والأسعار</h2>
     <form class="box" id="fShop" onsubmit="return false">
       <p class="note" style="margin:0">اختاري شكل أو لون، وبعدها غيّري سعره، أو افتحيه أو اقفليه على شخص معيّن أو على الكل.</p>
@@ -642,12 +689,11 @@ nav a{font-size:10.5px}
 </main>
 
 <nav id="nav">
-  <a href="#adhkar" data-v="adhkar"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>الأذكار</a>
+  <a href="#adhkar" data-v="adhkar" id="navAdhkar"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>الأذكار</a>
   <a href="#tasbeeh" data-v="tasbeeh"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="18" cy="10" r="2"/><circle cx="16" cy="17" r="2"/><circle cx="8" cy="17" r="2"/><circle cx="6" cy="10" r="2"/></svg>المسبحة</a>
   <a href="#tasks" data-v="tasks"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/><path d="M4 20h16"/></svg>مهامي</a>
-  <a href="#posts" data-v="posts" id="navPosts"><svg viewBox="0 0 24 24"><path d="M4 10v4a1 1 0 0 0 1 1h2l5 4V5L7 9H5a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/></svg>المنشورات<i class="dot" hidden></i></a>
-  <a href="#msgs" data-v="msgs" id="navMsgs"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" stroke-linejoin="round"/><path d="M8 9h8M8 12h5" stroke-linecap="round"/></svg>الرسائل<i class="dot" hidden></i></a>
-  <a href="#board" data-v="board"><svg viewBox="0 0 24 24"><path d="M6 20V10M12 20V4M18 20v-7"/></svg>الترتيب</a>
+  <a href="#posts" data-v="posts" id="navPosts"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M10.5 9.5v5l4-2.5z" fill="currentColor"/></svg>ريلز<i class="dot" hidden></i></a>
+  <a href="#board" data-v="board" id="navBoard"><svg viewBox="0 0 24 24"><path d="M6 20V10M12 20V4M18 20v-7"/></svg>الترتيب</a>
   <a href="#admin" data-v="admin" id="navAdmin" hidden><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>المنظم</a>
 </nav>
 <div id="alarm" class="alarm" hidden role="alertdialog" aria-labelledby="aT"><div class="abox">
@@ -655,7 +701,7 @@ nav a{font-size:10.5px}
   <h3 id="aT"></h3><p id="aP"></p>
   <div class="arow"><button class="btn p" id="aGo">روحي للمهمة</button><button class="btn" id="aLater">ذكّريني بعد ١٠ دقائق</button><button class="btn" id="aClose">تمام</button></div></div></div>
 <div id="reels" class="reels" hidden>
-  <div class="rtop"><button type="button" class="rbtn" id="rClose" aria-label="إغلاق">✕</button><b>الريلز</b><button type="button" class="rbtn" id="rMute" aria-label="الصوت">🔇</button></div>
+  <div class="rtop"><button type="button" class="rbtn" id="rClose" aria-label="إغلاق">✕</button><b>ريلز</b><button type="button" class="rbtn" id="rMute" aria-label="الصوت">🔇</button></div>
   <div class="rlist" id="rList"></div>
 </div>
 <div id="login" class="login" hidden>
@@ -910,7 +956,7 @@ applyPrefs();
 /* ===== تذكير/تأنيث الكلام ===== */
 const GMAP={'أتممتِ':'أتممتَ','أتمّيها':'أتمّها','أحسنتِ':'أحسنتَ','أضفتِ':'أضفتَ','أضيفيها':'أضفها','أضيفي':'أضف','ارفعيه':'ارفعه','واختاري':'واختر','اختاري':'اختر','اضغطي':'اضغط','افتحيه':'افتحه','افتحي':'افتح','اقفليه':'اقفله','اكتبي':'اكتب','انتظري':'انتظر',
  'تاخذين':'تاخذ','تثبّتين':'تثبّت','تسجّلين':'تسجّل','تشترين':'تشتري','تشوفين':'تشوف','تصرفين':'تصرف','تغيّرين':'تغيّر','تقدرين':'تقدر','تنسين':'تنسى','وتجمعين':'وتجمع','تصبحين':'تصبح','وجرّبي':'وجرّب','جرّبي':'جرّب','ثبّتي':'ثبّت','وحطي':'وحط','حطي':'حط','خلصتي':'خلصت',
- 'ذكّريني':'ذكّرني','رجّعيه':'رجّعه','رجّعي':'رجّع','روحي':'روح','سجّلي':'سجّل','شوفي':'شوف','ضعي':'ضع','غيّري':'غيّر','فعّلي':'فعّل','قرأتيها':'قرأتها','كمّلي':'كمّل','نبّهيني':'نبّهني','واتبعي':'واتبع','أرسلي':'أرسل','حطي':'حط','رسالتك…':'رسالتك…','ردّك…':'ردّك…','وصلتِ':'وصلتَ','داخلة':'داخل','متأكدة':'متأكد','أتممتها':'أتممتها'};
+ 'ذكّريني':'ذكّرني','رجّعيه':'رجّعه','رجّعي':'رجّع','روحي':'روح','سجّلي':'سجّل','شوفي':'شوف','ضعي':'ضع','غيّري':'غيّر','فعّلي':'فعّل','قرأتيها':'قرأتها','كمّلي':'كمّل','نبّهيني':'نبّهني','واتبعي':'واتبع','ابحثي':'ابحث','وابدئي':'وابدأ','ابدئي':'ابدأ','تكتبينه':'تكتبه','أنتِ:':'أنتَ:','متأكدة؟':'متأكد؟','أرسلي':'أرسل','حطي':'حط','رسالتك…':'رسالتك…','ردّك…':'ردّك…','وصلتِ':'وصلتَ','داخلة':'داخل','متأكدة':'متأكد','أتممتها':'أتممتها'};
 const GRX=new RegExp('(^|[^\\u0600-\\u06FF])('+Object.keys(GMAP).sort((a,b)=>b.length-a.length).join('|')+')(?=$|[^\\u0600-\\u06FF])','g');
 let GEN='f';try{GEN=localStorage.getItem('wird-gen')==='m'?'m':'f'}catch(_){}
 const gtx=t=>GEN==='m'&&t?t.replace(GRX,(m0,a,w)=>a+GMAP[w]):t;
@@ -1064,6 +1110,11 @@ const shSet=async(g,b,msg)=>{const k=shK(SH.t,SH.v),w=$('#shWho').value||'all';i
 $('#shOpen').onclick=()=>shSet(true,false,'انفتح');
 $('#shLock').onclick=()=>shSet(false,true,'انقفل');
 $('#shNorm').onclick=()=>shSet(false,false,'رجع عادي');
+$('#chMode').addEventListener('click',async e=>{const b=e.target.closest('[data-c]');if(!b)return;const m=b.dataset.c;
+  if(await shopWrite({chat:{mode:m}})){S.shop.chat={...(S.shop.chat||{}),mode:m};render();toast(m==='all'?'الشات مفتوح للكل':m==='none'?'انقفل الشات عن الكل':'اختاري مين يقدر يستخدم الشات')}});
+$('#chPeople').addEventListener('click',async e=>{const b=e.target.closest('[data-u]');if(!b)return;const u=b.dataset.u,on=!(chatCfg().allow[u]===true);
+  if(await shopWrite({chat:{allow:{[u]:on}}})){S.shop.chat={...(S.shop.chat||{}),allow:{...((S.shop.chat||{}).allow||{}),[u]:on}};render();toast(on?'صار يقدر يستخدم الشات':'انمنع من الشات')}});
+$('#visBtn').onclick=async()=>{const h=!boardHidden();if(await shopWrite({hideBoard:h})){S.shop.hideBoard=h;render();toast(h?'انخفت لوحة الترتيب عن الأعضاء':'صارت لوحة الترتيب ظاهرة للكل')}};
 function renderAdmin(){if(!S.admin)return;renderShop();
   const ids=Object.keys(S.members),opt=ids.map(id=>`<option value="${esc(id)}">${esc(nm(id))}</option>`).join('');
   const keep=(sel,html)=>{const v=sel.value;sel.innerHTML=html;if([...sel.options].some(o=>o.value===v))sel.value=v};
@@ -1174,10 +1225,28 @@ $('#fProf').onsubmit=async e=>{e.preventDefault();if(!S.db||!S.me)return;const n
   $('#bP').innerHTML=`السعر: ${gem('ruby',18)} <b>١٠</b> ياقوت<br>رصيدك: ${balTxt(hb)}${ok?'':'<br><span class="need">رصيدك ما يكفي</span>'}`;$('#bOk').disabled=!ok;$('#buy').hidden=false};
 
 const VIEWS=['adhkar','tasbeeh','tasks','posts','msgs','board','admin','profile'];
-function route(){let v=location.hash.slice(1);if(!VIEWS.includes(v)||(v==='admin'&&!S.admin))v='adhkar';
-  VIEWS.forEach(x=>$('#v-'+x).classList.toggle('on',x===v));document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v))}
+const boardHidden=()=>!!(S.shop&&S.shop.hideBoard);
+const chatCfg=()=>{const c=(S.shop&&S.shop.chat)||{};return{mode:['all','some','none'].includes(c.mode)?c.mode:'all',allow:c.allow||{}}};
+const chatAllowed=uid=>{const c=chatCfg();if(uid===S.me&&S.admin)return true;if(isAdminUid(uid))return true;return c.mode==='all'||(c.mode==='some'&&c.allow[uid]===true)};
+const isAdminUid=uid=>!!(S.members[uid]&&S.members[uid].org===true);
+function route(){let v=location.hash.slice(1);if(!VIEWS.includes(v)||(v==='admin'&&!S.admin)||(v==='board'&&boardHidden()&&!S.admin)||(v==='msgs'&&!chatAllowed(S.me)))v='adhkar';
+  VIEWS.forEach(x=>$('#v-'+x).classList.toggle('on',x===v));$('#cEsc').hidden=v!=='msgs';document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v))}
 addEventListener('hashchange',route);
-function render(){renderAdhkar();renderTb();renderTasks();renderBoard();renderAdmin();renderProfile();renderFeed();renderMsgs()}
+{const go=e=>{e.preventDefault();e.stopPropagation();const ae=document.activeElement;if(ae&&ae.blur)ae.blur();
+  document.body.classList.add('noanim');history.replaceState(null,'','#profile');route();
+  const t=$('#cBg');if(t)t.closest('div').scrollIntoView({block:'center',behavior:'instant'});
+  requestAnimationFrame(()=>requestAnimationFrame(()=>document.body.classList.remove('noanim')))};
+ $('#cEsc').addEventListener('pointerdown',go);$('#cEsc').addEventListener('click',go)}
+function applyVis(){const h=boardHidden();$('#navBoard').hidden=h&&!S.admin;
+  if(h&&!S.admin&&location.hash==='#board')location.hash='adhkar';
+  if($('#visBtn')){$('#visTxt').textContent=h?'مخفية الحين — الأعضاء ما يشوفونها':'ظاهرة الحين للكل';$('#visBtn').textContent=h?'👁 إظهار':'🙈 إخفاء';$('#visBtn').classList.toggle('p',h)}
+  const bn=$('#boardHid');if(bn)bn.hidden=!(h&&S.admin);
+  if(!S.admin&&location.hash==='#msgs'&&!chatAllowed(S.me))location.hash='adhkar';
+  if(S.admin&&$('#chMode')){const c=chatCfg();document.querySelectorAll('#chMode [data-c]').forEach(b=>b.classList.toggle('on',b.dataset.c===c.mode));
+    $('#chTxt').textContent=c.mode==='all'?'كل الأعضاء يقدرون يستخدمون الشات.':c.mode==='none'?'الشات مقفل عن كل الأعضاء (أنتِ بس تقدرين تفتحينه).':'اختاري تحت مين يقدر يستخدم الشات:';
+    const box=$('#chPeople');box.hidden=c.mode!=='some';
+    if(c.mode==='some')box.innerHTML=Object.keys(S.members).filter(id=>id!==S.me).map(id=>{const on=c.allow[id]===true;return `<button type="button" class="chp${on?' on':''}" data-u="${esc(id)}">${avatar(id,36)}<b>${esc(nm(id))}</b><i>${on?'✓ مسموح':'ممنوع'}</i></button>`}).join('')||'<p class="note">ما فيه أعضاء للحين.</p>'}}
+function render(){applyVis();renderAdhkar();renderTb();renderTasks();renderBoard();renderAdmin();renderProfile();renderFeed();renderMsgs()}
 
 
 /* ===== سماء النجوم والشهب ===== */
@@ -1284,7 +1353,7 @@ function renderFeed(){const f=$('#feed');if(!f)return;const PS=S.posts||[];
   let seen=0;try{seen=+localStorage.getItem('wird-seen')||0}catch(_){}
   const newest=PS[0]?.at||0,onFeed=$('#v-posts').classList.contains('on');
   if(onFeed&&newest>seen){try{localStorage.setItem('wird-seen',newest)}catch(_){}seen=newest}
-  const d=document.querySelector('#navPosts .dot');if(d)d.hidden=!(newest>seen)}
+  window.__dotUpd&&window.__dotUpd()}
 addEventListener('hashchange',()=>{if(location.hash==='#posts')renderFeed()});
 $('#poFiles').onchange=e=>{PF=[...e.target.files].filter(f=>f.type.startsWith('image/')).slice(0,4);
   if(e.target.files.length>4)toast('أقصى شي ٤ صور في المنشور');
@@ -1357,46 +1426,74 @@ $('#feed').addEventListener('click',async e=>{const b=e.target.closest('[data-dp
  draw();setInterval(draw,30000);
 }
 
-/* ===== الرسائل ===== */
-S.msgs=S.msgs||[];
+/* ===== الشات (مخفي: ضغطة مطوّلة ثانيتين أسفل الصفحة) ===== */
+S.msgs=S.msgs||[];S.chat={view:'list',with:null,mode:'mine'};
+const tk=(a,b)=>[a,b].sort().join('_');
 const tm=ms=>{const d=new Date(ms),n=new Date();return d.toDateString()===n.toDateString()?d.toLocaleTimeString('ar-SA-u-nu-arab',{hour:'numeric',minute:'2-digit'}):d.toLocaleDateString('ar-SA-u-ca-gregory-nu-arab',{day:'numeric',month:'short'})};
-const bubble=m=>{const mine=m.from===S.me;return `<div class="bb ${mine?'me':'them'}"><p>${esc(m.text)}</p><small>${tm(m.at||0)}${S.admin?` <button type="button" class="bx" data-hide="${esc(m.id)}" aria-label="إخفاء">✕</button>`:''}</small></div>`};
-const seenGet=k=>{try{return +localStorage.getItem('wird-ms-'+k)||0}catch(_){return 0}},seenSet=(k,v)=>{try{localStorage.setItem('wird-ms-'+k,v)}catch(_){}};
-function renderMsgs(){if(!S.msgReady||!$('#v-msgs'))return;const on=$('#v-msgs').classList.contains('on');
-  $('#mUser').hidden=!!S.admin;$('#mAdmin').hidden=!S.admin;
-  const all=(S.msgs||[]).slice().sort((a,b)=>(a.at||0)-(b.at||0));let unread=0;
-  if(!S.admin){const ch=$('#mChat');ch.innerHTML=all.length?all.map(bubble).join(''):'<div class="empty">ما فيه رسائل للحين. اكتبي للمنظم أي شي تبينه 💜</div>';
-    const last=Math.max(0,...all.filter(m=>m.from!==S.me).map(m=>m.at||0));
-    if(on){if(last)seenSet('u',last);ch.scrollTop=ch.scrollHeight}else unread=last>seenGet('u')?1:0}
-  else{const th={};for(const m of all)(th[m.thread]=th[m.thread]||[]).push(m);
-    const ids=Object.keys(th).sort((a,b)=>th[b].at(-1).at-th[a].at(-1).at);
-    for(const id of ids){const lastIn=Math.max(0,...th[id].filter(m=>m.from===id).map(m=>m.at||0));if(lastIn>seenGet(id)&&!(on&&S.mt===id))unread++}
-    $('#mThreads').innerHTML=ids.length?ids.map(id=>{const l=th[id].at(-1),lastIn=Math.max(0,...th[id].filter(m=>m.from===id).map(m=>m.at||0)),n=lastIn>seenGet(id);
-      return `<button type="button" class="thr${n?' new':''}" data-th="${esc(id)}">${avatar(id,42)}<span><b>${esc(nm(id))}</b><small>${l.from===id?'':'أنتِ: '}${esc((l.text||'').slice(0,60))}</small></span><i>${tm(l.at||0)}</i></button>`}).join('')
-      :'<div class="empty">ما وصلتك رسائل للحين.</div>';
-    const opts='<option value="all">الكل</option>'+Object.keys(S.members).filter(id=>id!==S.me).map(id=>`<option value="${esc(id)}">${esc(nm(id))}</option>`).join('');
-    const sel=$('#nTo'),v=sel.value;sel.innerHTML=opts;if([...sel.options].some(o=>o.value===v))sel.value=v;
-    $('#mList').hidden=!!S.mt;$('#mThread').hidden=!S.mt;
-    if(S.mt){$('#mWho').textContent=nm(S.mt);const c=$('#aChat'),list=th[S.mt]||[];c.innerHTML=list.length?list.map(bubble).join(''):'<div class="empty">ما فيه رسائل.</div>';
-      if(on){const li=Math.max(0,...list.filter(m=>m.from===S.mt).map(m=>m.at||0));if(li)seenSet(S.mt,li);c.scrollTop=c.scrollHeight}}}
-  const d=document.querySelector('#navMsgs .dot');if(d)d.hidden=!unread}
-async function sendMsg(thread,text){if(!S.db||!S.me)return false;text=text.trim().slice(0,1000);if(!text)return false;
-  return wr(S.db.collection('msgs').add({thread,from:S.me,text,at:Date.now()}))}
-$('#fMsg').onsubmit=async e=>{e.preventDefault();const t=$('#mText');if(await sendMsg(S.me,t.value)){t.value='';toast('انرسلت رسالتك')}};
-$('#fReply').onsubmit=async e=>{e.preventDefault();const t=$('#rText');if(S.mt&&await sendMsg(S.mt,t.value)){t.value='';toast('انرسل الرد')}};
-$('#mNew').onclick=()=>{$('#fNew').hidden=!$('#fNew').hidden};
-$('#fNew').onsubmit=async e=>{e.preventDefault();const to=$('#nTo').value,txt=$('#nText').value;if(!txt.trim())return;
-  const ids=to==='all'?Object.keys(S.members).filter(id=>id!==S.me):[to];let ok=0;for(const id of ids)if(await sendMsg(id,txt))ok++;
-  if(ok){$('#nText').value='';$('#fNew').hidden=true;toast(ids.length>1?'انرسلت لـ '+ar(ok)+' عضو':'انرسلت الرسالة')}};
-$('#mThreads').addEventListener('click',e=>{const b=e.target.closest('[data-th]');if(!b)return;S.mt=b.dataset.th;renderMsgs()});
-$('#mBack').onclick=()=>{S.mt=null;renderMsgs()};
+const seenGet=k=>{try{return +localStorage.getItem('wird-cs-'+k)||0}catch(_){return 0}},seenSet=(k,v)=>{try{localStorage.setItem('wird-cs-'+k,v)}catch(_){}};
+function threads(){const th={};for(const m of S.msgs){if(!Array.isArray(m.members)||m.members.length!==2)continue;const k=m.key||tk(m.members[0],m.members[1]);(th[k]=th[k]||{k,members:m.members,list:[]}).list.push(m)}
+  for(const k in th)th[k].list.sort((a,b)=>(a.at||0)-(b.at||0));return Object.values(th).sort((a,b)=>b.list.at(-1).at-a.list.at(-1).at)}
+const other=t=>t.members.find(x=>x!==S.me)||t.members[0];
+const lastIn=t=>Math.max(0,...t.list.filter(m=>m.from!==S.me).map(m=>m.at||0));
+function renderMsgs(){if(!S.msgReady||!$('#v-msgs'))return;const on=$('#v-msgs').classList.contains('on'),C=S.chat,T=threads();
+  const mine=T.filter(t=>t.members.includes(S.me));let unread=0;
+  for(const t of mine){if(lastIn(t)>seenGet(t.k)&&!(on&&C.view==='thread'&&C.key===t.k))unread++}
+  $('#navAdhkar').classList.toggle('hint',!!unread);
+  if(!on)return;
+  $('#cMode').hidden=!S.admin;document.querySelectorAll('#cMode [data-m]').forEach(b=>b.classList.toggle('on',b.dataset.m===C.mode));
+  $('#cList').hidden=C.view!=='list';$('#cThread').hidden=C.view!=='thread';
+  if(C.view==='list'){
+    const q=($('#cSearch').value||'').trim();
+    $('#cPeople').innerHTML=(S.admin?`<button type="button" class="cp" data-to="all"><span class="av" style="width:42px;height:42px;background:var(--pink2);display:grid;place-items:center;font-size:20px">📢</span><b>رسالة للكل</b></button>`:'')+
+      Object.keys(S.members).filter(id=>id!==S.me&&chatAllowed(id)&&(!q||nm(id).includes(q))).map(id=>`<button type="button" class="cp" data-to="${esc(id)}">${avatar(id,42)}<b>${esc(nm(id))}</b></button>`).join('')||'<p class="note">ما فيه أحد بهالاسم</p>';
+    const list=C.mode==='all'&&S.admin?T:mine;
+    $('#cThreads').innerHTML=list.length?list.map(t=>{const l=t.list.at(-1),o=other(t),both=!t.members.includes(S.me),n=!both&&lastIn(t)>seenGet(t.k);
+      const title=both?`${esc(nm(t.members[0]))} ↔ ${esc(nm(t.members[1]))}`:esc(nm(o));
+      return `<button type="button" class="thr${n?' new':''}" data-k="${esc(t.k)}">${avatar(both?t.members[0]:o,42)}<span><b>${title}</b><small>${l.from===S.me?'أنتِ: ':''}${esc((l.text||'').slice(0,60))}</small></span><i>${tm(l.at||0)}</i></button>`}).join('')
+      :'<div class="empty">ما عندك محادثات. اضغطي «＋ محادثة» وابدئي مع أي أحد 💜</div>';
+  }else{
+    const t=T.find(x=>x.k===C.key),mem=t?t.members:[S.me,C.with],part=mem.includes(S.me),o=part?mem.find(x=>x!==S.me):null;
+    $('#cWho').innerHTML=part?`${avatar(o,32)}<b>${esc(nm(o))}</b>`:`<b>${esc(nm(mem[0]))} ↔ ${esc(nm(mem[1]))}</b>`;
+    $('#cHide').hidden=!(S.admin&&t);$('#cSend').hidden=!part;
+    const list=t?t.list:[],c=$('#cChat');
+    c.innerHTML=list.length?list.map(m=>{const me=m.from===S.me;return `<div class="bb ${me?'me':'them'}">${!part?`<small class="bn">${esc(nm(m.from))}</small>`:''}<p>${esc(m.text)}</p><small>${tm(m.at||0)}${S.admin?` <button type="button" class="bx" data-hide="${esc(m.id)}">✕</button>`:''}</small></div>`}).join('')
+      :'<div class="empty">ابدئي المحادثة 👋</div>';
+    if(t&&part){const li=lastIn(t);if(li)seenSet(t.k,li)}
+    c.scrollTop=c.scrollHeight}}
+async function sendTo(to,text){if(!S.db||!S.me||!to||to===S.me)return false;text=text.trim().slice(0,1000);if(!text)return false;
+  const members=[S.me,to].sort();return wr(S.db.collection('msgs').add({members,key:members.join('_'),from:S.me,text,at:Date.now()}))}
+function openChat(withId,key){S.chat.view='thread';S.chat.with=withId;S.chat.key=key||tk(S.me,withId);$('#cPick').hidden=true;renderMsgs();setTimeout(()=>$('#cText').focus(),100)}
+$('#cNew').onclick=()=>{$('#cPick').hidden=!$('#cPick').hidden;if(!$('#cPick').hidden){$('#cSearch').value='';renderMsgs();$('#cSearch').focus()}};
+$('#cSearch').oninput=()=>renderMsgs();
+$('#cPeople').addEventListener('click',async e=>{const b=e.target.closest('[data-to]');if(!b)return;const to=b.dataset.to;
+  if(to==='all'){S.chat.view='thread';S.chat.with='all';S.chat.key='all';$('#cPick').hidden=true;renderAll();return}
+  openChat(to)});
+function renderAll(){$('#cList').hidden=true;$('#cThread').hidden=false;$('#cWho').innerHTML='<b>📢 رسالة لكل الأعضاء</b>';$('#cHide').hidden=true;$('#cSend').hidden=false;$('#cChat').innerHTML='<div class="empty">اللي تكتبينه هنا يوصل لكل واحد في محادثته معك.</div>'}
+$('#cThreads').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;const t=threads().find(x=>x.k===b.dataset.k);if(!t)return;
+  S.chat.view='thread';S.chat.key=t.k;S.chat.with=t.members.includes(S.me)?other(t):null;renderMsgs()});
+$('#cMode').addEventListener('click',e=>{const b=e.target.closest('[data-m]');if(!b)return;S.chat.mode=b.dataset.m;renderMsgs()});
+$('#cBack').onclick=()=>{S.chat.view='list';renderMsgs()};
+$('#cClose').onclick=()=>{location.hash='adhkar'};
+$('#cSend').onsubmit=async e=>{e.preventDefault();const t=$('#cText'),txt=t.value;if(!txt.trim())return;
+  if(S.chat.key==='all'){const ids=Object.keys(S.members).filter(id=>id!==S.me);let ok=0;for(const id of ids)if(await sendTo(id,txt))ok++;if(ok){t.value='';toast('انرسلت لـ '+ar(ok)+' شخص');S.chat.view='list';renderMsgs()}return}
+  if(S.chat.with&&await sendTo(S.chat.with,txt)){t.value='';vib(10)}};
+$('#cText').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!/Android|iPhone|iPad/i.test(navigator.userAgent)){e.preventDefault();$('#cSend').requestSubmit()}});
 $('#v-msgs').addEventListener('click',async e=>{const b=e.target.closest('[data-hide]');if(!b||!S.admin)return;
   if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='إخفاء؟';setTimeout(()=>{b.dataset.sure='';b.textContent='✕'},3000);return}
   if(await wr(S.db.doc('msgs/'+b.dataset.hide).delete()))toast('انخفت الرسالة')});
-$('#mHideAll').onclick=async()=>{const b=$('#mHideAll');if(!S.mt)return;
-  if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='متأكدة؟';setTimeout(()=>{b.dataset.sure='';b.textContent='إخفاء المحادثة'},3000);return}
-  const list=(S.msgs||[]).filter(m=>m.thread===S.mt);for(const m of list)await wr(S.db.doc('msgs/'+m.id).delete());S.mt=null;toast('انخفت المحادثة');renderMsgs()};
-addEventListener('hashchange',()=>{if(location.hash==='#msgs')setTimeout(renderMsgs,50)});
+$('#cHide').onclick=async()=>{const b=$('#cHide'),t=threads().find(x=>x.k===S.chat.key);if(!t)return;
+  if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='متأكدة؟';setTimeout(()=>{b.dataset.sure='';b.textContent='إخفاء'},3000);return}
+  for(const m of t.list)await wr(S.db.doc('msgs/'+m.id).delete());S.chat.view='list';toast('انخفت المحادثة');renderMsgs()};
+addEventListener('hashchange',()=>{if(location.hash==='#msgs'){S.chat.view='list';setTimeout(renderMsgs,50)}});
+/* الدخول المخفي: ضغطة مطوّلة ٣ ثواني على زر «الأذكار» تحت */
+{let tmr=null,fired=false,sx=0,sy=0;const el=$('#navAdhkar');
+ const stop=()=>{clearTimeout(tmr);tmr=null;el.classList.remove('hold')};
+ el.addEventListener('pointerdown',e=>{fired=false;if(!S.me||!chatAllowed(S.me))return;sx=e.clientX;sy=e.clientY;el.classList.add('hold');
+   tmr=setTimeout(()=>{stop();fired=true;vib([30,40,60]);try{chime()}catch(_){}location.hash='msgs'},3000)});
+ el.addEventListener('pointermove',e=>{if(tmr&&Math.hypot(e.clientX-sx,e.clientY-sy)>14)stop()});
+ ['pointerup','pointercancel','pointerleave'].forEach(t=>el.addEventListener(t,stop));
+ el.addEventListener('click',e=>{if(fired){e.preventDefault();e.stopImmediatePropagation();fired=false}},true);
+ el.addEventListener('contextmenu',e=>e.preventDefault());}
 S.msgReady=true;renderMsgs();
 
 /* ===== الريلز ===== */
@@ -1404,20 +1501,52 @@ S.msgReady=true;renderMsgs();
  const okUrl=u=>typeof u==='string'&&/^https:\/\/res\.cloudinary\.com\/[a-z0-9_-]+\/video\/upload\//i.test(u);
  const opt=u=>u.replace('/video/upload/','/video/upload/q_auto,vc_auto,w_720/');
  const poster=u=>u.replace('/video/upload/','/video/upload/so_0,w_540,f_jpg/').replace(/\.[a-z0-9]+$/i,'.jpg');
- let MUTED=true,IO=null;
+ let MUTED=true,IO=null,SPEED=1;const SPEEDS=[1,1.5,2,0.5];
+ const mmss=t=>{t=Math.max(0,Math.floor(t||0));return ar(Math.floor(t/60))+':'+String(t%60).padStart(2,'0').replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d])};
  function draw(){const L=$('#rList');if(!L)return;
-   L.innerHTML=S.reels.length?S.reels.filter(r=>okUrl(r.url)).map(r=>`<section class="reel" data-id="${esc(r.id)}"><video src="${opt(r.url)}" poster="${poster(r.url)}" playsinline loop preload="metadata" ${MUTED?'muted':''}></video>
+   const items=[...S.reels.filter(r=>okUrl(r.url)).map(r=>({t:'v',...r})),...(S.posts||[]).map(p=>({t:'p',...p}))].sort((a,b)=>(b.at||0)-(a.at||0));
+   L.innerHTML=items.length?items.map(r=>r.t==='v'?`<section class="reel" data-id="${esc(r.id)}"><video src="${opt(r.url)}" poster="${poster(r.url)}" playsinline loop preload="metadata" ${MUTED?'muted':''}></video>
      <div class="rcap">${r.caption?`<p>${esc(r.caption)}</p>`:''}<small>${esc(fmt(r.at||0))}</small></div>
-     ${S.admin?`<button type="button" class="rbtn rdel" data-rdel="${esc(r.id)}">🗑</button>`:''}<div class="rplay">▶</div></section>`).join('')
+     <div class="rctl"><button type="button" data-sk="-10" aria-label="ترجيع ١٠ ثواني">⟲ ١٠</button><button type="button" data-pp aria-label="تشغيل/إيقاف" class="pp">⏯</button><button type="button" data-sk="10" aria-label="تقديم ١٠ ثواني">١٠ ⟳</button><button type="button" data-sp aria-label="السرعة">${SPEED}x</button></div>
+     <div class="rbar"><input type="range" class="rseek" min="0" max="1000" value="0" aria-label="مكان الفيديو"><span class="rtime">٠:٠٠</span></div>
+     ${S.admin?`<button type="button" class="rbtn rdel" data-rdel="${esc(r.id)}">🗑</button>`:''}<div class="rplay">▶</div></section>`
+     :`<section class="reel rpost"><div class="rpc">${r.text?`<p class="rpt">${esc(r.text)}</p>`:''}${(Array.isArray(r.media)?r.media:[]).length?`<div class="pm n${Math.min(r.media.length,4)}">${r.media.slice(0,4).map(media).join('')}</div>`:''}<small>${esc(fmt(r.at||0))}</small></div>
+     ${S.admin?`<button type="button" class="rbtn rdel" data-pdel="${esc(r.id)}">🗑</button>`:''}</section>`).join('')
      :'<div class="empty" style="margin:30vh 20px">ما فيه ريلز للحين 🎬</div>';
+   markSeen();
    IO&&IO.disconnect();IO=new IntersectionObserver(es=>{for(const e of es){const v=e.target.querySelector('video');if(!v)continue;
      if(e.isIntersecting&&e.intersectionRatio>.6){v.muted=MUTED;v.play().catch(()=>{})}else{v.pause()}}},{threshold:[0,.6,1]});
-   L.querySelectorAll('.reel').forEach(x=>IO.observe(x))}
- window.__reelsDraw=()=>{if(!$('#reels').hidden)draw()};
- $('#openReels').onclick=()=>{$('#reels').hidden=false;document.body.style.overflow='hidden';draw()};
- $('#rClose').onclick=()=>{$('#reels').hidden=true;document.body.style.overflow='';IO&&IO.disconnect();$('#rList').querySelectorAll('video').forEach(v=>v.pause())};
+   L.querySelectorAll('.reel').forEach(x=>IO.observe(x));
+   L.querySelectorAll('.reel video').forEach(v=>{const sec=v.closest('.reel'),rg=sec.querySelector('.rseek'),tt=sec.querySelector('.rtime');v.playbackRate=SPEED;
+     v.addEventListener('play',()=>{v.playbackRate=SPEED;sec.classList.remove('paused')});v.addEventListener('pause',()=>sec.classList.add('paused'));
+     v.addEventListener('timeupdate',()=>{if(sec.__drag)return;if(v.duration)rg.value=Math.round(v.currentTime/v.duration*1000);tt.textContent=mmss(v.currentTime)+' / '+mmss(v.duration)});
+     v.addEventListener('loadedmetadata',()=>{tt.textContent=mmss(0)+' / '+mmss(v.duration)})})}
+ window.__reelsDraw=()=>{if(!$('#reels').hidden)draw();dotUpd()};
+ const newestAll=()=>Math.max(0,...S.reels.map(r=>r.at||0),...(S.posts||[]).map(p=>p.at||0));
+ const seenAll=()=>{try{return +localStorage.getItem('wird-seen')||0}catch(_){return 0}};
+ function markSeen(){const n=newestAll();if(n>seenAll()){try{localStorage.setItem('wird-seen',n)}catch(_){}}dotUpd()}
+ function dotUpd(){const d=document.querySelector('#navPosts .dot');if(d)d.hidden=$('#reels').hidden?!(newestAll()>seenAll()):true}
+ window.__dotUpd=dotUpd;
+ function openR(){$('#reels').hidden=false;document.body.style.overflow='hidden';draw()}
+ function closeR(){$('#reels').hidden=true;document.body.style.overflow='';IO&&IO.disconnect();$('#rList').querySelectorAll('video').forEach(v=>v.pause());dotUpd()}
+ addEventListener('hashchange',()=>{if(location.hash==='#posts')openR();else if(!$('#reels').hidden)closeR()});
+ if(location.hash==='#posts')setTimeout(openR,0);
+ $('#rClose').onclick=()=>{location.hash='adhkar'};
  $('#rMute').onclick=()=>{MUTED=!MUTED;$('#rMute').textContent=MUTED?'🔇':'🔊';$('#rList').querySelectorAll('video').forEach(v=>v.muted=MUTED)};
- $('#rList').addEventListener('click',async e=>{const d=e.target.closest('[data-rdel]');
+ $('#rList').addEventListener('input',e=>{const rg=e.target.closest('.rseek');if(!rg)return;const sec=rg.closest('.reel'),v=sec.querySelector('video');sec.__drag=true;
+   if(v.duration)v.currentTime=rg.value/1000*v.duration;clearTimeout(sec.__dt);sec.__dt=setTimeout(()=>sec.__drag=false,250)});
+ $('#rList').addEventListener('click',async e=>{
+   if(e.target.closest('.rseek,.rbar'))return;
+   const cb=e.target.closest('.rctl button');if(cb){const sec=cb.closest('.reel'),v=sec.querySelector('video');
+     if(cb.dataset.sk){v.currentTime=Math.max(0,Math.min((v.duration||0)-0.1,v.currentTime+(+cb.dataset.sk)))}
+     else if(cb.hasAttribute('data-pp')){v.paused?v.play().catch(()=>{}):v.pause()}
+     else if(cb.hasAttribute('data-sp')){SPEED=SPEEDS[(SPEEDS.indexOf(SPEED)+1)%SPEEDS.length];$('#rList').querySelectorAll('video').forEach(x=>x.playbackRate=SPEED);$('#rList').querySelectorAll('[data-sp]').forEach(b=>b.textContent=SPEED+'x');toast('السرعة '+SPEED+'x')}
+     return}
+   const pd=e.target.closest('[data-pdel]');
+   if(pd){if(pd.dataset.sure!=='1'){pd.dataset.sure='1';pd.textContent='حذف؟';setTimeout(()=>{pd.dataset.sure='';pd.textContent='🗑'},3000);return}
+     if(await wr(S.db.doc('posts/'+pd.dataset.pdel).delete()))toast('انحذف المنشور');return}
+   if(e.target.closest('.rpost'))return;
+   const d=e.target.closest('[data-rdel]');
    if(d){if(d.dataset.sure!=='1'){d.dataset.sure='1';d.textContent='حذف؟';setTimeout(()=>{d.dataset.sure='';d.textContent='🗑'},3000);return}
      if(await wr(S.db.doc('reels/'+d.dataset.rdel).delete()))toast('انحذف الريلز');return}
    const sec=e.target.closest('.reel');if(!sec)return;const v=sec.querySelector('video');if(v.paused){v.play().catch(()=>{});sec.classList.remove('paused')}else{v.pause();sec.classList.add('paused')}});
@@ -1490,15 +1619,16 @@ function start(u,fs){if(S.started===u.uid)return;S.started=u.uid;
   const sub=f=>UNSUB.push(f);
   sub(db.collection('tasks').onSnapshot(s=>{S.tasks=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.at||0)-(a.at||0));if(!s.metadata.fromCache)ok();render();setTimeout(checkAlarms,1500)},err));
   sub(db.doc('shop/config').onSnapshot(d=>{S.shopExists=d.exists;S.shop=Object.assign({prices:{},grant:{},block:{}},d.exists?d.data():{});render()},err));
-  const msgQ=S.admin?db.collection('msgs'):db.collection('msgs').where('thread','==',S.me);
+  const msgQ=S.admin?db.collection('msgs'):db.collection('msgs').where('members','array-contains',S.me);
   sub(msgQ.onSnapshot(s=>{S.msgs=s.docs.map(d=>({id:d.id,...d.data()}));renderMsgs()},e=>console.error(e)));
   sub(db.collection('reels').onSnapshot(s=>{S.reels=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.at||0)-(a.at||0));window.__reelsDraw&&window.__reelsDraw()},e=>console.error(e)));
-  sub(db.collection('posts').onSnapshot(s=>{S.posts=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.at||0)-(a.at||0));renderFeed()},err));
+  sub(db.collection('posts').onSnapshot(s=>{S.posts=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.at||0)-(a.at||0));renderFeed();window.__reelsDraw&&window.__reelsDraw()},err));
   sub(db.collection('bonus').onSnapshot(s=>{S.bonus=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.at||0)-(a.at||0));render()},err));
   sub(db.collection('members').onSnapshot(s=>{
     S.members={};s.docs.forEach(d=>S.members[d.id]=d.data());
     const mine=S.members[S.me];if(mine&&!S.pending)S.tally={...(mine.tally||{})};
     if(mine?.prefs&&!S.prefLoaded){S.prefLoaded=true;Object.assign(PREF,mine.prefs);try{localStorage.setItem('wird-prefs',JSON.stringify(PREF))}catch(_){}applyPrefs()}
+    if(mine&&S.admin&&mine.org!==true&&!S.emSaved){S.emSaved=true;db.doc('members/'+S.me).update({org:true}).catch(()=>{})}
     if(mine&&!mine.profile?.name&&!S.asked){S.asked=true;location.hash='profile'}
     if(mine?.profile?.gender&&mine.profile.gender!==GEN)setGen(mine.profile.gender);
     ok();render();window.__prDraw&&window.__prDraw()},err));
