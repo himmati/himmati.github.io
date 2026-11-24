@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "io.github.himmati.twa",
+    "sha256_cert_fingerprints": ["57:D7:E2:88:52:F2:F8:3A:82:07:3E:E5:92:CF:C6:8B:FE:A3:83:47:3F:75:2E:CE:29:E5:6F:DB:43:69:05:17"]
+  }
+}]
