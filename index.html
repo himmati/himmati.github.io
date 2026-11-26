@@ -17,7 +17,7 @@
 <script src="config.js"></script>
 <title>هِمتي – أذكار ومهام</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Amiri+Quran&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* VOICE: هادئ، خاشع، أنيق — قليل الألوان وكثير المساحة
    IDEA: مسبحة وسماء الوقت؛ الصباح فجر ذهبي والمساء ليل نيلي
@@ -485,6 +485,49 @@ html.friday .pk{border-color:rgba(212,160,23,.45);color:var(--ink);background:rg
 html.friday .chip,html.friday .chipb{background:rgba(212,160,23,.14);color:var(--ink)}
 html.friday .chat{background:#fbf0d8;box-shadow:inset 3px 3px 10px rgba(190,145,55,.2)}
 html.friday .row .rk{color:#a8740c}
+
+/* ===== شريط المواسم ===== */
+.sbar{padding:12px 16px;margin-bottom:14px;border-radius:24px;background:linear-gradient(150deg,color-mix(in srgb,var(--acc) 28%,transparent),color-mix(in srgb,var(--acc) 10%,transparent));border:1px solid color-mix(in srgb,var(--acc) 45%,transparent);box-shadow:var(--sh-out)}
+.sbar p{margin:0;font-size:14px;line-height:1.8}.sbar p+p{margin-top:6px;padding-top:6px;border-top:1px dashed color-mix(in srgb,var(--acc) 40%,transparent)}
+/* ===== العيد: ذهبي وأبيض + قصاصات ملونة ===== */
+html.friday.eid{background:radial-gradient(circle at 20% 30%,#f472b6 0 3px,transparent 4px) 0 0/90px 90px fixed,radial-gradient(circle at 70% 60%,#60a5fa 0 3px,transparent 4px) 0 0/115px 115px fixed,radial-gradient(circle at 40% 80%,#34d399 0 2.5px,transparent 3.5px) 0 0/75px 75px fixed,radial-gradient(circle at 85% 15%,#a78bfa 0 3px,transparent 4px) 0 0/135px 135px fixed,radial-gradient(55% 35% at 85% 4%,rgba(255,214,120,.45),transparent 70%) fixed,linear-gradient(180deg,#fffdf8 0%,#fdf4e0 60%,#f8ead0 100%) fixed #fdf4e0}
+/* ===== رمضان: ليل نيلي + فوانيس وكهرماني ===== */
+:root.ramadan,:root.ramadan[data-theme=light],:root.ramadan[data-theme=dark]{--bg:#101634;--ink:#fdf6e8;--mut:#c9c3e0;--card:linear-gradient(150deg,#232b5c 0%,#171d42 100%);--gold1:#ffd98a;--gold2:#f2a93b}
+html.ramadan{background:radial-gradient(40% 28% at 82% 6%,rgba(255,214,140,.35),transparent 70%),radial-gradient(50% 40% at 10% 40%,rgba(20,140,150,.18),transparent 70%),linear-gradient(180deg,#141b45 0%,#0d1230 60%,#070a1e 100%) fixed #0d1230}
+html.ramadan body{--sky1:#1f2d78;--sky2:#0f6b74}
+html.ramadan #clouds{opacity:0}html.ramadan #stars{opacity:.9}
+html.ramadan header::after{content:"";position:absolute;top:0;left:38%;width:90px;height:70px;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 70'%3E%3Cg fill='none' stroke='%23ffd98a' stroke-width='1'%3E%3Cpath d='M20 0v18M50 0v30M75 0v12'/%3E%3C/g%3E%3Cg fill='%23f2a93b'%3E%3Cpath d='M15 18h10l3 5v12l-3 5H15l-3-5V23z'/%3E%3Cpath d='M44 30h12l4 6v14l-4 6H44l-4-6V36z'/%3E%3Cpath d='M71 12h8l2 4v9l-2 4h-8l-2-4v-9z'/%3E%3C/g%3E%3Cg fill='%23fff3c8' opacity='.85'%3E%3Crect x='18' y='24' width='4' height='10' rx='2'/%3E%3Crect x='48' y='37' width='4' height='12' rx='2'/%3E%3Crect x='73' y='17' width='4' height='8' rx='2'/%3E%3C/g%3E%3C/svg%3E") no-repeat center/contain;filter:drop-shadow(0 0 6px rgba(255,200,110,.7))}
+
+/* ===== خانة سنن الجمعة اللامعة ===== */
+.jum{position:relative;overflow:hidden;margin-bottom:16px;padding:14px;border-radius:28px;border:2px solid transparent;
+ background:linear-gradient(150deg,#fffdf6,#fff1d2) padding-box,conic-gradient(from var(--ang),#ffe9a8,#d4a017,#fff8e1,#b8860b,#ffe9a8) border-box;
+ box-shadow:0 0 0 1px rgba(255,220,140,.4),0 10px 28px rgba(212,160,23,.35);animation:spinAng 5s linear infinite;color:#3b2a07}
+.jum::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.75) 50%,transparent 65%);transform:translateX(-120%);animation:jshine 3.5s ease-in-out infinite}
+@keyframes jshine{0%,40%{transform:translateX(120%)}100%{transform:translateX(-120%)}}
+.jh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.jh b{font:700 20px Amiri,serif;color:#8a5e05}.jh span{font-weight:700;color:#a8740c}
+.ji{display:flex;align-items:center;gap:12px;width:100%;text-align:start;padding:10px 12px;margin-bottom:8px;border-radius:20px;border:1px solid rgba(212,160,23,.35);background:rgba(255,255,255,.7);color:#3b2a07;position:relative;z-index:1}
+.ji .jc{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:2px dashed #d4a017;font-weight:700;color:#fff}
+.ji.on .jc{border:0;background:linear-gradient(150deg,#f3cf6b,#d4a017 60%,#a8740c);box-shadow:0 3px 8px rgba(180,130,20,.4)}
+.ji .jt{display:grid;gap:2px}.ji b{font-size:16px}.ji small{font-size:12.5px;color:#8a6f3a;line-height:1.6}.ji.on b{text-decoration:line-through;text-decoration-color:rgba(168,116,12,.5)}
+.jk{width:100%;position:relative;z-index:1;margin-top:4px}.jd{margin:10px 0 0;text-align:center;font-weight:700;color:#8a5e05;position:relative;z-index:1}
+@media(prefers-reduced-motion:reduce){.jum,.jum::after{animation:none}}
+/* ===== قارئ سورة الكهف ===== */
+.kahf{position:fixed;inset:0;z-index:45;display:flex;flex-direction:column;background:linear-gradient(180deg,#fffdf8,#fbf1dc)}.kahf[hidden]{display:none}
+.khead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:linear-gradient(150deg,#e6b740,#b07d12);color:#fff;box-shadow:0 4px 14px rgba(160,115,25,.3)}
+.khead b{font:700 24px "Amiri Quran",Amiri,serif}.khead span{min-width:44px;text-align:center;font-size:13px}
+.kbody{flex:1;overflow-y:auto;padding:18px max(5vw,16px) 40px;color:#2a1e05}
+.kbas{text-align:center;font:400 26px/2 "Amiri Quran",Amiri,serif;margin:0 0 8px;color:#8a5e05}
+.kt{margin:0;text-align:justify;font:400 calc(var(--dfs,21px) + 3px)/2.3 "Amiri Quran",Amiri,serif}
+.an{color:#a8740c;font-size:.85em;white-space:nowrap}.kload{text-align:center;color:#8a6f3a;margin-top:30vh;line-height:2}
+
+.ji.cnt .jc{font-size:12px;color:#a8740c;width:38px;height:38px}.ji.cnt.on .jc{color:#fff;font-size:inherit}
+.jbar{display:block;height:6px;border-radius:99px;background:rgba(212,160,23,.18);margin-top:6px;overflow:hidden}.jbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#d4a017,#f3cf6b)}
+.jdua{position:relative;z-index:1;margin-top:12px;padding:12px;border-radius:22px;background:rgba(255,255,255,.75);border:1px solid rgba(212,160,23,.35);display:grid;gap:8px}
+.jdua>b{font:700 18px Amiri,serif;color:#8a5e05}.jdua small{font-size:12.5px;color:#8a6f3a;line-height:1.7}
+.jdua textarea{background:#fffaf0!important;color:#3b2a07!important;border:1px solid rgba(212,160,23,.35)!important;box-shadow:inset 2px 2px 6px rgba(190,145,55,.18)!important;font:400 17px/1.9 Amiri,serif;resize:vertical}
+.jdua textarea::placeholder{color:#b49c6c!important}.jdua .btn{justify-self:start;margin:0}
+.jnow{margin:0;padding:8px 12px;border-radius:16px;font-weight:700;color:#fff;background:linear-gradient(150deg,#f3cf6b,#d4a017 60%,#a8740c);animation:glowP 1.6s ease-in-out infinite alternate}
+.duaq{white-space:pre-wrap;font:400 18px/1.9 Amiri,serif;margin:0 0 14px;padding:10px;border-radius:16px;background:rgba(212,160,23,.12);max-height:40vh;overflow-y:auto}
 </style>
 </head>
 <body>
@@ -523,6 +566,14 @@ html.friday .row .rk{color:#a8740c}
   <p id="stat"></p>
 
   <section class="view" id="v-adhkar">
+    <div class="sbar" id="sNote" hidden></div>
+    <div class="jum" id="jum" hidden><div id="jumL"></div>
+      <button type="button" class="btn p jk" id="kOpen">📖 قراءة سورة الكهف</button>
+      <div class="jdua"><b>🤲 دعواتي لساعة الاستجابة</b>
+        <p class="jnow" id="jNow" hidden>⏳ الحين آخر ساعة من الجمعة — وقت يُستجاب فيه الدعاء بإذن الله</p>
+        <textarea id="duaT" rows="3" maxlength="1500" placeholder="اكتبي هنا الدعاء اللي تتمنينه…"></textarea>
+        <small>«فيها ساعة لا يوافقها عبد مسلم يسأل الله شيئًا إلا أعطاه إياه، فالتمسوها آخر ساعة بعد العصر». دعواتك تنحفظ في جوالك، ويجيك تذكير قبل أذان المغرب بساعة.</small>
+        <button type="button" class="btn sm" id="duaIcs">📅 أضيفي التذكير لتقويم جوالي كل جمعة</button></div></div>
     <div class="pray" id="pray">
       <div class="ph1"><div><b id="prNext">مواقيت الصلاة</b><small id="prLeft"></small></div>
         <button type="button" class="btn sm" id="prCityBtn"><span id="prCity">اختاري المدينة</span> ▾</button></div>
@@ -764,6 +815,10 @@ html.friday .row .rk{color:#a8740c}
 <div id="buy" class="alarm" hidden role="dialog" aria-labelledby="bT"><div class="abox">
   <div id="bPrev" class="bprev"></div><h3 id="bT"></h3><p id="bP"></p>
   <div class="arow"><button class="btn p" id="bOk">شراء</button><button class="btn" id="bNo">إلغاء</button></div></div></div>
+<div id="kahf" class="kahf" hidden role="dialog" aria-label="سورة الكهف"><div class="khead"><button type="button" class="rbtn" id="kClose" aria-label="إغلاق">✕</button><b>سورة الكهف</b><span id="kProg"></span></div><div class="kbody" id="kBody"></div></div>
+<div id="duaA" class="alarm" hidden role="alertdialog" aria-labelledby="duaH"><div class="abox"><div style="font-size:54px;line-height:1">🤲</div>
+  <h3 id="duaH">ساعة الاستجابة</h3><p>باقي ساعة على أذان المغرب، وهي آخر ساعة من الجمعة يُرجى فيها قبول الدعاء</p><div class="duaq" id="duaQ"></div>
+  <div class="arow"><button class="btn p" id="duaGo">افتحي دعواتي</button><button class="btn" id="duaX">تمام</button></div></div></div>
 <div id="toast" role="status"></div>
 
 <script>
@@ -1004,9 +1059,28 @@ const PCOLS=['#e9609f','#ff7eb6','#f0abfc','#b83a7c','#a855f7','#7c5cff','#4f7cf
 let PREF={...PDEF};try{Object.assign(PREF,JSON.parse(localStorage.getItem('wird-prefs'))||{})}catch(_){}
 const okc=c=>/^#[0-9a-f]{6}$/i.test(c||'');
 /* الجمعة: من ١٢ الليل لين أذان المغرب (حسب مدينة العضو) */
-const isFri=()=>{const d=new Date();if(d.getDay()!==5)return false;let mg=null;try{mg=window.__maghrib&&window.__maghrib()}catch(_){}if(!mg){mg=new Date(d);mg.setHours(17,30,0,0)}return d<mg};let FRI=isFri();
-function applyPrefs(){const r=document.documentElement.style;FRI=isFri();const a=FRI?'#d4a017':okc(PREF.bead)?PREF.bead:PDEF.bead;
-  document.documentElement.classList.toggle('friday',FRI);
+/* ===== المواسم: الجمعة (لين المغرب)، رمضان، العيدين — بالتقويم الهجري (أم القرى) ===== */
+const hijri=d=>{try{const p=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{day:'numeric',month:'numeric'}).formatToParts(d);return{m:+p.find(x=>x.type==='month').value,d:+p.find(x=>x.type==='day').value}}catch(_){return{m:0,d:0}}};
+const isFri=()=>{const d=new Date();if(d.getDay()!==5)return false;let mg=null;try{mg=window.__maghrib&&window.__maghrib()}catch(_){}if(!mg){mg=new Date(d);mg.setHours(17,30,0,0)}return d<mg};
+const isEidH=h=>(h.m===10&&h.d<=3)||(h.m===12&&h.d>=10&&h.d<=13);
+function season(){const h=hijri(new Date());return isEidH(h)?'eid':h.m===9?'ramadan':isFri()?'friday':''}
+const noFast=h=>h.m===9||(h.m===10&&h.d===1)||(h.m===12&&h.d>=10&&h.d<=13);
+const DAYN=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+function seasonNotes(){const now=new Date(),h=hijri(now),tm=new Date(+now+864e5),ht=hijri(tm),eve=now.getHours()>=15,out=[];
+  if(h.m===12&&h.d<=8)out.push('🕋 عشر ذي الحجة: ما من أيام العمل الصالح فيها أحب إلى الله منها — أكثروا من التكبير والتهليل والتحميد');
+  if(h.m===12&&h.d===8&&eve)out.push('🤲 بكرة يوم عرفة: صيامه يكفّر السنة الماضية والباقية');
+  if(h.m===12&&h.d===9)out.push('🤲 اليوم يوم عرفة: صيامه يكفّر السنة الماضية والباقية، وخير الدعاء دعاء يوم عرفة');
+  if(h.m===12&&h.d>=11&&h.d<=13)out.push('🐑 أيام التشريق: أيام أكل وشرب وذكر لله، والتكبير بعد الصلوات');
+  if(!noFast(h)&&!eve&&(now.getDay()===1||now.getDay()===4))out.push('🌙 اليوم '+DAYN[now.getDay()]+': تُعرض فيه الأعمال، ويُسنّ صيامه');
+  else if(eve&&!noFast(ht)&&(tm.getDay()===1||tm.getDay()===4))out.push('🌙 تذكير: بكرة '+DAYN[tm.getDay()]+' ويُسنّ صيامه، وتسحّروا فإن في السحور بركة');
+  if(!noFast(h)&&h.d>=13&&h.d<=15)out.push('🌕 الأيام البيض (١٣ و١٤ و١٥): صيام ثلاثة أيام من كل شهر كصيام الدهر');
+  else if(eve&&!noFast(ht)&&h.d===12)out.push('🌕 بكرة تبدأ الأيام البيض، يُسنّ صيامها');
+  return out.slice(0,2)}
+function renderSeason(){window.renderJum&&renderJum();const el=$('#sNote');if(!el)return;const n=seasonNotes();el.hidden=!n.length;el.innerHTML=n.map(x=>`<p>${esc(x)}</p>`).join('')}
+let SZ=season();const FRI_GOLD='#d4a017',RAM_ACC='#f2a93b';
+function applyPrefs(){const r=document.documentElement.style,c=document.documentElement.classList;SZ=season();
+  const a=SZ==='friday'||SZ==='eid'?FRI_GOLD:SZ==='ramadan'?RAM_ACC:okc(PREF.bead)?PREF.bead:PDEF.bead;
+  c.toggle('friday',SZ==='friday'||SZ==='eid');c.toggle('eid',SZ==='eid');c.toggle('ramadan',SZ==='ramadan');
   r.setProperty('--bead',okc(PREF.bead)?PREF.bead:PDEF.bead);
   r.setProperty('--pink2',a);r.setProperty('--pink1',`color-mix(in srgb,${a} 50%,#fff)`);r.setProperty('--berry',`color-mix(in srgb,${a} 70%,#000)`);r.setProperty('--acc',`color-mix(in srgb,${a} 70%,#fff)`);
   r.setProperty('--dfs',([18,21,25,29].includes(+PREF.fs)?+PREF.fs:21)+'px')}
@@ -1036,12 +1110,12 @@ const wr=async p=>{try{await p;return true}catch(e){console.error(e);if(e?.code=
 const nm=id=>prof(id).name||S.names[id]||(id===S.me?'أنا':'عضو');
 
 /* ===== السماء ===== */
-function sky(){document.body.className=S.mode;const day=S.theme==='day';document.documentElement.classList.toggle('morning',day&&!FRI);
-  $('#themeLbl').textContent=FRI?'جمعة':day?'نهاري':'ليلي';
+function sky(){document.body.className=S.mode;const day=SZ==='ramadan'?false:SZ?true:S.theme==='day';document.documentElement.classList.toggle('morning',day&&!SZ);
+  $('#themeLbl').textContent=({friday:'جمعة',eid:'عيد',ramadan:'رمضان'})[SZ]||(day?'نهاري':'ليلي');renderSeason();
   $('#sky').innerHTML=day
    ?'<circle cx="40" cy="40" r="17" fill="#fff6d8"/><g stroke="#fff6d8" stroke-width="3" stroke-linecap="round" opacity=".8">'+[...Array(8)].map((_,i)=>{const a=i*Math.PI/4;return `<line x1="${40+Math.cos(a)*25}" y1="${40+Math.sin(a)*25}" x2="${40+Math.cos(a)*32}" y2="${40+Math.sin(a)*32}"/>`}).join('')+'</g>'
    :'<path d="M48 14a26 26 0 1 0 18 44A22 22 0 0 1 48 14z" fill="#fff6d8"/><circle cx="18" cy="18" r="1.6" fill="#fff"/><circle cx="66" cy="22" r="1.2" fill="#fff"/><circle cx="12" cy="52" r="1" fill="#fff"/>';
-  $('#greet').textContent=FRI?'جمعة مباركة ✨ لا تنسين سورة الكهف والصلاة على النبي ﷺ':({m:'صباح الذكر',e:'مساء الذكر',n:'تصبحين على خير',a:'تقبّل الله',w:'صباح النور'})[S.mode]+' — '+MODE[S.mode]+' والتسبيح والمهام'}
+  $('#greet').textContent=SZ==='eid'?'عيدكم مبارك 🎉 الله أكبر الله أكبر، لا إله إلا الله، والله أكبر الله أكبر ولله الحمد':SZ==='ramadan'?'رمضان كريم 🌙 تقبّل الله صيامكم وقيامكم':SZ==='friday'?'جمعة مباركة ✨ لا تنسين سورة الكهف والصلاة على النبي ﷺ':({m:'صباح الذكر',e:'مساء الذكر',n:'تصبحين على خير',a:'تقبّل الله',w:'صباح النور'})[S.mode]+' — '+MODE[S.mode]+' والتسبيح والمهام'}
 
 /* ===== الأذكار ===== */
 const SLEEP=[KURSI,
@@ -1415,10 +1489,69 @@ $('#myTasks').addEventListener('click',async e=>{
     'BEGIN:VALARM','TRIGGER:-PT'+(t.rem||0)+'M','ACTION:DISPLAY','DESCRIPTION:'+x(t.title),'END:VALARM','BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY','DESCRIPTION:'+x(t.title),'END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
   try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='wird-task.ics';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);toast('افتحي الملف عشان ينضاف للتقويم مع المنبّه')}catch(_){toast('ما انحفظ ملف التقويم')}});
 
-setInterval(()=>{if(isFri()!==FRI){applyPrefs();sky()}},60000);
+setInterval(()=>{if(season()!==SZ)applyPrefs();sky()},60000);
 $('#themeBtn').onclick=()=>{S.theme=S.theme==='day'?'night':'day';try{localStorage.setItem('wird-theme',S.theme)}catch(_){}sky()};
 sky();render();route();gRun();
 
+/* ===== سنن يوم الجمعة ===== */
+const JUM=[['ghusl','الغسل والتطيّب','من اغتسل يوم الجمعة وتطيّب ثم راح إلى الجمعة غُفر له ما بينه وبين الجمعة الأخرى'],
+ ['siwak','السواك','السواك مطهرة للفم مرضاة للرب'],
+ ['salah','صلاة الجمعة','من أتى الجمعة فاستمع وأنصت غُفر له ما بين الجمعتين'],
+ ['kahf','قراءة سورة الكهف','من قرأ سورة الكهف يوم الجمعة أضاء له من النور ما بين الجمعتين'],
+ ['salawat','الصلاة على النبي ﷺ ١٠٠ مرة','«أكثروا عليّ من الصلاة يوم الجمعة» — اضغطي كل مرة تصلّين عليه',100]];
+const JK=()=>'wird-jum-'+today();
+const jumGet=()=>{try{return JSON.parse(localStorage.getItem(JK()))||{}}catch(_){return{}}};
+const jumSet=o=>{try{localStorage.setItem(JK(),JSON.stringify(o))}catch(_){}};
+const jDone=(d,[k,,,c])=>c?(+d[k]||0)>=c:!!d[k];
+const mgToday=()=>{try{return window.__maghrib&&window.__maghrib()}catch(_){return null}};
+const duaHour=()=>{const d=new Date(),mg=mgToday();return d.getDay()===5&&mg&&d>=mg-36e5&&d<mg};
+function renderJum(){const el=$('#jum');if(!el)return;el.hidden=!isFri();if(el.hidden)return;const d=jumGet(),n=JUM.filter(x=>jDone(d,x)).length;
+  $('#jumL').innerHTML=`<div class="jh"><b>✨ سنن يوم الجمعة</b><span>${ar(n)} / ${ar(JUM.length)}</span></div>`+
+   JUM.map(x=>{const [k,t,f,c]=x,ok=jDone(d,x),v=+d[k]||0;return `<button type="button" class="ji${ok?' on':''}${c?' cnt':''}" data-j="${k}"><span class="jc">${ok?'✓':c?ar(v):''}</span><span class="jt"><b>${t}</b><small>${f}</small>${c&&!ok?`<i class="jbar"><i style="width:${v/c*100}%"></i></i>`:''}</span></button>`}).join('')+
+   (n===JUM.length?'<p class="jd">ما شاء الله، أتممتِ سنن الجمعة — تقبّل الله منك 🤍</p>':'');
+  $('#jNow').hidden=!duaHour()}
+$('#jum').addEventListener('click',e=>{if(e.target.closest('#kOpen')){openKahf();return}if(e.target.closest('#duaIcs')){duaIcs();return}
+  const b=e.target.closest('[data-j]');if(!b)return;const d=jumGet(),k=b.dataset.j,it=JUM.find(x=>x[0]===k),c=it[3];
+  if(c){const v=+d[k]||0;if(v>=c)return;d[k]=v+1;jumSet(d);if(d[k]>=c){chime();vib([40,40,80]);toast('ما شاء الله، أتممتِ ١٠٠ صلاة على النبي ﷺ')}else vib(d[k]%10===0?[20,30,20]:8)}
+  else{d[k]=!d[k];jumSet(d);vib(d[k]?[20,30,20]:10);if(d[k])try{chime()}catch(_){}}
+  renderJum()});
+/* دعواتي: تنحفظ في الجوال */
+try{$('#duaT').value=localStorage.getItem('wird-dua')||''}catch(_){}
+let duaW;$('#duaT').addEventListener('input',()=>{clearTimeout(duaW);duaW=setTimeout(()=>{try{localStorage.setItem('wird-dua',$('#duaT').value)}catch(_){}},400)});
+/* تذكير ساعة الاستجابة: قبل أذان المغرب بساعة يوم الجمعة */
+function checkDua(){if(!duaHour()){renderJum();return}const k='wird-duaf-'+today();let f=null;try{f=localStorage.getItem(k)}catch(_){}renderJum();if(f)return;
+  try{localStorage.setItem(k,'1')}catch(_){}const t=($('#duaT').value||'').trim();
+  $('#duaQ').textContent=t||'ما كتبتِ دعاء للحين — ادعي بما في قلبك 🤍';$('#duaA').hidden=false;chime();vib([200,100,200]);
+  try{if(Notification.permission==='granted'){const o={body:'باقي ساعة على المغرب — ساعة يُستجاب فيها الدعاء'+(t?'\n'+t.slice(0,120):''),icon:'icon-192.png',tag:'dua'};
+    (navigator.serviceWorker?navigator.serviceWorker.getRegistration().then(r=>r?r.showNotification('هِمتي — ساعة الاستجابة 🤲',o):new Notification('هِمتي — ساعة الاستجابة 🤲',o)):Promise.resolve(new Notification('هِمتي — ساعة الاستجابة 🤲',o))).catch(()=>{})}}catch(_){}}
+$('#duaX').onclick=()=>{$('#duaA').hidden=true};
+$('#duaGo').onclick=()=>{$('#duaA').hidden=true;location.hash='adhkar';setTimeout(()=>{$('#jum').scrollIntoView({behavior:'smooth',block:'start'});$('#duaT').focus()},200)};
+function duaIcs(){const mg=mgToday();if(!mg){toast('حددي مدينتك في مواقيت الصلاة أول');return}
+  const d=new Date();d.setDate(d.getDate()+((5-d.getDay()+7)%7));const t=new Date(mg.getTime()-36e5);d.setHours(t.getHours(),Math.floor(t.getMinutes()/5)*5,0,0);
+  const p=n=>String(n).padStart(2,'0'),loc=x=>x.getFullYear()+p(x.getMonth()+1)+p(x.getDate())+'T'+p(x.getHours())+p(x.getMinutes())+'00';
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//himmati//ar','BEGIN:VEVENT','UID:dua-friday@himmati','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,''),'DTSTART:'+loc(d),'DTEND:'+loc(new Date(d.getTime()+36e5)),'RRULE:FREQ=WEEKLY;BYDAY=FR','SUMMARY:🤲 ساعة الاستجابة — آخر ساعة من الجمعة','DESCRIPTION:افتحي هِمتي واقرئي دعواتك قبل المغرب','BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY','DESCRIPTION:ساعة الاستجابة','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='saat-alistijaba.ics';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);toast('افتحي الملف عشان ينضاف التذكير لتقويم جوالك كل جمعة')}catch(_){toast('ما قدرت أجهّز الملف')}}
+setInterval(checkDua,30000);setTimeout(checkDua,2500);
+/* ===== سورة الكهف (نص موثوق بالرسم العثماني، ينحفظ بالجوال بعد أول تحميل) ===== */
+const KAHF_KEY='wird-kahf-v1',KAHF_URL='https://api.alquran.cloud/v1/surah/18/quran-uthmani',BASM='بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ';
+async function kahfText(){try{const c=JSON.parse(localStorage.getItem(KAHF_KEY));if(Array.isArray(c)&&c.length===110)return c}catch(_){}
+  const r=await fetch(KAHF_URL);const j=await r.json();const A=j?.data?.ayahs;
+  if(j?.data?.number!==18||!Array.isArray(A)||A.length!==110||A.some(a=>typeof a.text!=='string'))throw new Error('bad');
+  const t=A.sort((a,b)=>a.numberInSurah-b.numberInSurah).map(a=>a.text.trim());if(t[0].startsWith(BASM))t[0]=t[0].slice(BASM.length).trim();
+  try{localStorage.setItem(KAHF_KEY,JSON.stringify(t))}catch(_){}return t}
+const KP=()=>'wird-kahf-pos-'+today();
+async function openKahf(){const k=$('#kahf'),b=$('#kBody');k.hidden=false;document.body.style.overflow='hidden';
+  if(!b.dataset.ok){b.innerHTML='<p class="kload">جاري تحميل السورة…</p>';
+    try{const t=await kahfText();b.innerHTML=`<p class="kbas">${BASM}</p><p class="kt">${t.map((x,i)=>`${esc(x)} <span class="an">﴿${ar(i+1)}﴾</span>`).join(' ')}</p><button type="button" class="btn p" id="kDone" style="width:100%;margin:14px 0 30px">أتممت قراءة سورة الكهف ✓</button>`;b.dataset.ok='1'}
+    catch(_){b.innerHTML='<p class="kload">ما قدرت أحمّل السورة الحين — تأكد من الإنترنت وحاول مرة ثانية.<br>بعد أول تحميل تشتغل بدون نت.</p>';return}}
+  let pos=0;try{pos=+localStorage.getItem(KP())||0}catch(_){}b.scrollTop=pos;kProg()}
+function kProg(){const b=$('#kBody'),m=b.scrollHeight-b.clientHeight;$('#kProg').textContent=m>0?ar(Math.min(100,Math.round(b.scrollTop/m*100)))+'٪':''}
+function closeKahf(){$('#kahf').hidden=true;document.body.style.overflow=''}
+$('#kClose').onclick=closeKahf;
+let kT;$('#kBody').addEventListener('scroll',()=>{kProg();clearTimeout(kT);kT=setTimeout(()=>{try{localStorage.setItem(KP(),$('#kBody').scrollTop)}catch(_){}},300)});
+$('#kBody').addEventListener('click',e=>{if(!e.target.closest('#kDone'))return;const d=jumGet();d.kahf=true;jumSet(d);try{chime()}catch(_){}vib([30,40,30]);closeKahf();renderJum();toast('تقبّل الله — أتممت سورة الكهف 🤍')});
+renderJum();
+window.renderJum=renderJum;
 /* ===== المنشورات ===== */
 S.posts=[];let PF=[];
 const IMG_RE=/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/,YT_RE=/^[A-Za-z0-9_-]{11}$/;
