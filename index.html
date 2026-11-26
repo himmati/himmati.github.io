@@ -450,6 +450,41 @@ nav a{-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
 #cEsc{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:60;width:40px;height:56px;border:0;border-radius:16px 0 0 16px;background:rgba(255,255,255,.16);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);font-size:20px;box-shadow:-2px 2px 10px rgba(0,0,0,.15);touch-action:manipulation}
 #cEsc[hidden]{display:none}
 body.noanim .view.on,body.noanim *{animation:none!important;transition:none!important}
+
+/* ===== يوم الجمعة: ذهبي وأبيض، من بداية الجمعة لين المغرب ===== */
+:root.friday,:root.friday[data-theme=light],:root.friday[data-theme=dark]{color-scheme:light;--bg:#fffaf0;--ink:#3b2a07;--mut:#8a6f3a;--line:rgba(190,150,60,.25);
+ --card:linear-gradient(150deg,#ffffff 0%,#fff5e1 100%);--gold1:#a8740c;--gold2:#d4a017;
+ --sh-out:8px 10px 22px rgba(160,115,25,.18),-6px -6px 16px rgba(255,255,255,.95);
+ --sh-in:inset 1px 1px 0 #fff,inset -3px -4px 10px rgba(210,165,70,.12);
+ --sh-press:inset 4px 5px 10px rgba(190,145,55,.25),inset -3px -3px 8px #fff}
+html.friday{background:radial-gradient(55% 35% at 85% 4%,rgba(255,214,120,.45),transparent 70%),radial-gradient(45% 35% at 8% 40%,rgba(240,200,110,.22),transparent 70%),linear-gradient(180deg,#fffdf8 0%,#fdf4e0 60%,#f8ead0 100%) fixed #fdf4e0}
+html.friday #clouds,html.friday #stars{opacity:0}
+html.friday body{--sky1:#e6b740;--sky2:#b07d12}
+html.friday header{border:1px solid rgba(255,255,255,.7)}
+html.friday header h1{color:#fff;text-shadow:0 2px 0 rgba(120,80,0,.3),0 0 16px rgba(255,240,200,.7)}
+html.friday h2,html.friday .md b,html.friday .stats b,html.friday .core span,html.friday .note,html.friday .tot,html.friday #stat{text-shadow:none}
+html.friday .dk,html.friday .task,html.friday .md,html.friday form.box,html.friday .seg,html.friday .stats div,html.friday .hero,html.friday .empty,html.friday .row,html.friday .pray,html.friday .post,html.friday .thr,html.friday .cp,html.friday .abox,html.friday .lbox{border-color:rgba(212,160,23,.3)}
+html.friday .welcome{background:linear-gradient(150deg,#fff8e8,#fdeccb);border-color:rgba(212,160,23,.45)}
+html.friday .btn{color:var(--ink);background:linear-gradient(150deg,#ffffff,#fbefd5);border-color:rgba(212,160,23,.35);box-shadow:5px 6px 14px rgba(160,115,25,.18),-3px -3px 10px #fff,inset 1px 1px 0 #fff}
+html.friday .btn.p,html.friday .seg button.on,html.friday nav a.on,html.friday .ct,html.friday .prow2 .on,html.friday #toast,html.friday .fin{color:#fff;background:linear-gradient(150deg,#f3cf6b,#d4a017 60%,#a8740c);text-shadow:0 1px 2px rgba(110,70,0,.35);box-shadow:4px 6px 14px rgba(180,130,20,.35),inset 1px 2px 0 rgba(255,255,255,.5)}
+html.friday .prow2 .on small,html.friday .fin p{color:#fff}
+html.friday .btn.done{color:#4a3200}
+html.friday .btn.x{color:#a33a2a;background:linear-gradient(150deg,#fff,#fbe6dc)}
+html.friday .fin .btn{background:#fff;color:#8a5e05}
+html.friday input,html.friday select,html.friday textarea,html.friday .bar,html.friday .cols input[type=color]{background:#fbf0d8;color:var(--ink);box-shadow:inset 3px 3px 7px rgba(190,145,55,.22),inset -2px -2px 5px #fff}
+html.friday input::placeholder,html.friday textarea::placeholder{color:#b49c6c}
+html.friday .avs button,html.friday .pick label,html.friday .shi{color:var(--ink);background:linear-gradient(150deg,#ffffff,#fbefd5);box-shadow:4px 5px 10px rgba(160,115,25,.16),inset 1px 1px 0 #fff}
+html.friday .pick label:has(input:checked){background:linear-gradient(150deg,#fff3d1,#f6dd9c)}
+html.friday .lvcard{background:linear-gradient(150deg,color-mix(in srgb,var(--l2) 18%,#fff),#fff5e1)}
+html.friday nav{background:linear-gradient(150deg,rgba(255,255,255,.97),rgba(253,242,218,.97));border-color:rgba(212,160,23,.35);box-shadow:0 10px 26px rgba(160,115,25,.25),inset 1px 1px 0 #fff}
+html.friday nav a{color:#8a6f3a}
+html.friday .dk.ok .ct{background:linear-gradient(150deg,#d9ccb0,#b9a882);color:#fff;text-shadow:none}
+html.friday .dk .fd{color:#a8740c}
+html.friday .prow2 div{background:rgba(212,160,23,.08);box-shadow:inset 1px 1px 0 #fff}
+html.friday .pk{border-color:rgba(212,160,23,.45);color:var(--ink);background:rgba(255,255,255,.6)}
+html.friday .chip,html.friday .chipb{background:rgba(212,160,23,.14);color:var(--ink)}
+html.friday .chat{background:#fbf0d8;box-shadow:inset 3px 3px 10px rgba(190,145,55,.2)}
+html.friday .row .rk{color:#a8740c}
 </style>
 </head>
 <body>
@@ -968,7 +1003,10 @@ const PDEF={bead:'#e9609f',acc:'#e9609f',fs:21,goal:0,vib:1,snd:1,tsk:1};
 const PCOLS=['#e9609f','#ff7eb6','#f0abfc','#b83a7c','#a855f7','#7c5cff','#4f7cff','#1a56db','#38bdf8','#06b6d4','#14b8a6','#22c55e','#84cc16','#f2b84b','#f97316','#ef4444','#c2410c','#8d6e63','#64748b','#1f2937'];
 let PREF={...PDEF};try{Object.assign(PREF,JSON.parse(localStorage.getItem('wird-prefs'))||{})}catch(_){}
 const okc=c=>/^#[0-9a-f]{6}$/i.test(c||'');
-function applyPrefs(){const r=document.documentElement.style,a=okc(PREF.bead)?PREF.bead:PDEF.bead;
+/* الجمعة: من ١٢ الليل لين أذان المغرب (حسب مدينة العضو) */
+const isFri=()=>{const d=new Date();if(d.getDay()!==5)return false;let mg=null;try{mg=window.__maghrib&&window.__maghrib()}catch(_){}if(!mg){mg=new Date(d);mg.setHours(17,30,0,0)}return d<mg};let FRI=isFri();
+function applyPrefs(){const r=document.documentElement.style;FRI=isFri();const a=FRI?'#d4a017':okc(PREF.bead)?PREF.bead:PDEF.bead;
+  document.documentElement.classList.toggle('friday',FRI);
   r.setProperty('--bead',okc(PREF.bead)?PREF.bead:PDEF.bead);
   r.setProperty('--pink2',a);r.setProperty('--pink1',`color-mix(in srgb,${a} 50%,#fff)`);r.setProperty('--berry',`color-mix(in srgb,${a} 70%,#000)`);r.setProperty('--acc',`color-mix(in srgb,${a} 70%,#fff)`);
   r.setProperty('--dfs',([18,21,25,29].includes(+PREF.fs)?+PREF.fs:21)+'px')}
@@ -998,12 +1036,12 @@ const wr=async p=>{try{await p;return true}catch(e){console.error(e);if(e?.code=
 const nm=id=>prof(id).name||S.names[id]||(id===S.me?'أنا':'عضو');
 
 /* ===== السماء ===== */
-function sky(){document.body.className=S.mode;const day=S.theme==='day';document.documentElement.classList.toggle('morning',day);
-  $('#themeLbl').textContent=day?'نهاري':'ليلي';
+function sky(){document.body.className=S.mode;const day=S.theme==='day';document.documentElement.classList.toggle('morning',day&&!FRI);
+  $('#themeLbl').textContent=FRI?'جمعة':day?'نهاري':'ليلي';
   $('#sky').innerHTML=day
    ?'<circle cx="40" cy="40" r="17" fill="#fff6d8"/><g stroke="#fff6d8" stroke-width="3" stroke-linecap="round" opacity=".8">'+[...Array(8)].map((_,i)=>{const a=i*Math.PI/4;return `<line x1="${40+Math.cos(a)*25}" y1="${40+Math.sin(a)*25}" x2="${40+Math.cos(a)*32}" y2="${40+Math.sin(a)*32}"/>`}).join('')+'</g>'
    :'<path d="M48 14a26 26 0 1 0 18 44A22 22 0 0 1 48 14z" fill="#fff6d8"/><circle cx="18" cy="18" r="1.6" fill="#fff"/><circle cx="66" cy="22" r="1.2" fill="#fff"/><circle cx="12" cy="52" r="1" fill="#fff"/>';
-  $('#greet').textContent=({m:'صباح الذكر',e:'مساء الذكر',n:'تصبحين على خير',a:'تقبّل الله',w:'صباح النور'})[S.mode]+' — '+MODE[S.mode]+' والتسبيح والمهام'}
+  $('#greet').textContent=FRI?'جمعة مباركة ✨ لا تنسين سورة الكهف والصلاة على النبي ﷺ':({m:'صباح الذكر',e:'مساء الذكر',n:'تصبحين على خير',a:'تقبّل الله',w:'صباح النور'})[S.mode]+' — '+MODE[S.mode]+' والتسبيح والمهام'}
 
 /* ===== الأذكار ===== */
 const SLEEP=[KURSI,
@@ -1377,6 +1415,7 @@ $('#myTasks').addEventListener('click',async e=>{
     'BEGIN:VALARM','TRIGGER:-PT'+(t.rem||0)+'M','ACTION:DISPLAY','DESCRIPTION:'+x(t.title),'END:VALARM','BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY','DESCRIPTION:'+x(t.title),'END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
   try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='wird-task.ics';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);toast('افتحي الملف عشان ينضاف للتقويم مع المنبّه')}catch(_){toast('ما انحفظ ملف التقويم')}});
 
+setInterval(()=>{if(isFri()!==FRI){applyPrefs();sky()}},60000);
 $('#themeBtn').onclick=()=>{S.theme=S.theme==='day'?'night':'day';try{localStorage.setItem('wird-theme',S.theme)}catch(_){}sky()};
 sky();render();route();gRun();
 
@@ -1453,7 +1492,7 @@ $('#feed').addEventListener('click',async e=>{const b=e.target.closest('[data-dp
      try{if(Notification.permission==='granted')navigator.serviceWorker?.getRegistration().then(r=>r&&r.showNotification('حان وقت صلاة '+NAMES[k],{body:'هِمتي — '+LOC.n,icon:'icon-192.png',tag:'adhan'}))}catch(_){}}}}
  $('#prCities').innerHTML=CITIES.map(([n],i)=>`<button type="button" class="chipb" data-ci="${i}">${n}</button>`).join('');
  $('#prCityBtn').onclick=()=>{$('#prPick').hidden=!$('#prPick').hidden};
- const setLoc=l=>{LOC=l;try{localStorage.setItem('wird-loc',JSON.stringify(l))}catch(_){}$('#prPick').hidden=true;draw()};
+ const setLoc=l=>{LOC=l;try{localStorage.setItem('wird-loc',JSON.stringify(l))}catch(_){}$('#prPick').hidden=true;draw();applyPrefs();sky()};
  $('#prCities').addEventListener('click',e=>{const b=e.target.closest('[data-ci]');if(!b)return;const [n,lat,lng]=CITIES[+b.dataset.ci];setLoc({n,lat,lng})});
  $('#prGps').onclick=()=>{if(!navigator.geolocation){toast('الجوال ما يدعم تحديد الموقع');return}toast('جاري تحديد موقعك…');
    navigator.geolocation.getCurrentPosition(p=>{setLoc({n:'موقعي',lat:+p.coords.latitude.toFixed(3),lng:+p.coords.longitude.toFixed(3)});toast('تم تحديد موقعك')},()=>toast('ما قدرت أحدد موقعك، اختاري مدينتك من القائمة'),{timeout:15000,maximumAge:864e5})};
@@ -1471,7 +1510,7 @@ $('#feed').addEventListener('click',async e=>{const b=e.target.closest('[data-dp
    const d0=new Date();for(let i=0;i<30;i++){const d=new Date(d0);d.setDate(d0.getDate()+i);const p=PT(d,LOC.lat,LOC.lng);
      for(const k of ['fajr','dhuhr','asr','maghrib','isha']){const t=p[k].getTime();L.push('BEGIN:VEVENT','UID:'+k+'-'+t+'@himmati','DTSTAMP:'+z(Date.now()),'DTSTART:'+z(t),'DTEND:'+z(t+15*6e4),'SUMMARY:🕌 صلاة '+NAMES[k],'DESCRIPTION:هِمتي — سجّلي صلاتك في التطبيق','BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY','DESCRIPTION:حان وقت صلاة '+NAMES[k],'END:VALARM','END:VEVENT')}}
    L.push('END:VCALENDAR');try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([L.join('\r\n')],{type:'text/calendar'}));a.download='mawaqit-'+LOC.n+'.ics';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);toast('افتحي الملف واختاري التقويم عشان تنضاف المواقيت')}catch(_){toast('ما قدرت أجهّز الملف')}};
- window.__prDraw=draw;
+ window.__prDraw=draw;window.__maghrib=()=>PT(new Date(),LOC.lat,LOC.lng).maghrib;applyPrefs();sky();
  draw();setInterval(draw,30000);
 }
 
