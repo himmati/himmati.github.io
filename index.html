@@ -572,6 +572,12 @@ html.friday .vw{background:rgba(212,160,23,.1)}
 .rseek::-moz-range-thumb{width:11px;height:11px;border:0;border-radius:50%;background:#fff}
 .rind{position:absolute;top:50%;z-index:2;transform:translateY(-50%);padding:10px 18px;border-radius:999px;background:rgba(0,0,0,.5);color:#fff;font:700 18px "IBM Plex Sans Arabic",sans-serif;opacity:0;pointer-events:none;transition:opacity .2s;direction:ltr}
 .rind.on{opacity:1}.rind.r{right:8%}.rind.l{left:8%}.rind.hold{top:84px;left:50%;transform:translateX(-50%)}
+
+/* ===== شاشة ريلز نظيفة: فيديو وخط بس ===== */
+.reels .rtop,.reels .rcap,.reels .radm,.reels .rhid,.reels .rdel,.reels .rplay{display:none!important}
+.radmi{align-items:flex-start;flex-wrap:wrap}.radmi.hid{opacity:.7}.rnum{font-weight:700;color:var(--mut);min-width:18px;padding-top:12px}
+.rth{width:54px;height:72px;flex:none;border-radius:12px;object-fit:cover;background:rgba(0,0,0,.25);display:grid;place-items:center;font-size:24px}
+.rab{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.rab .btn{margin:0;min-height:34px;padding:0 12px}
 </style>
 </head>
 <body>
@@ -774,6 +780,9 @@ html.friday .vw{background:rgba(212,160,23,.1)}
       </div>
     </form>
 
+    <h2>إدارة الريلز 🎬</h2>
+    <p class="note">من هنا ترتّبين الريلز والمنشورات، وتخفينها، وتشوفين مين شافها. شاشة الريلز نفسها نظيفة: فيديو وخط بس.</p>
+    <div id="rAdm"></div>
     <h2>إضافة ريلز 🎬</h2>
     <form class="box" id="fReel">
       <label class="upl">الفيديو من الاستديو<span class="btn sm upb">اختاري فيديو</span><input id="rFile" type="file" accept="video/*"></label>
@@ -1453,7 +1462,7 @@ function applyVis(){const h=boardHidden();$('#navBoard').hidden=h&&!S.admin;
     $('#chTxt').textContent=c.mode==='all'?'كل الأعضاء يقدرون يستخدمون الشات.':c.mode==='none'?'الشات مقفل عن كل الأعضاء (أنتِ بس تقدرين تفتحينه).':'اختاري تحت مين يقدر يستخدم الشات:';
     const box=$('#chPeople');box.hidden=c.mode!=='some';
     if(c.mode==='some')box.innerHTML=Object.keys(S.members).filter(id=>id!==S.me).map(id=>{const on=c.allow[id]===true;return `<button type="button" class="chp${on?' on':''}" data-u="${esc(id)}">${avatar(id,36)}<b>${esc(nm(id))}</b><i>${on?'✓ مسموح':'ممنوع'}</i></button>`}).join('')||'<p class="note">ما فيه أعضاء للحين.</p>'}}
-function render(){applyVis();renderAdhkar();renderTb();renderTasks();renderBoard();renderAdmin();renderProfile();renderFeed();renderMsgs()}
+function render(){applyVis();renderAdhkar();renderTb();renderTasks();renderBoard();renderAdmin();renderProfile();renderFeed();renderMsgs();window.__rAdm&&window.__rAdm()}
 
 
 /* ===== سماء النجوم والشهب ===== */
@@ -1768,7 +1777,7 @@ S.msgReady=true;renderMsgs();
  const okUrl=u=>typeof u==='string'&&/^https:\/\/res\.cloudinary\.com\/[a-z0-9_-]+\/video\/upload\//i.test(u);
  const opt=u=>u.replace('/video/upload/','/video/upload/q_auto,vc_auto,w_720/');
  const poster=u=>u.replace('/video/upload/','/video/upload/so_0,w_540,f_jpg/').replace(/\.[a-z0-9]+$/i,'.jpg');
- let MUTED=true,IO=null,SPEED=1;const SPEEDS=[1,1.5,2,0.5];
+ let MUTED=false,IO=null,SPEED=1;const SPEEDS=[1,1.5,2,0.5];
  const mmss=t=>{t=Math.max(0,Math.floor(t||0));return ar(Math.floor(t/60))+':'+String(t%60).padStart(2,'0').replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d])};
  /* ترتيب وإخفاء الريلز: ord يحدد المكان (الأكبر أول)، hidden يخفيه عن الأعضاء */
  const rkey=r=>typeof r.ord==='number'?r.ord:(r.at||0);
@@ -1790,16 +1799,15 @@ S.msgReady=true;renderMsgs();
  function draw(){const L=$('#rList');if(!L)return;
    const items=reelItems();
    L.innerHTML=items.length?items.map(r=>r.t==='v'?`<section class="reel" data-c="reels" data-id="${esc(r.id)}"><video src="${opt(r.url)}" poster="${poster(r.url)}" playsinline loop preload="metadata" ${MUTED?'muted':''}></video>
-     <div class="rcap">${r.caption?`<p>${esc(r.caption)}</p>`:''}</div>${adm(r)}
      <div class="rbar"><input type="range" class="rseek" min="0" max="1000" value="0" aria-label="مكان الفيديو"></div>
-     ${S.admin?`<button type="button" class="rbtn rdel" data-rdel="${esc(r.id)}">🗑</button>`:''}<div class="rplay">▶</div><div class="rind"></div></section>`
-     :`<section class="reel rpost" data-c="posts" data-id="${esc(r.id)}"><div class="rpc">${r.text?`<p class="rpt">${esc(r.text)}</p>`:''}${(Array.isArray(r.media)?r.media:[]).length?`<div class="pm n${Math.min(r.media.length,4)}">${r.media.slice(0,4).map(media).join('')}</div>`:''}</div>${adm(r)}
-     ${S.admin?`<button type="button" class="rbtn rdel" data-pdel="${esc(r.id)}">🗑</button>`:''}</section>`).join('')
+     <div class="rind"></div></section>`
+     :`<section class="reel rpost" data-c="posts" data-id="${esc(r.id)}"><div class="rpc">${r.text?`<p class="rpt">${esc(r.text)}</p>`:''}${(Array.isArray(r.media)?r.media:[]).length?`<div class="pm n${Math.min(r.media.length,4)}">${r.media.slice(0,4).map(media).join('')}</div>`:''}</div></section>`).join('')
      :'<div class="empty" style="margin:30vh 20px">ما فيه ريلز للحين 🎬</div>';
    markSeen();
    IO&&IO.disconnect();IO=new IntersectionObserver(es=>{for(const e of es){const sec=e.target,v=sec.querySelector('video'),on=e.isIntersecting&&e.intersectionRatio>.6;
      clearTimeout(sec.__vt);if(on)sec.__vt=setTimeout(()=>markView(sec.dataset.c,sec.dataset.id),2500);
-     if(!v)continue;if(on){v.muted=MUTED;v.play().catch(()=>{})}else{v.pause()}}},{threshold:[0,.6,1]});
+     if(!v)continue;if(on){v.muted=MUTED;v.play().catch(()=>{MUTED=true;v.muted=true;v.play().catch(()=>{})})}else{v.pause()}}},{threshold:[0,.6,1]});
+   L.addEventListener('pointerdown',()=>{if(MUTED){MUTED=false;L.querySelectorAll('video').forEach(x=>x.muted=false)}},{once:true});
    L.querySelectorAll('.reel').forEach(x=>IO.observe(x));
    L.querySelectorAll('.reel video').forEach(v=>{const sec=v.closest('.reel'),rg=sec.querySelector('.rseek');v.playbackRate=1;
      v.addEventListener('play',()=>sec.classList.remove('paused'));v.addEventListener('pause',()=>sec.classList.add('paused'));
@@ -1820,7 +1828,20 @@ S.msgReady=true;renderMsgs();
      if(last&&last.z===z&&now-last.t<320){last={z,t:now};const d=z==='R'?10:-10;v.currentTime=Math.max(0,Math.min((v.duration||0)-0.1,v.currentTime+d));flash(sec,z==='R'?'١٠ ⏩':'⏪ ١٠',z==='R'?'r':'l');vib(10)}
      else last={z,t:now}};
    sec.addEventListener('pointerup',end);sec.addEventListener('pointercancel',end)}
- window.__reelsDraw=()=>{if(!$('#reels').hidden)draw();dotUpd()};
+ window.__reelsDraw=()=>{if(!$('#reels').hidden)draw();dotUpd();renderRAdm()};
+ function renderRAdm(){const el=$('#rAdm');if(!el||!S.admin)return;const it=reelItems();
+   el.innerHTML=it.length?it.map((r,i)=>`<div class="task radmi${r.hidden?' hid':''}"><span class="rnum">${ar(i+1)}</span>${r.t==='v'?`<img class="rth" src="${poster(r.url)}" alt="" loading="lazy">`:`<span class="rth rtx">📝</span>`}
+     <div class="tx"><h3>${esc((r.t==='v'?(r.caption||'فيديو'):(r.text||'منشور')).slice(0,40))}</h3><p>${r.hidden?'🙈 مخفي عن الأعضاء':'ظاهر للكل'}</p>
+     <div class="rab"><button type="button" class="btn sm" data-adm="top" data-c="${r.c}" data-id="${esc(r.id)}">⬆ الأول</button><button type="button" class="btn sm" data-adm="bot" data-c="${r.c}" data-id="${esc(r.id)}">⬇ الأخير</button><button type="button" class="btn sm" data-adm="hide" data-c="${r.c}" data-id="${esc(r.id)}">${r.hidden?'👁 إظهار':'🙈 إخفاء'}</button><button type="button" class="btn sm" data-vw="${r.c}:${esc(r.id)}">👀 ${ar(viewers(r.c+':'+r.id).length)}</button><button type="button" class="btn sm x" data-rm="${r.c}:${esc(r.id)}">🗑</button></div></div></div>`).join('')
+     :'<div class="empty">ما فيه ريلز أو منشورات للحين.</div>'}
+ window.__rAdm=renderRAdm;
+ $('#rAdm').addEventListener('click',async e=>{if(!S.admin||!S.db)return;
+   const vb=e.target.closest('[data-vw]');if(vb){openViewers(vb.dataset.vw);return}
+   const rm=e.target.closest('[data-rm]');if(rm){if(rm.dataset.sure!=='1'){rm.dataset.sure='1';rm.textContent='حذف؟';setTimeout(()=>{rm.dataset.sure='';rm.textContent='🗑'},3000);return}
+     const [c,id]=rm.dataset.rm.split(':');if(await wr(S.db.doc(c+'/'+id).delete()))toast('انحذف');return}
+   const ab=e.target.closest('[data-adm]');if(!ab)return;const op=ab.dataset.adm,c=ab.dataset.c,id=ab.dataset.id,all=allItems(),it=all.find(x=>x.c===c&&x.id===id);if(!it)return;
+   const ks=all.filter(x=>x!==it).map(rkey);const upd=op==='top'?{ord:(ks.length?Math.max(...ks):Date.now())+1000}:op==='bot'?{ord:(ks.length?Math.min(...ks):Date.now())-1000}:{hidden:!it.hidden};
+   ab.disabled=true;if(await wr(S.db.doc(c+'/'+id).update(upd)))toast(op==='top'?'صار الأول ⬆':op==='bot'?'صار الأخير ⬇':upd.hidden?'انخفى عن الأعضاء 🙈':'صار ظاهر للكل 👁');ab.disabled=false});
  const newestAll=()=>Math.max(0,...S.reels.filter(r=>!r.hidden).map(r=>r.at||0),...(S.posts||[]).filter(p=>!p.hidden).map(p=>p.at||0));
  const seenAll=()=>{try{return +localStorage.getItem('wird-seen')||0}catch(_){return 0}};
  function markSeen(){const n=newestAll();if(n>seenAll()){try{localStorage.setItem('wird-seen',n)}catch(_){}}dotUpd()}
