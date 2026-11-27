@@ -624,6 +624,28 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
 .gift[data-fx=moon]{background:radial-gradient(circle at 80% 10%,rgba(255,240,200,.35),rgba(12,18,50,.85) 55%)}
 .gift[data-fx=lanterns]{background:radial-gradient(circle at 50% 40%,rgba(120,40,10,.55),rgba(25,10,40,.85))}
 @media(prefers-reduced-motion:reduce){.fw i,.spin3{animation:none}}
+.nk{align-items:flex-start}.nkr{display:flex;gap:6px;margin-top:6px;align-items:center}.nkr input{flex:1;min-width:0;min-height:38px}.nkr .btn{margin:0;min-height:38px}
+
+/* ===== انفجار الجائزة من النص ===== */
+.gb{position:absolute;width:0;height:0;display:grid;place-items:center;pointer-events:none}
+.gb>*{position:absolute;transform:translate(-50%,-50%) scale(.2);opacity:0;animation:gBurst var(--d) cubic-bezier(.12,.85,.35,1) var(--dl) both}
+@keyframes gBurst{0%{transform:translate(-50%,-50%) scale(.2) rotate(0);opacity:1}
+ 38%{transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) scale(1.08) rotate(calc(var(--r)*.4));opacity:1}
+ 100%{transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty) + var(--fy))) scale(.9) rotate(var(--r));opacity:0}}
+.spk{display:block;width:7px;height:7px;border-radius:50%;background:var(--c);box-shadow:0 0 10px 2px var(--c)}
+.bub{display:block;border-radius:50%;background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.95),rgba(255,255,255,.2) 30%,color-mix(in srgb,var(--c) 45%,transparent) 65%,rgba(255,255,255,.6));box-shadow:inset 0 0 8px rgba(255,255,255,.7)}
+.gring{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;border:4px solid var(--c);opacity:0;animation:gRing .75s ease-out both}
+.gring.g2{animation-delay:.12s;border-width:3px}
+@keyframes gRing{0%{transform:scale(.3);opacity:.95}100%{transform:scale(18);opacity:0}}
+.gift{--g1:#f72585;--g2:#4cc9f0}
+.gbox{border:2px solid color-mix(in srgb,var(--g1) 55%,#fff);box-shadow:0 0 0 6px color-mix(in srgb,var(--g2) 22%,transparent),0 0 40px color-mix(in srgb,var(--g1) 55%,transparent),var(--sh-out);animation:gPop2 .45s cubic-bezier(.2,1.8,.35,1) both}
+@keyframes gPop2{0%{transform:scale(.2) rotate(-6deg);opacity:0}60%{transform:scale(1.07) rotate(1deg);opacity:1}100%{transform:none}}
+.gbox h3{background:linear-gradient(90deg,var(--g1),var(--g2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.gift #gOk{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.3);border:0;box-shadow:0 6px 18px color-mix(in srgb,var(--g1) 50%,transparent)}
+.gico{font-size:70px;animation:gJump .7s cubic-bezier(.3,1.8,.5,1) .15s both,gBob 1s ease-in-out .9s infinite alternate}
+@keyframes gJump{0%{transform:scale(0) rotate(-30deg)}100%{transform:none}}
+@keyframes gBob{to{transform:translateY(-10px) rotate(8deg) scale(1.06)}}
+@media(prefers-reduced-motion:reduce){.gb>*,.gring{animation-duration:1ms!important}.gbox{animation:none}}
 </style>
 </head>
 <body>
@@ -802,6 +824,9 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       <button type="button" class="btn" id="visBtn"></button>
     </form>
 
+    <h2>أسماء الأعضاء ✏️</h2>
+    <p class="note">سمّي الأعضاء بالأسماء اللي تعرفينهم فيها. <b>أنتِ بس تشوفين هذي الأسماء</b>، والباقي يشوفون الاسم اللي سجّل فيه العضو.</p>
+    <div id="aNick"></div>
     <h2>الشات</h2>
     <form class="box" id="fChat" onsubmit="return false">
       <div class="seg" id="chMode" style="margin:0"><button type="button" data-c="all">مفتوح للكل</button><button type="button" data-c="some">لأشخاص معيّنين</button><button type="button" data-c="none">مقفل للكل</button></div>
@@ -1227,7 +1252,10 @@ const saveLeft=()=>{try{localStorage.setItem(LK,JSON.stringify(S.left))}catch(e)
 
 const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2600)};
 const wr=async p=>{try{await p;return true}catch(e){console.error(e);if(e?.code==='invalid_argument'||e?.code==='permission-denied'){S.canWrite=false;toast('ما عندك صلاحية الحفظ هنا')}else toast('تعذّر الحفظ، حاولي مرة ثانية');return false}};
-const nm=id=>prof(id).name||S.names[id]||(id===S.me?'أنا':'عضو');
+const realNm=id=>prof(id).name||S.names[id]||(id===S.me?'أنا':'عضو');
+/* أسماء يسمّيها المنظم، يشوفها هو بس */
+const nickOf=id=>S.admin&&S.me?(S.members[S.me]?.nicks||{})[id]||'':'';
+const nm=id=>nickOf(id)||realNm(id);
 
 /* ===== السماء ===== */
 function sky(){document.body.className=S.mode;const day=SZ==='ramadan'?false:SZ?true:S.theme==='day';document.documentElement.classList.toggle('morning',day&&!SZ);
@@ -1404,7 +1432,18 @@ $('#chMode').addEventListener('click',async e=>{const b=e.target.closest('[data-
 $('#chPeople').addEventListener('click',async e=>{const b=e.target.closest('[data-u]');if(!b)return;const u=b.dataset.u,on=!(chatCfg().allow[u]===true);
   if(await shopWrite({chat:{allow:{[u]:on}}})){S.shop.chat={...(S.shop.chat||{}),allow:{...((S.shop.chat||{}).allow||{}),[u]:on}};render();toast(on?'صار يقدر يستخدم الشات':'انمنع من الشات')}});
 $('#visBtn').onclick=async()=>{const h=!boardHidden();if(await shopWrite({hideBoard:h})){S.shop.hideBoard=h;render();toast(h?'انخفت لوحة الترتيب عن الأعضاء':'صارت لوحة الترتيب ظاهرة للكل')}};
-function renderAdmin(){if(!S.admin)return;renderShop();
+function renderNicks(){const el=$('#aNick');if(!el||!S.admin)return;if(el.contains(document.activeElement))return;
+  const ids=Object.keys(S.members).filter(id=>S.members[id]?.org!==true);
+  el.innerHTML=ids.length?ids.map(id=>`<div class="task nk">${avatar(id,38)}<div class="tx"><h3>${esc(nm(id))}</h3><p>${nickOf(id)?'اسمه المسجّل: '+esc(realNm(id)):'ما سمّيتيه للحين'}</p>
+    <div class="nkr"><input type="text" maxlength="40" data-nk="${esc(id)}" value="${esc(nickOf(id))}" placeholder="اكتبي الاسم اللي تبينه"><button type="button" class="btn sm p" data-nks="${esc(id)}">حفظ</button>${nickOf(id)?`<button type="button" class="btn sm x" data-nkd="${esc(id)}">رجّعيه</button>`:''}</div></div></div>`).join('')
+    :'<div class="empty">ما فيه أعضاء للحين.</div>'}
+$('#aNick').addEventListener('click',async e=>{const sv=e.target.closest('[data-nks]'),dl=e.target.closest('[data-nkd]');if(!(sv||dl)||!S.admin||!S.db||!S.me)return;
+  const id=(sv||dl).dataset.nks||(sv||dl).dataset.nkd,v=dl?'':($('#aNick').querySelector(`[data-nk="${CSS.escape(id)}"]`)?.value||'').trim().slice(0,40);
+  const me=S.members[S.me]=S.members[S.me]||{};me.nicks={...(me.nicks||{})};if(v)me.nicks[id]=v;else delete me.nicks[id];
+  document.activeElement?.blur?.();
+  if(await wr(S.db.doc('members/'+S.me).update({nicks:{[id]:v?v:(window.firebase?firebase.firestore.FieldValue.delete():null)}}))){toast(v?'صار اسمه عندك: '+v:'رجع لاسمه المسجّل');render()}});
+$('#aNick').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[data-nk]')){e.preventDefault();$('#aNick').querySelector(`[data-nks="${CSS.escape(e.target.dataset.nk)}"]`).click()}});
+function renderAdmin(){if(!S.admin)return;renderShop();renderNicks();
   const ids=Object.keys(S.members),opt=ids.map(id=>`<option value="${esc(id)}">${esc(nm(id))}</option>`).join('');
   const keep=(sel,html)=>{const v=sel.value;sel.innerHTML=html;if([...sel.options].some(o=>o.value===v))sel.value=v};
   keep($('#tTo'),'<option value="all">الكل</option>'+opt);keep($('#bTo'),opt||'<option value="">ما فيه أعضاء بعد</option>');
@@ -1697,33 +1736,39 @@ const GFX={balloons:['🎈','بالونات'],butterflies:['🦋','فراشات'
 let GSEL='balloons';
 $('#gFx').innerHTML=Object.entries(GFX).map(([k,[e,n]])=>`<button type="button" class="gfxb${k===GSEL?' on':''}" data-fx="${k}"><span>${e}</span>${n}</button>`).join('');
 $('#gFx').addEventListener('click',e=>{const b=e.target.closest('[data-fx]');if(!b)return;GSEL=b.dataset.fx;$('#gFx').querySelectorAll('[data-fx]').forEach(x=>x.classList.toggle('on',x===b))});
-const BCOL=['#ff6b9d','#ffd166','#7dd3fc','#a78bfa','#34d399','#fb923c','#f472b6','#60a5fa'];
-const balloonSvg=c=>`<svg viewBox="0 0 40 70" width="46" height="80"><path d="M20 2C9 2 3 11 3 21c0 12 9 21 17 24 8-3 17-12 17-24C37 11 31 2 20 2z" fill="${c}"/><ellipse cx="13" cy="15" rx="4" ry="7" fill="#fff" opacity=".45" transform="rotate(-20 13 15)"/><path d="M17 45h6l-3 4z" fill="${c}"/><path d="M20 49c-3 6 3 10 0 20" stroke="#fff" stroke-opacity=".7" fill="none" stroke-width="1"/></svg>`;
-function fireworks(box,R){let h='';const C=['#ffd166','#ff6b9d','#7dd3fc','#a78bfa','#34d399','#fb923c','#fff'];
-  for(let k=0;k<7;k++){const x=R(10,90),y=R(10,55),dl=R(0,4.5),c=C[k%C.length];
-    h+=`<span class="fw" style="left:${x}%;top:${y}%">`+[...Array(16)].map((_,i)=>{const a=i/16*Math.PI*2,d=R(70,120);return `<i style="--tx:${Math.cos(a)*d}px;--ty:${Math.sin(a)*d}px;--dl:${dl}s;background:${c};box-shadow:0 0 6px ${c}"></i>`}).join('')+'</span>'}
-  box.insertAdjacentHTML('beforeend',h)}
-function fxBurst(fx,n=36){const box=$('#gfx');const R=(a,b)=>a+Math.random()*(b-a);let h='';
-  if(fx==='mix'){['balloons','butterflies','confetti','hearts'].forEach(f=>fxBurst(f,12));return}
-  if(fx==='fireworks'){fireworks(box,R);n=18;fx='stars'}
-  for(let i=0;i<n;i++){const x=R(-5,95)+'%',dx=R(-60,60)+'px',d=R(5,9)+'s',dl=R(0,3.5)+'s',r=R(-40,40)+'deg',sz=R(.8,1.5);
-    let cls='rise',inner='';
-    if(fx==='balloons')inner=`<span class="sway">${balloonSvg(BCOL[i%BCOL.length])}</span>`;
-    else if(fx==='butterflies'){inner=`<span class="bfw"><span class="bf" style="font-size:${30*sz}px">🦋</span></span>`}
-    else if(fx==='hearts')inner=`<span style="font-size:${26*sz}px">${['💖','💗','💕','🤍'][i%4]}</span>`;
-    else if(fx==='stars'){cls='fall';inner=`<span class="tw" style="font-size:${22*sz}px">${['⭐','✨','🌟'][i%3]}</span>`}
-    else if(fx==='flowers'){cls='fall';inner=`<span style="font-size:${26*sz}px">${['🌸','🌷','🌼','🌺'][i%4]}</span>`}
-    else if(fx==='bubbles'){const z=R(18,60);inner=`<span class="sway"><i class="bub" style="width:${z}px;height:${z}px"></i></span>`}
-    else if(fx==='doves')inner=`<span class="bfw"><span style="font-size:${32*sz}px;display:inline-block">🕊️</span></span>`;
-    else if(fx==='coins'){cls='fall';inner=`<span class="spin3" style="font-size:${26*sz}px">${['🪙','✨','🪙','💛'][i%4]}</span>`}
-    else if(fx==='moon'){cls='fall';inner=`<span class="tw" style="font-size:${24*sz}px">${['🌙','⭐','✨','⭐'][i%4]}</span>`}
-    else if(fx==='lanterns')inner=`<span class="sway glo" style="font-size:${32*sz}px;display:inline-block">🏮</span>`;
-    else{cls='fall';inner=`<i class="cf" style="background:${BCOL[i%BCOL.length]};width:${R(6,11)}px;height:${R(10,18)}px"></i>`}
-    h+=`<span class="gp ${cls}" style="--x:${x};--dx:${dx};--d:${d};--dl:${dl};--r:${fx==='confetti'?R(360,900)+'deg':r}">${inner}</span>`}
-  box.insertAdjacentHTML('beforeend',h);setTimeout(()=>{box.querySelectorAll('.gp').forEach(p=>{if(p.getAnimations().every(a=>a.playState==='finished'))p.remove()})},13000)}
+/* ألوان وإيموجي كل ثيم */
+const PAL={balloons:{e:['🎈'],c:['#ff4d6d','#ffd166','#4cc9f0','#b5179e','#06d6a0','#ff9f1c'],g:['#ff4d6d','#4cc9f0']},
+ butterflies:{e:['🦋'],c:['#ff9f1c','#2ec4b6','#4361ee','#ffbf69'],g:['#ff9f1c','#2ec4b6']},
+ confetti:{e:['🎉','🎊'],c:['#f72585','#ffd60a','#4cc9f0','#06d6a0','#ff9f1c','#7209b7'],g:['#f72585','#ffd60a']},
+ fireworks:{e:['✨','🌟'],c:['#ffd60a','#f72585','#4cc9f0','#80ffdb','#ffffff','#ff9f1c'],g:['#7209b7','#f72585']},
+ stars:{e:['⭐','✨','🌟','💫'],c:['#ffd60a','#ffc300','#fff3b0','#c77dff'],g:['#ffc300','#7b2cbf']},
+ hearts:{e:['💖','💗','💕','❤️','🩷'],c:['#ff4d6d','#ff8fab','#ffb3c6','#c9184a'],g:['#ff4d6d','#ff8fab']},
+ flowers:{e:['🌸','🌷','🌼','🌺','🌹'],c:['#ff8fab','#ffc8dd','#95d5b2','#ffe066'],g:['#ff8fab','#52b788']},
+ bubbles:{e:['🫧'],c:['#a2d2ff','#bde0fe','#cdb4db','#caffbf'],g:['#4cc9f0','#a2d2ff']},
+ doves:{e:['🕊️','🤍','☁️'],c:['#ffffff','#caf0f8','#90e0ef'],g:['#48cae4','#90e0ef']},
+ coins:{e:['🪙','💰','✨','💛'],c:['#ffd60a','#ffc300','#e9c46a','#fff3b0'],g:['#ffc300','#b8860b']},
+ moon:{e:['🌙','⭐','✨'],c:['#ffd60a','#fff3b0','#c77dff'],g:['#3a0ca3','#ffd60a']},
+ lanterns:{e:['🏮','✨'],c:['#e63946','#ff9f1c','#ffd166'],g:['#e63946','#ff9f1c']},
+ mix:{e:['🎈','🦋','💖','🌸','⭐','🎉','🪙'],c:['#f72585','#ffd60a','#4cc9f0','#06d6a0','#ff9f1c','#b5179e'],g:['#f72585','#4cc9f0']}};
+const balloonSvg=c=>`<svg viewBox="0 0 40 70" width="40" height="70"><path d="M20 2C9 2 3 11 3 21c0 12 9 21 17 24 8-3 17-12 17-24C37 11 31 2 20 2z" fill="${c}"/><ellipse cx="13" cy="15" rx="4" ry="7" fill="#fff" opacity=".5" transform="rotate(-20 13 15)"/><path d="M17 45h6l-3 4z" fill="${c}"/><path d="M20 49c-3 6 3 10 0 20" stroke="#fff" stroke-opacity=".8" fill="none" stroke-width="1"/></svg>`;
+/* انفجار من نص الشاشة: الجزيئات تنط لبرّا وبعدين تطيح */
+function fxBurst(fx,n=34,ox=50,oy=46){const box=$('#gfx'),P=PAL[fx]||PAL.mix,R=(a,b)=>a+Math.random()*(b-a),vm=Math.min(innerWidth,innerHeight)/100;let h='';
+  for(let i=0;i<n;i++){const a=R(0,Math.PI*2),d=R(22,62)*vm,tx=Math.cos(a)*d,ty=Math.sin(a)*d-R(10,28)*vm,fall=R(25,60)*vm,c=P.c[i%P.c.length],sz=R(.85,1.55),dur=R(1.3,2.1),dl=R(0,.18),rot=R(-260,260);
+    let inner;
+    if(fx==='balloons')inner=`<span style="display:inline-block;transform:scale(${sz})">${balloonSvg(c)}</span>`;
+    else if(fx==='confetti'||((fx==='mix'||fx==='fireworks')&&i%3===0))inner=`<i class="cf" style="background:${c};width:${R(7,12)}px;height:${R(11,20)}px"></i>`;
+    else if(fx==='fireworks')inner=`<i class="spk" style="--c:${c}"></i>`;
+    else if(fx==='bubbles'){const z=R(18,54);inner=`<i class="bub" style="width:${z}px;height:${z}px;--c:${c}"></i>`}
+    else{const e=P.e[i%P.e.length];inner=`<span class="${fx==='butterflies'?'bf':''}" style="font-size:${28*sz}px;display:inline-block;filter:drop-shadow(0 0 6px ${c})">${e}</span>`}
+    h+=`<span class="gb" style="left:${ox}%;top:${oy}%;--tx:${tx}px;--ty:${ty}px;--fy:${fall}px;--d:${dur}s;--dl:${dl}s;--r:${rot}deg">${inner}</span>`}
+  h+=`<span class="gring" style="left:${ox}%;top:${oy}%;--c:${P.g[0]}"></span><span class="gring g2" style="left:${ox}%;top:${oy}%;--c:${P.g[1]}"></span>`;
+  box.insertAdjacentHTML('beforeend',h);setTimeout(()=>box.querySelectorAll('.gb,.gring').forEach(p=>{if(p.getAnimations().every(x=>x.playState==='finished'))p.remove()}),2800)}
+function fxShow(fx,tok){const ok=()=>!$('#gift').hidden&&tok===GTOK;fxBurst(fx,38);
+  if(fx==='fireworks'){[[22,26],[78,22],[30,64],[72,60]].forEach(([x,y],k)=>setTimeout(()=>ok()&&fxBurst('fireworks',20,x,y),300+k*380))}
+  setTimeout(()=>ok()&&fxBurst(fx,26,30,40),900);setTimeout(()=>ok()&&fxBurst(fx,26,70,40),1300);setTimeout(()=>ok()&&fxBurst(fx,30),2100)}
 let GQ=[],GSHOW=null,GTOK=0;
-function showGift(g,preview){GSHOW={...g,preview};$('#gift').dataset.fx=g.fx||'';$('#gMsg').textContent=g.msg||'';$('#gMsg').hidden=!g.msg;$('#gift').hidden=false;
-  $('#gfx').innerHTML='';const tok=++GTOK;fxBurst(g.fx);setTimeout(()=>{if(!$('#gift').hidden&&tok===GTOK)fxBurst(g.fx,24)},4000);try{chime()}catch(_){}vib([80,60,80,60,200])}
+function showGift(g,preview){GSHOW={...g,preview};const P=PAL[g.fx]||PAL.mix,gf=$('#gift');gf.dataset.fx=g.fx||'';gf.style.setProperty('--g1',P.g[0]);gf.style.setProperty('--g2',P.g[1]);$('.gico').textContent=(GFX[g.fx]||['🎁'])[0];gf.querySelector('.gbox').style.animation='none';void gf.offsetWidth;gf.querySelector('.gbox').style.animation='';$('#gMsg').textContent=g.msg||'';$('#gMsg').hidden=!g.msg;$('#gift').hidden=false;
+  $('#gfx').innerHTML='';const tok=++GTOK;fxShow(g.fx,tok);try{chime()}catch(_){}vib([80,60,80,60,200])}
 function nextGift(){if(GSHOW||!GQ.length)return;showGift(GQ.shift())}
 $('#gOk').onclick=()=>{const g=GSHOW;$('#gift').hidden=true;GTOK++;$('#gfx').innerHTML='';GSHOW=null;
   if(g&&!g.preview&&S.me){try{const k='wird-gseen-'+S.me,a=JSON.parse(localStorage.getItem(k)||'[]');a.push(g.id);localStorage.setItem(k,JSON.stringify(a.slice(-200)))}catch(_){}
