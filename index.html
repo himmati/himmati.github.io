@@ -684,6 +684,21 @@ details.acc[open]>summary{border-bottom:1px solid var(--line)}
 .rseek,#kSeek{direction:ltr;--sd:90deg}
 .ctry{width:100%;margin:8px 0 2px;font-size:13px;font-weight:700;color:var(--mut)}
 .rexit{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:6;width:42px;height:42px;border-radius:50%;border:0;display:grid;place-items:center;color:#fff;background:rgba(0,0,0,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+
+/* ===== الشرح ===== */
+.tour{position:fixed;inset:0;z-index:90}.tour[hidden]{display:none}
+.thole{position:fixed;border-radius:22px;box-shadow:0 0 0 9999px rgba(10,6,35,.72),0 0 0 3px #ffd166,0 0 24px 6px rgba(255,209,102,.6);transition:all .3s ease;pointer-events:none}
+.ttip{position:fixed;left:16px;right:16px;max-width:440px;margin:0 auto;padding:16px 16px 12px;border-radius:24px;background:var(--card);border:1px solid rgba(255,255,255,.25);box-shadow:var(--sh-out);color:var(--ink);animation:gPop2 .35s cubic-bezier(.2,1.6,.4,1) both}
+.ttip.mid{top:50%;transform:translateY(-50%)}.ttip.mid{animation:none}
+.ttip h3{margin:2px 0 6px;font:700 22px Amiri,serif}.ttip p{margin:0 0 12px;font-size:15px;line-height:1.85}
+.tn{font-size:12px;color:var(--mut)}.trow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.trow .btn{margin:0;min-height:40px}
+.tskip{margin-inline-start:auto;border:0;background:none;color:var(--mut);font-size:13px;text-decoration:underline}
+/* شرح لمسات الريلز */
+.rtip{position:absolute;inset:0;z-index:8;display:grid;grid-template-columns:35% 30% 35%;grid-template-rows:1fr auto auto;background:rgba(0,0,0,.72);color:#fff;text-align:center}
+.rtip[hidden]{display:none}.rz{display:grid;place-content:center;gap:6px;padding:8px;font-size:13px;line-height:1.6;border:1px dashed rgba(255,255,255,.35)}.rz b{font-size:28px}
+.rz.l{grid-column:1}.rz.m{grid-column:2;background:rgba(255,255,255,.06)}.rz.r{grid-column:3}
+.rtip{direction:ltr}.rtip .rz,.rtb{direction:rtl}
+.rtb{grid-column:1/-1;padding:12px 14px;font-size:13.5px;line-height:1.8}.rtip .btn{grid-column:1/-1;margin:0 16px calc(24px + env(safe-area-inset-bottom))}
 </style>
 </head>
 <body>
@@ -830,6 +845,7 @@ details.acc[open]>summary{border-bottom:1px solid var(--line)}
       <button type="button" class="btn" id="sReset">رجّعي الإعدادات الأصلية</button>
       <p class="note" style="margin:0">التغييرات تنحفظ تلقائياً في حسابك.</p>
     </form>
+    <button type="button" class="btn" id="tourAgain" style="width:100%;margin-top:12px">🧭 شرح التطبيق من جديد</button>
   </section>
 
   <section class="view" id="v-posts">
@@ -968,6 +984,8 @@ details.acc[open]>summary{border-bottom:1px solid var(--line)}
   <h3 id="aT"></h3><p id="aP"></p>
   <div class="arow"><button class="btn p" id="aGo">روحي للمهمة</button><button class="btn" id="aLater">ذكّريني بعد ١٠ دقائق</button><button class="btn" id="aClose">تمام</button></div></div></div>
 <div id="reels" class="reels" hidden>
+  <div class="rtip" id="rTip" hidden><div class="rz l"><b>⏪</b>ضغطتين<br>رجوع ١٠ ثواني</div><div class="rz m"><b>⏯</b>ضغطة وحدة<br>تشغيل / إيقاف</div><div class="rz r"><b>⏩</b>ضغطتين: قدّام ١٠ ثواني<br><br><b>×٢</b>ضغط مطوّل: تسريع</div>
+    <div class="rtb">⬆️ اسحبي لفوق للفيديو اللي بعده · الخط تحت تسحبينه للتقديم والترجيع · السهم فوق للخروج ➜</div><button type="button" class="btn p" id="rTipOk">فهمت 👍</button></div>
   <button type="button" class="rexit" id="rExit" aria-label="الخروج من الريلز"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   <div class="rtop"><button type="button" class="rbtn" id="rClose" aria-label="إغلاق">✕</button><b>ريلز</b><button type="button" class="rbtn" id="rMute" aria-label="الصوت">🔇</button></div>
   <div class="rlist" id="rList"></div>
@@ -1009,6 +1027,9 @@ details.acc[open]>summary{border-bottom:1px solid var(--line)}
 <div id="gift" class="gift" hidden role="dialog" aria-labelledby="gT"><div class="gbox"><div class="gico">🎁</div><h3 id="gT">جائزة لك!</h3><p id="gMsg"></p><button type="button" class="btn p" id="gOk" style="width:100%">شكرًا 🤍</button></div></div>
 <div id="gfx" class="gfx" aria-hidden="true"></div>
 <div id="mdet" class="alarm mdet" hidden role="dialog" aria-label="ملف العضو"><div class="abox"><div class="mdb" id="mdetB"></div><button type="button" class="btn" id="mdetX" style="width:100%;margin-top:12px">إغلاق</button></div></div>
+<div id="tour" class="tour" hidden role="dialog" aria-labelledby="tT"><div class="thole" id="tHole"></div>
+  <div class="ttip mid" id="tTip"><div class="tn" id="tN"></div><h3 id="tT"></h3><p id="tD"></p>
+    <div class="trow"><button type="button" class="btn p" id="tNext">التالي</button><button type="button" class="btn" id="tPrev">السابق</button><button type="button" class="tskip" id="tSkip">تخطي الشرح</button></div></div></div>
 <div id="toast" role="status"></div>
 
 <script>
@@ -1897,6 +1918,42 @@ $('#board').addEventListener('click',e=>{if(!S.admin)return;const r=e.target.clo
       const sm=document.createElement('summary');sm.innerHTML=`<span>${el.innerHTML}</span>`;cur.appendChild(sm);const body=document.createElement('div');body.className='accb';cur.appendChild(body);
       el.replaceWith(cur);const d=cur;d.addEventListener('toggle',()=>{OPEN[k]=d.open;try{localStorage.setItem('wird-acc',JSON.stringify(OPEN))}catch(_){}})}
     else if(cur)cur.querySelector('.accb').appendChild(el)}})();
+/* ===== شرح التطبيق للمستخدم الجديد ===== */
+const TOUR=[
+ {t:'أهلًا في هِمتي 🌙',d:'خليني أوريك وين كل شي في دقيقة. تقدرين تتخطين الشرح في أي وقت.'},
+ {sel:'#navAdhkar',v:'adhkar',t:'📖 الأذكار',d:'الاستيقاظ، والصباح، وبعد الصلاة، والمساء، والنوم. اضغطي على الذكر كل مرة تقولينه، ولما تخلصين القسم تنجمع لك نقاط.'},
+ {sel:'#pray',v:'adhkar',t:'🕌 مواقيت الصلاة',d:'تشوفين الصلاة القادمة وكم باقي عليها. سجّلي صلاتك في وقتها وتاخذين نقطتين. واختاري مدينتك من الزر اللي فوق.'},
+ {sel:'nav a[data-v=tasbeeh]',v:'tasbeeh',t:'📿 المسبحة',d:'اضغطي على الدائرة مع كل تسبيحة، وتقدرين تغيّرين الذكر من تحت.'},
+ {sel:'nav a[data-v=tasks]',v:'tasks',t:'✅ مهامي',d:'المهام اللي ترسلها لك المنظمة. لو شفتي مهمة عليها 🔒 يعني لازم تكمّلين عددها من المسبحة أول، اضغطي «كمّليها من المسبحة» وبعدها ينفتح زر «أتممتها».'},
+ {sel:'#navPosts',v:'adhkar',t:'🎬 ريلز',d:'فيديوهات ومنشورات. النقطة الذهبية على الزر تعني فيه شي جديد. أول ما تفتحينه بنوريك كيف تتحكمين بالفيديو.'},
+ {sel:'nav a[data-v=board]',v:'board',t:'📊 الترتيب',d:'ترتيب الأعضاء حسب النقاط، وتشوفين مستواك.'},
+ {sel:'#meBtn',v:'board',t:'👤 حسابي',d:'هنا اسمك وشخصيتك ونقاطك. الشخصيات والألوان اللي عليها 🔒 مقفلة، وتفتحينها بنقاطك من هنا. وفيه إعدادات الخط والاهتزاز والصوت.'},
+ {t:'جاهزة! 🤍',d:'إذا نسيتي شي، تقدرين تعيدين الشرح من «حسابي» ← «شرح التطبيق». الله يعينك ويتقبّل منك.'}];
+let TI=-1;
+function tourShow(){const st=TOUR[TI],o=$('#tour'),h=$('#tHole'),tp=$('#tTip');if(!st){tourEnd();return}
+  if(st.v&&location.hash!=='#'+st.v)location.hash=st.v;
+  $('#tT').textContent=st.t;$('#tD').textContent=st.d;$('#tN').textContent=ar(TI+1)+' / '+ar(TOUR.length);$('#tNext').textContent=TI===TOUR.length-1?'يلا نبدأ':'التالي';$('#tPrev').hidden=TI===0;
+  o.hidden=false;
+  setTimeout(()=>{const el=st.sel&&document.querySelector(st.sel);
+    if(!el||el.hidden||!el.getClientRects().length){TEL=null;h.style.cssText='left:50%;top:50%;width:0;height:0';tp.className='ttip mid';tp.style.top='';tp.style.bottom='';return}
+    if(!el.closest('nav,header'))el.scrollIntoView({block:'start',behavior:'auto'});TEL=el;tourPlace();setTimeout(tourPlace,350);setTimeout(tourPlace,800)},120)}
+let TEL=null;
+function tourPlace(){const el=TEL,h=$('#tHole'),tp=$('#tTip');if(!el||TI<0)return;const r=el.getBoundingClientRect(),p=8,top=Math.max(4,r.top-p),bot=Math.min(innerHeight-4,r.bottom+p);
+  h.style.cssText=`left:${r.left-p}px;top:${top}px;width:${r.width+p*2}px;height:${Math.max(0,bot-top)}px`;
+  const below=(top+bot)/2<innerHeight/2;tp.className='ttip '+(below?'bel':'abv');tp.style.top=below?Math.min(bot+14,innerHeight-260)+'px':'';tp.style.bottom=below?'':(innerHeight-top+14)+'px'}
+addEventListener('scroll',()=>{if(TI>=0)tourPlace()},{passive:true});
+function tourStart(){TI=0;tourShow()}
+function tourEnd(){$('#tour').hidden=true;TI=-1;try{localStorage.setItem('wird-tour-v1','1')}catch(_){}location.hash='adhkar'}
+$('#tNext').onclick=()=>{TI++;tourShow()};$('#tPrev').onclick=()=>{if(TI>0){TI--;tourShow()}};$('#tSkip').onclick=tourEnd;
+addEventListener('resize',()=>{if(TI>=0)tourShow()});
+$('#tourAgain').onclick=()=>{try{localStorage.removeItem('wird-reels-tip')}catch(_){}tourStart()};
+/* أول مرة بعد تسجيل الدخول */
+(function waitTour(){let seen=false;try{seen=localStorage.getItem('wird-tour-v1')==='1'}catch(_){}if(seen)return;
+  if(S.me&&!document.body.classList.contains('locked')&&$('#login').hidden&&$('#welcome').hidden)setTimeout(()=>{if(TI<0&&$('#welcome').hidden)tourStart()},800);else setTimeout(waitTour,1500)})();
+/* شرح لمسات الريلز أول مرة */
+function reelsTip(){let s=false;try{s=localStorage.getItem('wird-reels-tip')==='1'}catch(_){}if(s)return;$('#rTip').hidden=false}
+$('#rTipOk').onclick=()=>{$('#rTip').hidden=true;try{localStorage.setItem('wird-reels-tip','1')}catch(_){}};
+window.__reelsTip=reelsTip;
 /* ===== المنشورات ===== */
 S.posts=[];let PF=[];
 const IMG_RE=/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/,YT_RE=/^[A-Za-z0-9_-]{11}$/;
@@ -2160,7 +2217,7 @@ S.msgReady=true;renderMsgs();
  function markSeen(){const n=newestAll();if(n>seenAll()){try{localStorage.setItem('wird-seen',n)}catch(_){}}dotUpd()}
  function dotUpd(){const d=document.querySelector('#navPosts .dot');if(d)d.hidden=$('#reels').hidden?!(newestAll()>seenAll()):true}
  window.__dotUpd=dotUpd;
- function openR(){$('#reels').hidden=false;document.body.style.overflow='hidden';draw()}
+ function openR(){$('#reels').hidden=false;document.body.style.overflow='hidden';draw();window.__reelsTip&&window.__reelsTip()}
  function closeR(){$('#reels').hidden=true;document.body.style.overflow='';IO&&IO.disconnect();$('#rList').querySelectorAll('video').forEach(v=>v.pause());dotUpd()}
  addEventListener('hashchange',()=>{if(location.hash==='#posts')openR();else if(!$('#reels').hidden)closeR()});
  if(location.hash==='#posts')setTimeout(openR,0);
