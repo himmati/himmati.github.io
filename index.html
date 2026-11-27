@@ -646,6 +646,18 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
 @keyframes gJump{0%{transform:scale(0) rotate(-30deg)}100%{transform:none}}
 @keyframes gBob{to{transform:translateY(-10px) rotate(8deg) scale(1.06)}}
 @media(prefers-reduced-motion:reduce){.gb>*,.gring{animation-duration:1ms!important}.gbox{animation:none}}
+
+/* ===== ملف العضو للمنظم ===== */
+.row.tap{cursor:pointer}.row.tap:active{transform:scale(.98)}
+.mdet{z-index:55;align-items:stretch}.mdet .abox{width:min(100%,520px);max-height:calc(100dvh - 40px);display:flex;flex-direction:column;text-align:start;padding:18px}
+.mdb{overflow-y:auto;flex:1}.mdb h4{margin:16px 0 6px;font-size:16px}
+.mhd{display:flex;gap:12px;align-items:center}.mhd h3{margin:0;font-size:20px}
+.mpts{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-weight:700}.mpts span{display:inline-flex;gap:4px;align-items:center}
+.mrow{margin:4px 0;font-size:14.5px;line-height:1.8}.mchips,.mlist{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.mchip{padding:4px 10px;border-radius:999px;font-size:13px;background:rgba(255,255,255,.08);border:1px solid var(--line)}.mchip.ok{background:color-mix(in srgb,#34d399 25%,transparent);border-color:color-mix(in srgb,#34d399 55%,transparent)}.mchip i{font-style:normal;opacity:.75;font-size:12px}
+.mdua{white-space:pre-wrap;font:400 17px/1.9 Amiri,serif;padding:10px 12px;border-radius:16px;background:rgba(212,160,23,.12)}
+.mtab{display:grid;gap:4px;font-size:13px}.mtab>div{display:grid;grid-template-columns:1.1fr 2fr .8fr;gap:6px;padding:6px 8px;border-radius:12px;background:rgba(255,255,255,.06)}.mtab .mth{font-weight:700;background:none}
+html.friday .mchip{background:rgba(212,160,23,.08)}html.friday .mtab>div{background:rgba(212,160,23,.07)}
 </style>
 </head>
 <body>
@@ -690,7 +702,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       <div class="jdua"><b>🤲 دعواتي لساعة الاستجابة</b>
         <p class="jnow" id="jNow" hidden>⏳ الحين آخر ساعة من الجمعة — وقت يُستجاب فيه الدعاء بإذن الله</p>
         <textarea id="duaT" rows="3" maxlength="1500" placeholder="اكتبي هنا الدعاء اللي تتمنينه…"></textarea>
-        <small>«فيها ساعة لا يوافقها عبد مسلم يسأل الله شيئًا إلا أعطاه إياه، فالتمسوها آخر ساعة بعد العصر». دعواتك تنحفظ في جوالك، ويجيك تذكير قبل أذان المغرب بساعة.</small>
+        <small>«فيها ساعة لا يوافقها عبد مسلم يسأل الله شيئًا إلا أعطاه إياه، فالتمسوها آخر ساعة بعد العصر». دعواتك تنحفظ في حسابك، <b>والمنظمة تقدر تشوفها</b>. ويجيك تذكير قبل أذان المغرب بساعة.</small>
         <button type="button" class="btn sm" id="duaIcs">📅 أضيفي التذكير لتقويم جوالي كل جمعة</button></div></div>
     <div class="pray" id="pray">
       <div class="ph1"><div><b id="prNext">مواقيت الصلاة</b><small id="prLeft"></small></div>
@@ -964,6 +976,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
   <div class="arow" style="margin-top:12px"><button type="button" class="btn p" id="raudOk">حفظ</button><button type="button" class="btn" id="raudAll">خليه للكل</button><button type="button" class="btn" id="raudX">إلغاء</button></div></div></div>
 <div id="gift" class="gift" hidden role="dialog" aria-labelledby="gT"><div class="gbox"><div class="gico">🎁</div><h3 id="gT">جائزة لك!</h3><p id="gMsg"></p><button type="button" class="btn p" id="gOk" style="width:100%">شكرًا 🤍</button></div></div>
 <div id="gfx" class="gfx" aria-hidden="true"></div>
+<div id="mdet" class="alarm mdet" hidden role="dialog" aria-label="ملف العضو"><div class="abox"><div class="mdb" id="mdetB"></div><button type="button" class="btn" id="mdetX" style="width:100%;margin-top:12px">إغلاق</button></div></div>
 <div id="toast" role="status"></div>
 
 <script>
@@ -1388,7 +1401,7 @@ $('#myTasks').addEventListener('click',async e=>{const g=e.target.closest('[data
 function renderBoard(){
   const ids=Object.keys(S.members),d=today();
   const rows=ids.map(id=>({id,p:pts(id),a:S.members[id]?.adhkar?.[d]||{}})).sort((x,y)=>y.p.total-x.p.total);
-  $('#board').innerHTML=rows.length?rows.map((r,i)=>`<div class="row"><span class="rk">${ar(i+1)}</span>${avatar(r.id,38)}<span class="nm">${esc(nm(r.id))} ${lvChip(r.id)}<small>${[r.a.m?'الصباح ✓':'',r.a.e?'المساء ✓':'',r.a.n?'النوم ✓':''].filter(Boolean).join(' · ')||'—'}</small></span>
+  $('#board').innerHTML=rows.length?rows.map((r,i)=>`<div class="row${S.admin?' tap':''}" data-uid="${esc(r.id)}"${S.admin?' role="button" tabindex="0"':''}><span class="rk">${ar(i+1)}</span>${avatar(r.id,38)}<span class="nm">${esc(nm(r.id))} ${lvChip(r.id)}<small>${[r.a.m?'الصباح ✓':'',r.a.e?'المساء ✓':'',r.a.n?'النوم ✓':''].filter(Boolean).join(' · ')||'—'}</small></span>
     <span class="ms">${Object.entries(MED).map(([k,m])=>`<span title="${m.n}">${gem(k,16)}${ar(r.p[k])}</span>`).join('')}</span></div>`).join('')
     :'<div class="empty">ما فيه أعضاء بعد.</div>';
 }
@@ -1669,7 +1682,7 @@ const JUM=[['ghusl','الغسل والتطيّب','من اغتسل يوم الج
  ['salawat','الصلاة على النبي ﷺ ١٠٠ مرة','«أكثروا عليّ من الصلاة يوم الجمعة» — اضغطي كل مرة تصلّين عليه',100]];
 const JK=()=>'wird-jum-'+today();
 const jumGet=()=>{try{return JSON.parse(localStorage.getItem(JK()))||{}}catch(_){return{}}};
-const jumSet=o=>{try{localStorage.setItem(JK(),JSON.stringify(o))}catch(_){}};
+const jumSet=o=>{try{localStorage.setItem(JK(),JSON.stringify(o))}catch(_){}clearTimeout(jumSet.t);jumSet.t=setTimeout(()=>{if(S.db&&S.me&&S.canWrite)S.db.doc('members/'+S.me).update({jum:{[today()]:{...o}}}).catch(()=>{})},800)};
 const jDone=(d,[k,,,c])=>c?(+d[k]||0)>=c:!!d[k];
 const mgToday=()=>{try{return window.__maghrib&&window.__maghrib()}catch(_){return null}};
 const duaHour=()=>{const d=new Date(),mg=mgToday();return d.getDay()===5&&mg&&d>=mg-36e5&&d<mg};
@@ -1685,7 +1698,8 @@ $('#jum').addEventListener('click',e=>{if(e.target.closest('#kOpen')){openKahf()
   renderJum()});
 /* دعواتي: تنحفظ في الجوال */
 try{$('#duaT').value=localStorage.getItem('wird-dua')||''}catch(_){}
-let duaW;$('#duaT').addEventListener('input',()=>{clearTimeout(duaW);duaW=setTimeout(()=>{try{localStorage.setItem('wird-dua',$('#duaT').value)}catch(_){}},400)});
+let duaW;$('#duaT').addEventListener('input',()=>{clearTimeout(duaW);duaW=setTimeout(()=>{const v=$('#duaT').value.slice(0,1500);try{localStorage.setItem('wird-dua',v)}catch(_){}
+  if(S.db&&S.me&&S.canWrite)S.db.doc('members/'+S.me).update({dua:v,duaAt:Date.now()}).catch(()=>{})},900)});
 /* تذكير ساعة الاستجابة: قبل أذان المغرب بساعة يوم الجمعة */
 function checkDua(){if(!duaHour()){renderJum();return}const k='wird-duaf-'+today();let f=null;try{f=localStorage.getItem(k)}catch(_){}renderJum();if(f)return;
   try{localStorage.setItem(k,'1')}catch(_){}const t=($('#duaT').value||'').trim();
@@ -1792,6 +1806,40 @@ $('#gList').addEventListener('click',async e=>{const b=e.target.closest('[data-g
   const id=b.dataset.gdel;if(await shopWrite({gifts:{[id]:window.firebase?firebase.firestore.FieldValue.delete():null}})){const g={...(S.shop.gifts||{})};delete g[id];S.shop.gifts=g;renderGifts();toast('انحذفت')}});
 window.__gifts=()=>{renderGifts();checkGifts()};
 
+/* ===== ملف العضو للمنظم: يفتح من لوحة الترتيب ===== */
+const PNM={fajr:'الفجر',dhuhr:'الظهر',asr:'العصر',maghrib:'المغرب',isha:'العشاء'};
+const ADN={w:'الاستيقاظ',m:'الصباح',a:'بعد الصلاة',e:'المساء',n:'النوم'};
+const hm=t=>{try{return new Date(t).toLocaleTimeString('ar-SA',{hour:'numeric',minute:'2-digit'})}catch(_){return ''}};
+function openMember(uid){if(!S.admin)return;const m=S.members[uid]||{},P=pts(uid),D=dkey(new Date());
+  const days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-i);return d});
+  const ad=m.adhkar||{},pr=m.prayers||{},tasks=S.tasks.filter(t=>t.to==='all'||t.to===uid),dn=tasks.filter(t=>m.done?.[t.id]);
+  const jToday=(m.jum||{})[D]||{},tally=Object.entries(m.tally||{}).filter(([,v])=>v>0);
+  const seen=Object.keys(m.seen||{}).length,gifts=Object.keys(m.giftSeen||{}).length;
+  const adToday=Object.keys(ADN).filter(k=>ad[D]?.[k]).map(k=>ADN[k]+(k==='a'?' ×'+ar(+(ad[D].a?.p||ad[D].a)||1):'')+' ✓');
+  const prToday=Object.keys(PNM).map(k=>pr[D]?.[k]?`<span class="mchip ok">${PNM[k]} <i>${hm(pr[D][k])}</i></span>`:`<span class="mchip">${PNM[k]}</span>`).join('');
+  $('#mdetB').innerHTML=`
+   <div class="mhd">${avatar(uid,64)}<div><h3>${esc(nm(uid))} ${lvChip(uid)}</h3>${nickOf(uid)?`<p class="note" style="margin:0">اسمه المسجّل: ${esc(realNm(uid))}</p>`:''}
+     <p class="note" style="margin:2px 0 0">${m.joined?'انضم '+esc(rel(m.joined)):''}</p></div></div>
+   <div class="mpts">${Object.entries(MED).map(([k,x])=>`<span>${gem(k,18)} ${ar(P[k])}</span>`).join('')}</div>
+   <h4>📅 اليوم</h4>
+   <p class="mrow"><b>الأذكار:</b> ${adToday.length?adToday.join(' · '):'ما سجّل شي للحين'}</p>
+   <div class="mrow"><b>الصلوات:</b><div class="mchips">${prToday}</div></div>
+   ${Object.keys(jToday).length?`<p class="mrow"><b>سنن الجمعة:</b> ${JUM.filter(x=>jDone(jToday,x)).map(x=>x[1]).join(' · ')||'—'}${jToday.salawat&&!jDone(jToday,JUM[4])?` (الصلاة على النبي: ${ar(jToday.salawat)}/١٠٠)`:''}</p>`:''}
+   <h4>🤲 دعواته</h4>
+   ${m.dua?`<div class="mdua">${esc(m.dua)}</div><p class="note" style="margin:4px 0 0">آخر تعديل ${esc(rel(m.duaAt||0))}</p>`:'<p class="note">ما كتب دعاء للحين.</p>'}
+   <h4>🗓️ آخر ٧ أيام</h4>
+   <div class="mtab"><div class="mth"><span>اليوم</span><span>الأذكار</span><span>الصلوات</span></div>${days.map(d=>{const k=dkey(d),a=ad[k]||{},p=pr[k]||{};
+     return `<div><span>${d.toLocaleDateString('ar-SA',{weekday:'short',day:'numeric'})}</span><span>${Object.keys(ADN).filter(x=>a[x]).map(x=>ADN[x]).join('، ')||'—'}</span><span>${ar(Object.keys(PNM).filter(x=>p[x]).length)} / ٥</span></div>`}).join('')}</div>
+   <h4>✅ المهام</h4>
+   <p class="mrow">أتمّ ${ar(dn.length)} من ${ar(tasks.length)}</p>
+   ${tasks.length?`<div class="mlist">${tasks.slice(0,30).map(t=>`<span class="mchip${m.done?.[t.id]?' ok':''}">${m.done?.[t.id]?'✓ ':''}${esc(t.title)}${t.dz&&t.need&&!m.done?.[t.id]?` <i>${ar(Math.min(+(m.tprog||{})[t.id]||0,t.need))}/${ar(t.need)}</i>`:''}</span>`).join('')}</div>`:''}
+   <h4>📿 المسبحة</h4>
+   ${tally.length?`<div class="mlist">${tally.map(([k,v])=>`<span class="mchip">${esc(DZ[k]||k)} <i>${ar(v)}</i></span>`).join('')}</div>`:'<p class="note">ما سبّح للحين.</p>'}
+   <h4>🎬 ريلز وجوائز</h4>
+   <p class="mrow">شاف ${ar(seen)} ريلز · فتح ${ar(gifts)} جائزة</p>`;
+  $('#mdet').hidden=false;$('#mdetB').scrollTop=0}
+$('#mdetX').onclick=()=>{$('#mdet').hidden=true};
+$('#board').addEventListener('click',e=>{if(!S.admin)return;const r=e.target.closest('[data-uid]');if(r)openMember(r.dataset.uid)});
 /* ===== المنشورات ===== */
 S.posts=[];let PF=[];
 const IMG_RE=/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/,YT_RE=/^[A-Za-z0-9_-]{11}$/;
