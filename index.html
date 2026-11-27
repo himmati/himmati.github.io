@@ -578,6 +578,7 @@ html.friday .vw{background:rgba(212,160,23,.1)}
 .radmi{align-items:flex-start;flex-wrap:wrap}.radmi.hid{opacity:.7}.rnum{font-weight:700;color:var(--mut);min-width:18px;padding-top:12px}
 .rth{width:54px;height:72px;flex:none;border-radius:12px;object-fit:cover;background:rgba(0,0,0,.25);display:grid;place-items:center;font-size:24px}
 .rab{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.rab .btn{margin:0;min-height:34px;padding:0 12px}
+.upaud{display:grid;gap:8px}.upaud .seg{margin:0}.upaud .chpeople{max-height:240px}
 </style>
 </head>
 <body>
@@ -790,6 +791,7 @@ html.friday .vw{background:rgba(212,160,23,.1)}
       <label>وصف (اختياري)<input id="rCap" maxlength="150" placeholder="مثال: فضل الاستغفار"></label>
       <div class="bar" id="rBar" hidden><i style="width:0%"></i></div>
       <p class="note" id="rSetup" style="margin:0" hidden>لازم تحطين إعدادات Cloudinary في ملف config.js أول.</p>
+      <div class="upaud" id="rAud"><label>مين يشوفه؟</label><div class="seg"><button type="button" data-m="all" class="on">الكل</button><button type="button" data-m="some">أشخاص معيّنين</button></div><div class="chpeople" hidden></div><p class="note" style="margin:0">تقدرين تغيّرين هذا بعدين من «إدارة الريلز» ← «👥 مين يشوفه».</p></div>
       <button class="btn p" id="rBtn">رفع ونشر</button>
     </form>
 
@@ -800,6 +802,7 @@ html.friday .vw{background:rgba(212,160,23,.1)}
       <div class="pprev" id="poPrev"></div>
       <label>رابط فيديو يوتيوب (اختياري)<input id="poYt" type="url" dir="ltr" placeholder="https://youtu.be/..."></label>
       <p class="note" style="margin:0">الصور تنضغط تلقائياً. الفيديو ارفعيه على يوتيوب (ولو «غير مدرج») وحطي رابطه هنا.</p>
+      <div class="upaud" id="poAud"><label>مين يشوفه؟</label><div class="seg"><button type="button" data-m="all" class="on">الكل</button><button type="button" data-m="some">أشخاص معيّنين</button></div><div class="chpeople" hidden></div><p class="note" style="margin:0">تقدرين تغيّرين هذا بعدين من «إدارة الريلز» ← «👥 مين يشوفه».</p></div>
       <button class="btn p" id="poBtn">نشر</button>
     </form>
 
@@ -874,6 +877,9 @@ html.friday .vw{background:rgba(212,160,23,.1)}
   <h3 id="duaH">ساعة الاستجابة</h3><p>باقي ساعة على أذان المغرب، وهي آخر ساعة من الجمعة يُرجى فيها قبول الدعاء</p><div class="duaq" id="duaQ"></div>
   <div class="arow"><button class="btn p" id="duaGo">افتحي دعواتي</button><button class="btn" id="duaX">تمام</button></div></div></div>
 <div id="rvw" class="alarm rvw" hidden role="dialog" aria-labelledby="rvwT"><div class="abox"><h3 id="rvwT"></h3><div class="vwl" id="rvwL"></div><button type="button" class="btn" id="rvwX" style="width:100%;margin-top:12px">إغلاق</button></div></div>
+<div id="raud" class="alarm rvw" hidden role="dialog" aria-labelledby="raudT"><div class="abox"><h3 id="raudT">👥 مين يشوف هذا الريلز؟</h3>
+  <p id="raudN"></p><div class="chpeople" id="raudL" style="text-align:start"></div>
+  <div class="arow" style="margin-top:12px"><button type="button" class="btn p" id="raudOk">حفظ</button><button type="button" class="btn" id="raudAll">خليه للكل</button><button type="button" class="btn" id="raudX">إلغاء</button></div></div></div>
 <div id="toast" role="status"></div>
 
 <script>
@@ -1462,7 +1468,7 @@ function applyVis(){const h=boardHidden();$('#navBoard').hidden=h&&!S.admin;
     $('#chTxt').textContent=c.mode==='all'?'كل الأعضاء يقدرون يستخدمون الشات.':c.mode==='none'?'الشات مقفل عن كل الأعضاء (أنتِ بس تقدرين تفتحينه).':'اختاري تحت مين يقدر يستخدم الشات:';
     const box=$('#chPeople');box.hidden=c.mode!=='some';
     if(c.mode==='some')box.innerHTML=Object.keys(S.members).filter(id=>id!==S.me).map(id=>{const on=c.allow[id]===true;return `<button type="button" class="chp${on?' on':''}" data-u="${esc(id)}">${avatar(id,36)}<b>${esc(nm(id))}</b><i>${on?'✓ مسموح':'ممنوع'}</i></button>`}).join('')||'<p class="note">ما فيه أعضاء للحين.</p>'}}
-function render(){applyVis();renderAdhkar();renderTb();renderTasks();renderBoard();renderAdmin();renderProfile();renderFeed();renderMsgs();window.__rAdm&&window.__rAdm()}
+function render(){applyVis();renderAdhkar();renderTb();renderTasks();renderBoard();renderAdmin();renderProfile();renderFeed();renderMsgs();window.__rAdm&&window.__rAdm();window.__upa&&window.__upa()}
 
 
 /* ===== سماء النجوم والشهب ===== */
@@ -1607,6 +1613,17 @@ let kT;$('#kBody').addEventListener('scroll',()=>{kProg();clearTimeout(kT);kT=se
 $('#kBody').addEventListener('click',e=>{if(!e.target.closest('#kDone'))return;const d=jumGet();d.kahf=true;jumSet(d);try{chime()}catch(_){}vib([30,40,30]);closeKahf();renderJum();toast('تقبّل الله — أتممت سورة الكهف 🤍')});
 renderJum();
 window.renderJum=renderJum;
+/* ===== اختيار مين يشوف الريلز/المنشور وقت النشر ===== */
+const UPA={rAud:{m:'all',sel:new Set()},poAud:{m:'all',sel:new Set()}};
+function drawUpA(id){const st=UPA[id],el=$('#'+id);if(!el||!S.admin)return;el.querySelectorAll('[data-m]').forEach(b=>b.classList.toggle('on',b.dataset.m===st.m));
+  const L=el.querySelector('.chpeople');L.hidden=st.m!=='some';if(L.hidden)return;const ids=Object.keys(S.members).filter(id=>S.members[id]?.org!==true);
+  L.innerHTML=ids.length?ids.map(u=>{const on=st.sel.has(u);return `<button type="button" class="chp${on?' on':''}" data-u="${esc(u)}">${avatar(u,32)}<b>${esc(nm(u))}</b><i>${on?'✓ يشوفه':''}</i></button>`}).join(''):'<p class="note">ما فيه أعضاء للحين.</p>'}
+Object.keys(UPA).forEach(id=>$('#'+id).addEventListener('click',e=>{const st=UPA[id],m=e.target.closest('[data-m]'),u=e.target.closest('[data-u]');
+  if(m)st.m=m.dataset.m;else if(u){const k=u.dataset.u;st.sel.has(k)?st.sel.delete(k):st.sel.add(k)}else return;drawUpA(id)}));
+const upOnly=id=>UPA[id].m==='some'?[...UPA[id].sel]:[];
+const upOk=id=>{if(UPA[id].m==='some'&&!UPA[id].sel.size){toast('اختاري شخص واحد على الأقل، أو خليه للكل');return false}return true};
+const upReset=id=>{UPA[id]={m:'all',sel:new Set()};drawUpA(id)};
+window.__upa=()=>{drawUpA('rAud');drawUpA('poAud')};
 /* ===== المنشورات ===== */
 S.posts=[];let PF=[];
 const IMG_RE=/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/,YT_RE=/^[A-Za-z0-9_-]{11}$/;
@@ -1637,13 +1654,14 @@ $('#poFiles').onchange=e=>{PF=[...e.target.files].filter(f=>f.type.startsWith('i
 $('#fPost').onsubmit=async e=>{e.preventDefault();if(!S.db)return;const text=$('#poText').value.trim(),yraw=$('#poYt').value.trim(),yt=yraw?ytId(yraw):'';
   if(yraw&&!yt){toast('رابط اليوتيوب مو صحيح');return}
   if(!text&&!PF.length&&!yt){toast('اكتبي شي أو اختاري صورة أو حطي رابط فيديو');return}
+  if(!upOk('poAud'))return;
   const btn=$('#poBtn');btn.disabled=true;const out=[];
   try{let size=0;for(let i=0;i<PF.length;i++){btn.textContent=`جاري تجهيز الصورة ${ar(i+1)} من ${ar(PF.length)}…`;
       try{let d=await shrink(PF[i]);if(d.length>260000)d=await shrink(PF[i],800,.6);if(size+d.length>850000){toast('الصور كبيرة، انحذفت بعضها');break}size+=d.length;out.push({type:'image',data:d})}
       catch(_){toast('ما قدرت أقرأ الصورة '+PF[i].name)}}
     if(yt)out.push({type:'yt',v:yt});
     if(!text&&!out.length)return;
-    if(await wr(S.db.collection('posts').add({text,media:out,at:Date.now()}))){e.target.reset();PF=[];$('#poPrev').innerHTML='';toast('انتشر المنشور')}}
+    const only=upOnly('poAud');if(await wr(S.db.collection('posts').add({text,media:out,at:Date.now(),only}))){e.target.reset();PF=[];$('#poPrev').innerHTML='';upReset('poAud');toast(only.length?'انتشر المنشور لـ '+(only.length===1?nm(only[0]):ar(only.length)+' أشخاص'):'انتشر المنشور')}}
   finally{btn.disabled=false;btn.textContent='نشر'}};
 $('#feed').addEventListener('click',async e=>{const b=e.target.closest('[data-dpost]');if(!b)return;
   if(b.dataset.sure!=='1'){b.dataset.sure='1';b.textContent='متأكدة؟';setTimeout(()=>{b.dataset.sure='';b.textContent='حذف'},3000);return}
@@ -1782,14 +1800,17 @@ S.msgReady=true;renderMsgs();
  /* ترتيب وإخفاء الريلز: ord يحدد المكان (الأكبر أول)، hidden يخفيه عن الأعضاء */
  const rkey=r=>typeof r.ord==='number'?r.ord:(r.at||0);
  const allItems=()=>[...S.reels.filter(r=>okUrl(r.url)).map(r=>({t:'v',c:'reels',...r})),...(S.posts||[]).map(p=>({t:'p',c:'posts',...p}))];
- const reelItems=()=>allItems().filter(r=>S.admin||!r.hidden).sort((a,b)=>rkey(b)-rkey(a));
+ /* only: قائمة أعضاء محددين يشوفون الريلز (فاضية = للكل) */
+ const forMe=r=>!r.hidden&&(!Array.isArray(r.only)||!r.only.length||r.only.includes(S.me));
+ const reelItems=()=>allItems().filter(r=>S.admin||forMe(r)).sort((a,b)=>rkey(b)-rkey(a));
  window.__reelItems=reelItems;
  /* مين شاف: كل عضو يسجّل في ملفه (seen) الريلز اللي شافه ٢.٥ ثانية أو أكثر */
  function markView(c,id){if(!c||!id||!S.db||!S.me||S.admin||!S.canWrite)return;const k=c+':'+id,m=S.members[S.me];if(m?.seen?.[k])return;
    if(m){m.seen={...(m.seen||{}),[k]:Date.now()}}S.db.doc('members/'+S.me).update({seen:{[k]:Date.now()}}).catch(()=>{})}
  const isOrg=id=>S.members[id]?.org===true;
  const viewers=k=>Object.keys(S.members).filter(id=>!isOrg(id)&&S.members[id]?.seen?.[k]).sort((a,b)=>S.members[b].seen[k]-S.members[a].seen[k]);
- function openViewers(k){const v=viewers(k),not=Object.keys(S.members).filter(id=>!isOrg(id)&&!S.members[id]?.seen?.[k]);
+ const audOf=k=>{const [c,id]=k.split(':'),it=allItems().find(x=>x.c===c&&x.id===id);return it&&Array.isArray(it.only)&&it.only.length?it.only:null};
+ function openViewers(k){const au=audOf(k),inA=id=>!au||au.includes(id),v=viewers(k).filter(inA),not=Object.keys(S.members).filter(id=>!isOrg(id)&&inA(id)&&!S.members[id]?.seen?.[k]);
    $('#rvwT').textContent='👀 شافه '+ar(v.length)+' من '+ar(v.length+not.length);
    $('#rvwL').innerHTML=(v.length?v.map(id=>`<div class="vw">${avatar(id,34)}<b>${esc(nm(id))}</b><i>${esc(rel(S.members[id].seen[k]))}</i></div>`).join(''):'<p class="note">ما أحد شافه للحين.</p>')+
      (not.length?`<p class="vwh">ما شافوه (${ar(not.length)})</p>`+not.map(id=>`<div class="vw off">${avatar(id,34)}<b>${esc(nm(id))}</b></div>`).join(''):'');
@@ -1831,18 +1852,29 @@ S.msgReady=true;renderMsgs();
  window.__reelsDraw=()=>{if(!$('#reels').hidden)draw();dotUpd();renderRAdm()};
  function renderRAdm(){const el=$('#rAdm');if(!el||!S.admin)return;const it=reelItems();
    el.innerHTML=it.length?it.map((r,i)=>`<div class="task radmi${r.hidden?' hid':''}"><span class="rnum">${ar(i+1)}</span>${r.t==='v'?`<img class="rth" src="${poster(r.url)}" alt="" loading="lazy">`:`<span class="rth rtx">📝</span>`}
-     <div class="tx"><h3>${esc((r.t==='v'?(r.caption||'فيديو'):(r.text||'منشور')).slice(0,40))}</h3><p>${r.hidden?'🙈 مخفي عن الأعضاء':'ظاهر للكل'}</p>
-     <div class="rab"><button type="button" class="btn sm" data-adm="top" data-c="${r.c}" data-id="${esc(r.id)}">⬆ الأول</button><button type="button" class="btn sm" data-adm="bot" data-c="${r.c}" data-id="${esc(r.id)}">⬇ الأخير</button><button type="button" class="btn sm" data-adm="hide" data-c="${r.c}" data-id="${esc(r.id)}">${r.hidden?'👁 إظهار':'🙈 إخفاء'}</button><button type="button" class="btn sm" data-vw="${r.c}:${esc(r.id)}">👀 ${ar(viewers(r.c+':'+r.id).length)}</button><button type="button" class="btn sm x" data-rm="${r.c}:${esc(r.id)}">🗑</button></div></div></div>`).join('')
+     <div class="tx"><h3>${esc((r.t==='v'?(r.caption||'فيديو'):(r.text||'منشور')).slice(0,40))}</h3><p>${r.hidden?'🙈 مخفي عن الأعضاء':Array.isArray(r.only)&&r.only.length?'👤 يشوفه بس: '+esc(r.only.map(nm).join('، ')):'ظاهر للكل'}</p>
+     <div class="rab"><button type="button" class="btn sm" data-adm="top" data-c="${r.c}" data-id="${esc(r.id)}">⬆ الأول</button><button type="button" class="btn sm" data-adm="bot" data-c="${r.c}" data-id="${esc(r.id)}">⬇ الأخير</button><button type="button" class="btn sm" data-adm="hide" data-c="${r.c}" data-id="${esc(r.id)}">${r.hidden?'👁 إظهار':'🙈 إخفاء'}</button><button type="button" class="btn sm" data-aud="${r.c}:${esc(r.id)}">👥 مين يشوفه</button><button type="button" class="btn sm" data-vw="${r.c}:${esc(r.id)}">👀 ${ar(viewers(r.c+':'+r.id).length)}</button><button type="button" class="btn sm x" data-rm="${r.c}:${esc(r.id)}">🗑</button></div></div></div>`).join('')
      :'<div class="empty">ما فيه ريلز أو منشورات للحين.</div>'}
  window.__rAdm=renderRAdm;
+ let AUD=null;
+ function openAud(k){const [c,id]=k.split(':'),it=allItems().find(x=>x.c===c&&x.id===id);if(!it)return;AUD={c,id,sel:new Set(Array.isArray(it.only)?it.only:[])};drawAud();$('#raud').hidden=false}
+ function drawAud(){const ids=Object.keys(S.members).filter(id=>!isOrg(id));
+   $('#raudN').textContent=AUD.sel.size?'يشوفه '+ar(AUD.sel.size)+' بس':'يشوفه الكل';
+   $('#raudL').innerHTML=ids.length?ids.map(id=>{const on=AUD.sel.has(id);return `<button type="button" class="chp${on?' on':''}" data-u="${esc(id)}">${avatar(id,34)}<b>${esc(nm(id))}</b><i>${on?'✓ يشوفه':''}</i></button>`}).join(''):'<p class="note">ما فيه أعضاء للحين.</p>'}
+ $('#raudL').addEventListener('click',e=>{const b=e.target.closest('[data-u]');if(!b)return;const u=b.dataset.u;AUD.sel.has(u)?AUD.sel.delete(u):AUD.sel.add(u);drawAud()});
+ $('#raudAll').onclick=()=>{AUD.sel.clear();drawAud()};
+ $('#raudX').onclick=()=>{$('#raud').hidden=true;AUD=null};
+ $('#raudOk').onclick=async()=>{if(!AUD||!S.db)return;const only=[...AUD.sel];
+   if(await wr(S.db.doc(AUD.c+'/'+AUD.id).update({only}))){$('#raud').hidden=true;toast(only.length?'صار يشوفه '+(only.length===1?nm(only[0]):ar(only.length)+' أشخاص')+' بس 👤':'صار ظاهر للكل');AUD=null}};
  $('#rAdm').addEventListener('click',async e=>{if(!S.admin||!S.db)return;
    const vb=e.target.closest('[data-vw]');if(vb){openViewers(vb.dataset.vw);return}
+   const au=e.target.closest('[data-aud]');if(au){openAud(au.dataset.aud);return}
    const rm=e.target.closest('[data-rm]');if(rm){if(rm.dataset.sure!=='1'){rm.dataset.sure='1';rm.textContent='حذف؟';setTimeout(()=>{rm.dataset.sure='';rm.textContent='🗑'},3000);return}
      const [c,id]=rm.dataset.rm.split(':');if(await wr(S.db.doc(c+'/'+id).delete()))toast('انحذف');return}
    const ab=e.target.closest('[data-adm]');if(!ab)return;const op=ab.dataset.adm,c=ab.dataset.c,id=ab.dataset.id,all=allItems(),it=all.find(x=>x.c===c&&x.id===id);if(!it)return;
    const ks=all.filter(x=>x!==it).map(rkey);const upd=op==='top'?{ord:(ks.length?Math.max(...ks):Date.now())+1000}:op==='bot'?{ord:(ks.length?Math.min(...ks):Date.now())-1000}:{hidden:!it.hidden};
    ab.disabled=true;if(await wr(S.db.doc(c+'/'+id).update(upd)))toast(op==='top'?'صار الأول ⬆':op==='bot'?'صار الأخير ⬇':upd.hidden?'انخفى عن الأعضاء 🙈':'صار ظاهر للكل 👁');ab.disabled=false});
- const newestAll=()=>Math.max(0,...S.reels.filter(r=>!r.hidden).map(r=>r.at||0),...(S.posts||[]).filter(p=>!p.hidden).map(p=>p.at||0));
+ const newestAll=()=>Math.max(0,...S.reels.filter(forMe).map(r=>r.at||0),...(S.posts||[]).filter(forMe).map(p=>p.at||0));
  const seenAll=()=>{try{return +localStorage.getItem('wird-seen')||0}catch(_){return 0}};
  function markSeen(){const n=newestAll();if(n>seenAll()){try{localStorage.setItem('wird-seen',n)}catch(_){}}dotUpd()}
  function dotUpd(){const d=document.querySelector('#navPosts .dot');if(d)d.hidden=$('#reels').hidden?!(newestAll()>seenAll()):true}
@@ -1878,12 +1910,12 @@ S.msgReady=true;renderMsgs();
  $('#rSetup').hidden=clOk;
  $('#rFile').onchange=e=>{const f=e.target.files[0];$('#rName').textContent=f?`${f.name} — ${(f.size/1048576).toFixed(1)} ميغا`+(f.size>100*1048576?' (أكبر من ١٠٠ ميغا، ما ينرفع)':''):''};
  $('#fReel').onsubmit=e=>{e.preventDefault();if(!S.admin||!S.db)return;if(!clOk){toast('حطي إعدادات Cloudinary في config.js أول');return}
-   const f=$('#rFile').files[0];if(!f){toast('اختاري فيديو');return}if(!f.type.startsWith('video/')){toast('الملف لازم يكون فيديو');return}if(f.size>100*1048576){toast('الفيديو أكبر من ١٠٠ ميغا');return}
+   const f=$('#rFile').files[0];if(!f){toast('اختاري فيديو');return}if(!upOk('rAud'))return;const only=upOnly('rAud');if(!f.type.startsWith('video/')){toast('الملف لازم يكون فيديو');return}if(f.size>100*1048576){toast('الفيديو أكبر من ١٠٠ ميغا');return}
    const fd=new FormData();fd.append('file',f);fd.append('upload_preset',CL.uploadPreset);fd.append('folder','himmati');
    const x=new XMLHttpRequest(),bar=$('#rBar'),bi=bar.querySelector('i'),btn=$('#rBtn');bar.hidden=false;btn.disabled=true;btn.textContent='جاري الرفع…';
    x.upload.onprogress=ev=>{if(ev.lengthComputable){const p=Math.round(ev.loaded/ev.total*100);bi.style.width=p+'%';btn.textContent='جاري الرفع… '+ar(p)+'٪'}};
    x.onload=async()=>{let r={};try{r=JSON.parse(x.responseText)}catch(_){}
-     if(x.status>=200&&x.status<300&&okUrl(r.secure_url)){if(await wr(S.db.collection('reels').add({url:r.secure_url,pid:r.public_id||'',caption:$('#rCap').value.trim().slice(0,150),at:Date.now()}))){toast('انتشر الريلز 🎬');e.target.reset();$('#rName').textContent=''}}
+     if(x.status>=200&&x.status<300&&okUrl(r.secure_url)){if(await wr(S.db.collection('reels').add({url:r.secure_url,pid:r.public_id||'',caption:$('#rCap').value.trim().slice(0,150),at:Date.now(),only}))){toast(only.length?'انتشر الريلز لـ '+(only.length===1?nm(only[0]):ar(only.length)+' أشخاص')+' 🎬':'انتشر الريلز 🎬');e.target.reset();$('#rName').textContent='';upReset('rAud')}}
      else toast('ما انرفع: '+((r.error&&r.error.message)||'خطأ في الرفع'));done()};
    x.onerror=()=>{toast('انقطع الاتصال، جربي مرة ثانية');done()};
    const done=()=>{bar.hidden=true;bi.style.width='0%';btn.disabled=false;btn.textContent='رفع ونشر'};
