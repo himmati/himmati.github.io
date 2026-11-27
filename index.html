@@ -682,6 +682,7 @@ details.acc[open]>summary{border-bottom:1px solid var(--line)}
 .ksp b{min-width:38px;text-align:center;font-size:13px;color:#8a5e05}
 [dir=ltr] .rseek,[dir=ltr] #kSeek,.rseek:dir(ltr),#kSeek:dir(ltr){--sd:90deg}
 .ctry{width:100%;margin:8px 0 2px;font-size:13px;font-weight:700;color:var(--mut)}
+.rexit{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:6;width:42px;height:42px;border-radius:50%;border:0;display:grid;place-items:center;color:#fff;background:rgba(0,0,0,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 </style>
 </head>
 <body>
@@ -966,6 +967,7 @@ details.acc[open]>summary{border-bottom:1px solid var(--line)}
   <h3 id="aT"></h3><p id="aP"></p>
   <div class="arow"><button class="btn p" id="aGo">روحي للمهمة</button><button class="btn" id="aLater">ذكّريني بعد ١٠ دقائق</button><button class="btn" id="aClose">تمام</button></div></div></div>
 <div id="reels" class="reels" hidden>
+  <button type="button" class="rexit" id="rExit" aria-label="الخروج من الريلز"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   <div class="rtop"><button type="button" class="rbtn" id="rClose" aria-label="إغلاق">✕</button><b>ريلز</b><button type="button" class="rbtn" id="rMute" aria-label="الصوت">🔇</button></div>
   <div class="rlist" id="rList"></div>
 </div>
@@ -2106,7 +2108,11 @@ S.msgReady=true;renderMsgs();
    L.querySelectorAll('.reel').forEach(x=>IO.observe(x));
    L.querySelectorAll('.reel video').forEach(v=>{const sec=v.closest('.reel'),rg=sec.querySelector('.rseek');v.playbackRate=1;
      v.addEventListener('play',()=>sec.classList.remove('paused'));v.addEventListener('pause',()=>sec.classList.add('paused'));
-     v.addEventListener('timeupdate',()=>{if(sec.__drag||!v.duration)return;const p=v.currentTime/v.duration;rg.value=Math.round(p*1000);rg.style.setProperty('--p',p*100+'%')});
+     /* الخط يتبع الفيديو نفسه كل فريم: ما يسبقه ولا يعلق */
+     const paint=()=>{if(sec.__drag||!v.duration)return;const p=v.currentTime/v.duration;rg.value=Math.round(p*1000);rg.style.setProperty('--p',p*100+'%')};
+     const loop=()=>{paint();if(!v.paused&&!v.ended)sec.__raf=requestAnimationFrame(loop)};
+     v.addEventListener('playing',()=>{cancelAnimationFrame(sec.__raf);loop()});v.addEventListener('pause',paint);v.addEventListener('waiting',paint);
+     v.addEventListener('seeked',()=>{if(!sec.__hold)sec.__drag=false;paint()});v.addEventListener('loadedmetadata',paint);v.addEventListener('timeupdate',()=>{if(v.paused)paint()});
      gest(sec,v)})}
  /* لمسات الفيديو: ضغط مطوّل يمين = سرعة ×٢ ، ضغطتين يمين = +١٠ ث ، ضغطتين يسار = −١٠ ث ، ضغطة بالنص = تشغيل/إيقاف */
  function flash(sec,txt,side){const el=sec.querySelector('.rind');if(!el)return;el.textContent=txt;el.className='rind on '+side;clearTimeout(el.__t);el.__t=setTimeout(()=>el.className='rind',side==='hold'?99999:650)}
@@ -2158,9 +2164,15 @@ S.msgReady=true;renderMsgs();
  addEventListener('hashchange',()=>{if(location.hash==='#posts')openR();else if(!$('#reels').hidden)closeR()});
  if(location.hash==='#posts')setTimeout(openR,0);
  $('#rClose').onclick=()=>{location.hash='adhkar'};
+ $('#rExit').onclick=()=>{location.hash='adhkar'};
  $('#rMute').onclick=()=>{MUTED=!MUTED;$('#rMute').textContent=MUTED?'🔇':'🔊';$('#rList').querySelectorAll('video').forEach(v=>v.muted=MUTED)};
+ /* السحب على الخط: الفيديو يلحق الإصبع، والخط ما يرجع لورا لين يوصل الفيديو للمكان */
+ $('#rList').addEventListener('pointerdown',e=>{const rg=e.target.closest('.rseek');if(!rg)return;const sec=rg.closest('.reel');sec.__drag=true;sec.__hold=true},true);
  $('#rList').addEventListener('input',e=>{const rg=e.target.closest('.rseek');if(!rg)return;const sec=rg.closest('.reel'),v=sec.querySelector('video');sec.__drag=true;
-   if(v.duration)v.currentTime=rg.value/1000*v.duration;clearTimeout(sec.__dt);sec.__dt=setTimeout(()=>sec.__drag=false,250)});
+   rg.style.setProperty('--p',rg.value/10+'%');if(!v.duration)return;const t=rg.value/1000*v.duration,now=performance.now();
+   if(now-(sec.__st||0)>90){sec.__st=now;if(v.fastSeek)v.fastSeek(t);else v.currentTime=t}clearTimeout(sec.__dt);sec.__dt=setTimeout(()=>{v.currentTime=t},120)});
+ $('#rList').addEventListener('change',e=>{const rg=e.target.closest('.rseek');if(!rg)return;const sec=rg.closest('.reel'),v=sec.querySelector('video');sec.__hold=false;
+   if(v.duration){clearTimeout(sec.__dt);v.currentTime=rg.value/1000*v.duration}else sec.__drag=false});
  $('#rList').addEventListener('click',async e=>{
    if(e.target.closest('.rseek,.rbar'))return;
    const vb=e.target.closest('[data-vw]');if(vb){if(S.admin)openViewers(vb.dataset.vw);return}
