@@ -658,6 +658,16 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
 .mdua{white-space:pre-wrap;font:400 17px/1.9 Amiri,serif;padding:10px 12px;border-radius:16px;background:rgba(212,160,23,.12)}
 .mtab{display:grid;gap:4px;font-size:13px}.mtab>div{display:grid;grid-template-columns:1.1fr 2fr .8fr;gap:6px;padding:6px 8px;border-radius:12px;background:rgba(255,255,255,.06)}.mtab .mth{font-weight:700;background:none}
 html.friday .mchip{background:rgba(212,160,23,.08)}html.friday .mtab>div{background:rgba(212,160,23,.07)}
+
+/* ===== خانات صفحة المنظم ===== */
+details.acc{margin:0 0 12px;border-radius:26px;background:var(--card);border:1px solid var(--line);box-shadow:var(--sh-out),var(--sh-in);overflow:hidden}
+details.acc>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 18px;cursor:pointer;font:700 19px Amiri,serif;-webkit-tap-highlight-color:transparent}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::after{content:"";flex:none;width:30px;height:30px;border-radius:50%;background:color-mix(in srgb,var(--acc) 25%,transparent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat center/16px;transition:transform .25s}
+html.friday details.acc>summary::after{background-color:#d4a017}
+details.acc[open]>summary::after{transform:rotate(180deg)}
+details.acc[open]>summary{border-bottom:1px solid var(--line)}
+.accb{padding:12px 12px 4px}.accb>.box{margin-bottom:10px}.accb>.note:first-child{margin-top:0}
 </style>
 </head>
 <body>
@@ -1840,6 +1850,13 @@ function openMember(uid){if(!S.admin)return;const m=S.members[uid]||{},P=pts(uid
   $('#mdet').hidden=false;$('#mdetB').scrollTop=0}
 $('#mdetX').onclick=()=>{$('#mdet').hidden=true};
 $('#board').addEventListener('click',e=>{if(!S.admin)return;const r=e.target.closest('[data-uid]');if(r)openMember(r.dataset.uid)});
+/* ===== صفحة المنظم: كل قسم خانة تنفتح وتنقفل ===== */
+(()=>{const v=$('#v-admin');if(!v)return;let OPEN={};try{OPEN=JSON.parse(localStorage.getItem('wird-acc')||'{}')}catch(_){}
+  const kids=[...v.children];let cur=null;
+  for(const el of kids){if(el.tagName==='H2'){const k=el.textContent.trim();cur=document.createElement('details');cur.className='acc';cur.dataset.k=k;if(OPEN[k])cur.open=true;
+      const sm=document.createElement('summary');sm.innerHTML=`<span>${el.innerHTML}</span>`;cur.appendChild(sm);const body=document.createElement('div');body.className='accb';cur.appendChild(body);
+      el.replaceWith(cur);const d=cur;d.addEventListener('toggle',()=>{OPEN[k]=d.open;try{localStorage.setItem('wird-acc',JSON.stringify(OPEN))}catch(_){}})}
+    else if(cur)cur.querySelector('.accb').appendChild(el)}})();
 /* ===== المنشورات ===== */
 S.posts=[];let PF=[];
 const IMG_RE=/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/,YT_RE=/^[A-Za-z0-9_-]{11}$/;
