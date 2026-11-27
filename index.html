@@ -566,7 +566,7 @@ html.friday .vw{background:rgba(212,160,23,.1)}
 .reels .rdel{bottom:70px}
 .rbar{bottom:12px;inset-inline:12px;gap:0}
 .rseek{-webkit-appearance:none;appearance:none;height:22px!important;background:transparent!important;cursor:pointer;--p:0%}
-.rseek::-webkit-slider-runnable-track{height:3px;border-radius:3px;background:linear-gradient(90deg,#fff var(--p),rgba(255,255,255,.3) var(--p))}
+.rseek::-webkit-slider-runnable-track{height:3px;border-radius:3px;background:linear-gradient(var(--sd,270deg),#fff var(--p),rgba(255,255,255,.3) var(--p))}
 .rseek::-moz-range-track{height:3px;border-radius:3px;background:rgba(255,255,255,.3)}.rseek::-moz-range-progress{height:3px;border-radius:3px;background:#fff}
 .rseek::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:#fff;margin-top:-4px;box-shadow:0 0 4px rgba(0,0,0,.5)}
 .rseek::-moz-range-thumb{width:11px;height:11px;border:0;border-radius:50%;background:#fff}
@@ -668,6 +668,19 @@ html.friday details.acc>summary::after{background-color:#d4a017}
 details.acc[open]>summary::after{transform:rotate(180deg)}
 details.acc[open]>summary{border-bottom:1px solid var(--line)}
 .accb{padding:12px 12px 4px}.accb>.box{margin-bottom:10px}.accb>.note:first-child{margin-top:0}
+
+/* ===== مشغّل تلاوة الكهف ===== */
+.kaud{display:flex;align-items:center;gap:10px;padding:10px 12px;background:linear-gradient(150deg,#fff8e6,#fbecc8);border-bottom:1px solid rgba(212,160,23,.35);color:#3b2a07}
+.kpl{flex:none;width:46px;height:46px;border-radius:50%;border:0;font-size:18px;color:#fff;background:linear-gradient(150deg,#f3cf6b,#d4a017 60%,#a8740c);box-shadow:0 4px 12px rgba(180,130,20,.4)}
+.kmid{flex:1;min-width:0}.ktm{display:flex;justify-content:space-between;font-size:12px;color:#8a6f3a;margin-top:2px}
+#kSeek{-webkit-appearance:none;appearance:none;width:100%;height:20px;background:transparent;margin:0;--p:0%;padding:0;box-shadow:none;border:0}
+#kSeek::-webkit-slider-runnable-track{height:4px;border-radius:4px;background:linear-gradient(var(--sd,270deg),#d4a017 var(--p),rgba(212,160,23,.2) var(--p))}
+#kSeek::-moz-range-track{height:4px;border-radius:4px;background:rgba(212,160,23,.2)}#kSeek::-moz-range-progress{height:4px;border-radius:4px;background:#d4a017}
+#kSeek::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#a8740c;margin-top:-5px}#kSeek::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:#a8740c}
+.ksp{flex:none;display:flex;align-items:center;gap:4px;padding:3px;border-radius:999px;background:rgba(212,160,23,.15)}
+.ksp button{width:30px;height:30px;border-radius:50%;border:0;background:#fff;color:#8a5e05;font:700 18px/1 sans-serif;box-shadow:0 1px 4px rgba(160,115,25,.25)}
+.ksp b{min-width:38px;text-align:center;font-size:13px;color:#8a5e05}
+[dir=ltr] .rseek,[dir=ltr] #kSeek,.rseek:dir(ltr),#kSeek:dir(ltr){--sd:90deg}
 </style>
 </head>
 <body>
@@ -976,7 +989,12 @@ details.acc[open]>summary{border-bottom:1px solid var(--line)}
 <div id="buy" class="alarm" hidden role="dialog" aria-labelledby="bT"><div class="abox">
   <div id="bPrev" class="bprev"></div><h3 id="bT"></h3><p id="bP"></p>
   <div class="arow"><button class="btn p" id="bOk">شراء</button><button class="btn" id="bNo">إلغاء</button></div></div></div>
-<div id="kahf" class="kahf" hidden role="dialog" aria-label="سورة الكهف"><div class="khead"><button type="button" class="rbtn" id="kClose" aria-label="إغلاق">✕</button><b>سورة الكهف</b><span id="kProg"></span></div><div class="kbody" id="kBody"></div></div>
+<div id="kahf" class="kahf" hidden role="dialog" aria-label="سورة الكهف"><div class="khead"><button type="button" class="rbtn" id="kClose" aria-label="إغلاق">✕</button><b>سورة الكهف</b><span id="kProg"></span></div>
+  <div class="kaud" id="kAud"><button type="button" class="kpl" id="kPlay" aria-label="تشغيل التلاوة">▶</button>
+    <div class="kmid"><input type="range" id="kSeek" min="0" max="1000" value="0" aria-label="موضع التلاوة"><div class="ktm"><span id="kCur">٠:٠٠</span><span id="kDur">🎧 استمعي للتلاوة</span></div></div>
+    <div class="ksp"><button type="button" id="kSlow" aria-label="أبطأ">−</button><b id="kRate">١×</b><button type="button" id="kFast" aria-label="أسرع">+</button></div>
+    <audio id="kAudio" preload="none" src="kahf.m4a"></audio></div>
+  <div class="kbody" id="kBody"></div></div>
 <div id="duaA" class="alarm" hidden role="alertdialog" aria-labelledby="duaH"><div class="abox"><div style="font-size:54px;line-height:1">🤲</div>
   <h3 id="duaH">ساعة الاستجابة</h3><p>باقي ساعة على أذان المغرب، وهي آخر ساعة من الجمعة يُرجى فيها قبول الدعاء</p><div class="duaq" id="duaQ"></div>
   <div class="arow"><button class="btn p" id="duaGo">افتحي دعواتي</button><button class="btn" id="duaX">تمام</button></div></div></div>
@@ -1738,7 +1756,25 @@ async function openKahf(){const k=$('#kahf'),b=$('#kBody');k.hidden=false;docume
     catch(_){b.innerHTML='<p class="kload">ما قدرت أحمّل السورة الحين — تأكد من الإنترنت وحاول مرة ثانية.<br>بعد أول تحميل تشتغل بدون نت.</p>';return}}
   let pos=0;try{pos=+localStorage.getItem(KP())||0}catch(_){}b.scrollTop=pos;kProg()}
 function kProg(){const b=$('#kBody'),m=b.scrollHeight-b.clientHeight;$('#kProg').textContent=m>0?ar(Math.min(100,Math.round(b.scrollTop/m*100)))+'٪':''}
-function closeKahf(){$('#kahf').hidden=true;document.body.style.overflow=''}
+function closeKahf(){$('#kahf').hidden=true;document.body.style.overflow='';try{$('#kAudio').pause()}catch(_){}}
+/* تلاوة سورة الكهف: تشغيل/إيقاف، تقديم وترجيع بالشريط، وتسريع وتبطيء */
+(()=>{const A=$('#kAudio'),PL=$('#kPlay'),SK=$('#kSeek'),RATES=[.5,.75,1,1.25,1.5,1.75,2];let ri=2,drag=false;
+  const t2=x=>{x=Math.max(0,Math.floor(x||0));const h=Math.floor(x/3600),m=Math.floor(x%3600/60),s=x%60;const D=v=>String(v).replace(/\d/g,c=>'٠١٢٣٤٥٦٧٨٩'[c]);return (h?D(h)+':'+D(String(m).padStart(2,'0')):D(m))+':'+D(String(s).padStart(2,'0'))};
+  const AK='wird-kahf-aud';try{const r=+localStorage.getItem(AK+'-rate');if(RATES.includes(r))ri=RATES.indexOf(r)}catch(_){}
+  const setRate=()=>{A.playbackRate=RATES[ri];$('#kRate').textContent=ar(RATES[ri])+'×';try{localStorage.setItem(AK+'-rate',RATES[ri])}catch(_){}};setRate();
+  let resumed=false;const resume=()=>{if(resumed)return;resumed=true;try{const p=+localStorage.getItem(AK+'-pos-'+today());if(p>5&&A.duration&&p<A.duration-5)A.currentTime=p}catch(_){}};
+  PL.onclick=()=>{if(A.paused){PL.textContent='…';A.play().then(()=>{}).catch(()=>{PL.textContent='▶';toast('ما قدرت أشغّل التلاوة — تأكدي من الإنترنت')})}else A.pause()};
+  A.addEventListener('loadedmetadata',()=>{resume();$('#kDur').textContent=t2(A.duration);setRate()});
+  A.addEventListener('play',()=>{PL.textContent='⏸';PL.setAttribute('aria-label','إيقاف التلاوة')});
+  A.addEventListener('pause',()=>{PL.textContent='▶';PL.setAttribute('aria-label','تشغيل التلاوة')});
+  A.addEventListener('waiting',()=>{PL.textContent='…'});A.addEventListener('playing',()=>{PL.textContent='⏸'});
+  A.addEventListener('ended',()=>{PL.textContent='▶';try{localStorage.removeItem(AK+'-pos-'+today())}catch(_){}toast('تقبّل الله — انتهت التلاوة 🤍')});
+  A.addEventListener('error',()=>{PL.textContent='▶';$('#kDur').textContent='ملف التلاوة غير موجود'});
+  let sv=0;A.addEventListener('timeupdate',()=>{if(!A.duration||drag)return;const p=A.currentTime/A.duration;SK.value=Math.round(p*1000);SK.style.setProperty('--p',p*100+'%');$('#kCur').textContent=t2(A.currentTime);
+    if(Date.now()-sv>4000){sv=Date.now();try{localStorage.setItem(AK+'-pos-'+today(),Math.floor(A.currentTime))}catch(_){}}});
+  SK.addEventListener('input',()=>{drag=true;SK.style.setProperty('--p',SK.value/10+'%');if(A.duration)$('#kCur').textContent=t2(SK.value/1000*A.duration)});
+  SK.addEventListener('change',()=>{drag=false;if(A.duration)A.currentTime=SK.value/1000*A.duration;else{A.preload='metadata';A.load()}});
+  $('#kSlow').onclick=()=>{if(ri>0){ri--;setRate()}};$('#kFast').onclick=()=>{if(ri<RATES.length-1){ri++;setRate()}};})();
 $('#kClose').onclick=closeKahf;
 let kT;$('#kBody').addEventListener('scroll',()=>{kProg();clearTimeout(kT);kT=setTimeout(()=>{try{localStorage.setItem(KP(),$('#kBody').scrollTop)}catch(_){}},300)});
 $('#kBody').addEventListener('click',e=>{if(!e.target.closest('#kDone'))return;const d=jumGet();d.kahf=true;jumSet(d);try{chime()}catch(_){}vib([30,40,30]);closeKahf();renderJum();toast('تقبّل الله — أتممت سورة الكهف 🤍')});
