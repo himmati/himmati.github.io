@@ -624,7 +624,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
 .gift[data-fx=moon]{background:radial-gradient(circle at 80% 10%,rgba(255,240,200,.35),rgba(12,18,50,.85) 55%)}
 .gift[data-fx=lanterns]{background:radial-gradient(circle at 50% 40%,rgba(120,40,10,.55),rgba(25,10,40,.85))}
 @media(prefers-reduced-motion:reduce){.fw i,.spin3{animation:none}}
-.nk{align-items:flex-start}.nkr{display:flex;gap:6px;margin-top:6px;align-items:center}.nkr input{flex:1;min-width:0;min-height:38px}.nkr .btn{margin:0;min-height:38px}
+.nkbtn{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;padding:6px 12px;border-radius:16px;color:var(--ink);background:#2b2366;border:1px solid rgba(214,204,255,.1);box-shadow:inset 3px 3px 7px rgba(10,5,40,.55),inset -2px -2px 5px rgba(150,135,240,.14);cursor:pointer;text-align:start}.nkbtn span.t{flex:1}.nkbtn .ar{transition:transform .2s}.nkbtn.on .ar{transform:rotate(180deg)}.nklist{display:grid;gap:4px;max-height:260px;overflow-y:auto;margin-top:8px}.nkit{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:12px;background:rgba(255,255,255,.04);border:0;width:100%;text-align:start;cursor:pointer;color:inherit}.nkit:active{background:rgba(255,255,255,.1)}.nkit small{opacity:.6;margin-inline-start:auto;font-size:12px}#aNick .nk{margin-top:10px}.nk{align-items:flex-start}.acc{margin:0 0 10px;border-radius:18px;background:rgba(255,255,255,.045);border:1px solid rgba(214,204,255,.1);overflow:hidden}.acch{display:flex;align-items:center;gap:10px;width:100%;padding:14px 16px;background:none;border:0;color:var(--ink);cursor:pointer;text-align:start;font-size:17px;font-weight:700}.acch span{flex:1}.acch .ar{flex:0;transition:transform .2s;opacity:.7}.acc.on .acch .ar{transform:rotate(180deg)}.accb{padding:0 12px 12px}.accb>.note:first-child{margin-top:0}h3.sub{margin:16px 4px 8px;font-size:16px}.nkr{display:flex;gap:6px;margin-top:6px;align-items:center}.nkr input{flex:1;min-width:0;min-height:38px}.nkr .btn{margin:0;min-height:38px}
 
 /* ===== انفجار الجائزة من النص ===== */
 .gb{position:absolute;width:0;height:0;display:grid;place-items:center;pointer-events:none}
@@ -818,7 +818,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
   </section>
 
   <section class="view" id="v-admin">
-    <h2>إظهار الأعضاء</h2>
+    <h2>إظهار الأعضاء 👁️</h2>
     <form class="box vis" onsubmit="return false">
       <div><b>لوحة الترتيب (الأعضاء ونقاطهم)</b><p class="note" id="visTxt" style="margin:2px 0 0"></p></div>
       <button type="button" class="btn" id="visBtn"></button>
@@ -827,14 +827,14 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
     <h2>أسماء الأعضاء ✏️</h2>
     <p class="note">سمّي الأعضاء بالأسماء اللي تعرفينهم فيها. <b>أنتِ بس تشوفين هذي الأسماء</b>، والباقي يشوفون الاسم اللي سجّل فيه العضو.</p>
     <div id="aNick"></div>
-    <h2>الشات</h2>
+    <h2>الشات 💬</h2>
     <form class="box" id="fChat" onsubmit="return false">
       <div class="seg" id="chMode" style="margin:0"><button type="button" data-c="all">مفتوح للكل</button><button type="button" data-c="some">لأشخاص معيّنين</button><button type="button" data-c="none">مقفل للكل</button></div>
       <p class="note" id="chTxt" style="margin:0"></p>
       <div id="chPeople" class="chpeople" hidden></div>
     </form>
 
-    <h2>المتجر والأسعار</h2>
+    <h2>المتجر والأسعار 🛍️</h2>
     <form class="box" id="fShop" onsubmit="return false">
       <p class="note" style="margin:0">اختاري شكل أو لون، وبعدها غيّري سعره، أو افتحيه أو اقفليه على شخص معيّن أو على الكل.</p>
       <div class="seg" id="shType"><button type="button" data-t="av">الشخصيات</button><button type="button" data-t="bg">الخلفية</button><button type="button" data-t="fd">الصورة والتفاصيل</button><button type="button" data-t="bead">المسبحة</button></div>
@@ -851,10 +851,10 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       </div>
     </form>
 
-    <h2>إدارة الريلز 🎬</h2>
+    <h2>الريلز 🎬</h2>
     <p class="note">من هنا ترتّبين الريلز والمنشورات، وتخفينها، وتشوفين مين شافها. شاشة الريلز نفسها نظيفة: فيديو وخط بس.</p>
     <div id="rAdm"></div>
-    <h2>إضافة ريلز 🎬</h2>
+    <h3 class="sub">إضافة ريلز</h3>
     <form class="box" id="fReel">
       <label class="upl">الفيديو من الاستديو<span class="btn sm upb">اختاري فيديو</span><input id="rFile" type="file" accept="video/*"></label>
       <p class="note" id="rName" style="margin:0"></p>
@@ -865,7 +865,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       <button class="btn p" id="rBtn">رفع ونشر</button>
     </form>
 
-    <h2>إضافة منشور</h2>
+    <h2>إضافة منشور 📝</h2>
     <form class="box" id="fPost">
       <label>الكتابة<textarea id="poText" rows="4" maxlength="3000" placeholder="اكتبي هنا رسالة أو إعلان للأعضاء"></textarea></label>
       <label class="upl">صور (اختياري، لين ٤ صور)<span class="btn sm upb">اختاري صور</span><input id="poFiles" type="file" accept="image/*" multiple></label>
@@ -876,7 +876,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       <button class="btn p" id="poBtn">نشر</button>
     </form>
 
-    <h2>إضافة مهمة</h2>
+    <h2>المهام 📋</h2>
     <form class="box" id="fTask">
       <label>عنوان المهمة<input id="tTitle" required maxlength="80" placeholder="مثال: ١٠٠٠ استغفار اليوم"></label>
       <label>تفاصيل (اختياري)<textarea id="tNote" rows="2" maxlength="200"></textarea></label>
@@ -891,6 +891,8 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       <p class="note" style="margin:0">إذا انتهى الموعد وما أتمّ الشخص المهمة، تنقص منه نقطة زرقاء.</p>
       <button class="btn p">إضافة المهمة</button>
     </form>
+    <h3 class="sub">المهام الحالية</h3>
+    <div id="aTasks"></div>
 
     <h2>إرسال جائزة 🎁</h2>
     <form class="box" id="fGift" onsubmit="return false">
@@ -901,7 +903,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       <div class="shrow"><button type="button" class="btn p" id="gSend">🎁 إرسال الجائزة</button><button type="button" class="btn" id="gPrev">👀 جربيها على شاشتي</button></div>
     </form>
     <div id="gList"></div>
-    <h2>زيادة نقاط لعضو</h2>
+    <h2>زيادة نقاط لعضو ⭐</h2>
     <form class="box" id="fBonus">
       <label>العضو<select id="bTo" required></select></label>
       <div class="pick" id="bMed"></div>
@@ -910,9 +912,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       <button class="btn p">إضافة النقاط</button>
     </form>
 
-    <h2>المهام الحالية</h2>
-    <div id="aTasks"></div>
-    <h2>آخر النقاط المضافة</h2>
+    <h3 class="sub">آخر النقاط المضافة</h3>
     <div id="aBonus"></div>
   </section>
 </main>
@@ -1432,16 +1432,27 @@ $('#chMode').addEventListener('click',async e=>{const b=e.target.closest('[data-
 $('#chPeople').addEventListener('click',async e=>{const b=e.target.closest('[data-u]');if(!b)return;const u=b.dataset.u,on=!(chatCfg().allow[u]===true);
   if(await shopWrite({chat:{allow:{[u]:on}}})){S.shop.chat={...(S.shop.chat||{}),allow:{...((S.shop.chat||{}).allow||{}),[u]:on}};render();toast(on?'صار يقدر يستخدم الشات':'انمنع من الشات')}});
 $('#visBtn').onclick=async()=>{const h=!boardHidden();if(await shopWrite({hideBoard:h})){S.shop.hideBoard=h;render();toast(h?'انخفت لوحة الترتيب عن الأعضاء':'صارت لوحة الترتيب ظاهرة للكل')}};
-function renderNicks(){const el=$('#aNick');if(!el||!S.admin)return;if(el.contains(document.activeElement))return;
+const NK={open:false,sel:null,q:''};
+function renderNicks(){const el=$('#aNick');if(!el||!S.admin)return;if(el.contains(document.activeElement)&&!document.activeElement.matches('#nkQ'))return;
   const ids=Object.keys(S.members).filter(id=>S.members[id]?.org!==true);
-  el.innerHTML=ids.length?ids.map(id=>`<div class="task nk">${avatar(id,38)}<div class="tx"><h3>${esc(nm(id))}</h3><p>${nickOf(id)?'اسمه المسجّل: '+esc(realNm(id)):'ما سمّيتيه للحين'}</p>
-    <div class="nkr"><input type="text" maxlength="40" data-nk="${esc(id)}" value="${esc(nickOf(id))}" placeholder="اكتبي الاسم اللي تبينه"><button type="button" class="btn sm p" data-nks="${esc(id)}">حفظ</button>${nickOf(id)?`<button type="button" class="btn sm x" data-nkd="${esc(id)}">رجّعيه</button>`:''}</div></div></div>`).join('')
-    :'<div class="empty">ما فيه أعضاء للحين.</div>'}
+  if(!ids.length){el.innerHTML='<div class="empty">ما فيه أعضاء للحين.</div>';return}
+  if(NK.sel&&!ids.includes(NK.sel))NK.sel=null;const id=NK.sel,q=NK.q.trim();
+  const list=ids.filter(i=>!q||nm(i).includes(q)||realNm(i).includes(q));
+  const hadQ=document.activeElement?.matches?.('#nkQ');
+  el.innerHTML=`<button type="button" class="nkbtn${NK.open?' on':''}" id="nkTog">✏️<span class="t">${id?esc(nm(id)):'اختاري العضو اللي تبين تغيّرين اسمه'}</span><span class="ar">▾</span></button>`
+   +(NK.open?`${ids.length>6?`<input id="nkQ" placeholder="ابحثي عن اسم…" autocomplete="off" value="${esc(NK.q)}" style="margin-top:8px">`:''}<div class="nklist">${list.map(i=>`<button type="button" class="nkit" data-nkp="${esc(i)}">${avatar(i,28)}<span>${esc(nm(i))}</span>${nickOf(i)?'<small>✏️ مسمّى</small>':''}</button>`).join('')||'<p class="note" style="margin:4px">ما فيه اسم كذا.</p>'}</div>`:'')
+   +(id&&!NK.open?`<div class="task nk">${avatar(id,38)}<div class="tx"><h3>${esc(nm(id))}</h3><p>${nickOf(id)?'اسمه المسجّل: '+esc(realNm(id)):'ما سمّيتيه للحين'}</p>
+    <div class="nkr"><input type="text" maxlength="40" data-nk="${esc(id)}" value="${esc(nickOf(id))}" placeholder="اكتبي الاسم اللي تبينه"><button type="button" class="btn sm p" data-nks="${esc(id)}">حفظ</button>${nickOf(id)?`<button type="button" class="btn sm x" data-nkd="${esc(id)}">رجّعيه</button>`:''}</div></div></div>`:'');
+  if(hadQ){const i=$('#nkQ');if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length)}}}
+$('#aNick').addEventListener('input',e=>{if(e.target.matches('#nkQ')){NK.q=e.target.value;renderNicks()}});
+$('#aNick').addEventListener('click',e=>{const t=e.target.closest('#nkTog'),pk=e.target.closest('[data-nkp]');
+  if(t){NK.open=!NK.open;NK.q='';renderNicks();return}
+  if(pk){NK.sel=pk.dataset.nkp;NK.open=false;NK.q='';renderNicks();const i=$('#aNick').querySelector('[data-nk]');if(i)i.focus()}});
 $('#aNick').addEventListener('click',async e=>{const sv=e.target.closest('[data-nks]'),dl=e.target.closest('[data-nkd]');if(!(sv||dl)||!S.admin||!S.db||!S.me)return;
   const id=(sv||dl).dataset.nks||(sv||dl).dataset.nkd,v=dl?'':($('#aNick').querySelector(`[data-nk="${CSS.escape(id)}"]`)?.value||'').trim().slice(0,40);
   const me=S.members[S.me]=S.members[S.me]||{};me.nicks={...(me.nicks||{})};if(v)me.nicks[id]=v;else delete me.nicks[id];
   document.activeElement?.blur?.();
-  if(await wr(S.db.doc('members/'+S.me).update({nicks:{[id]:v?v:(window.firebase?firebase.firestore.FieldValue.delete():null)}}))){toast(v?'صار اسمه عندك: '+v:'رجع لاسمه المسجّل');render()}});
+  if(await wr(S.db.doc('members/'+S.me).update({nicks:{[id]:v?v:(window.firebase?firebase.firestore.FieldValue.delete():null)}}))){toast(v?'صار اسمه عندك: '+v:'رجع لاسمه المسجّل');NK.sel=null;render()}});
 $('#aNick').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[data-nk]')){e.preventDefault();$('#aNick').querySelector(`[data-nks="${CSS.escape(e.target.dataset.nk)}"]`).click()}});
 function renderAdmin(){if(!S.admin)return;renderShop();renderNicks();
   const ids=Object.keys(S.members),opt=ids.map(id=>`<option value="${esc(id)}">${esc(nm(id))}</option>`).join('');
@@ -2169,6 +2180,14 @@ addEventListener('appinstalled',()=>{$('#installBox').hidden=true;toast('انث�
 if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!standalone()){$('#installBox').hidden=false;$('#installBtn').hidden=true;$('#installTxt').textContent='عشان تثبّتين «هِمتي»: اضغطي زر المشاركة في Safari وبعدها «إضافة إلى الشاشة الرئيسية»'}
 $('#installBtn').onclick=async()=>{if(!DEFER)return;DEFER.prompt();try{await DEFER.userChoice}catch(_){}DEFER=null;$('#installBox').hidden=true};
 if('serviceWorker' in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+/* ===== صفحة المنظم: كل قسم خانة تنفتح بالضغط ===== */
+(function(){const v=$('#v-admin');if(!v)return;const kids=[...v.children];let cur=null;
+  kids.forEach(n=>{if(n.tagName==='H2'){const a=document.createElement('div');a.className='acc';
+      const b=document.createElement('button');b.type='button';b.className='acch';b.innerHTML='<span></span><i class="ar">▾</i>';b.firstChild.textContent=n.textContent;
+      const d=document.createElement('div');d.className='accb';d.hidden=true;a.append(b,d);n.replaceWith(a);cur=d;
+      b.onclick=()=>{const open=d.hidden;v.querySelectorAll('.acc').forEach(x=>{x.classList.remove('on');x.querySelector('.accb').hidden=true});
+        if(open){d.hidden=false;a.classList.add('on');setTimeout(()=>a.scrollIntoView({behavior:'smooth',block:'start'}),30)}}}
+    else if(cur)cur.append(n)})})();
 }
 </script>
 </body>
