@@ -680,7 +680,8 @@ details.acc[open]>summary{border-bottom:1px solid var(--line)}
 .ksp{flex:none;display:flex;align-items:center;gap:4px;padding:3px;border-radius:999px;background:rgba(212,160,23,.15)}
 .ksp button{width:30px;height:30px;border-radius:50%;border:0;background:#fff;color:#8a5e05;font:700 18px/1 sans-serif;box-shadow:0 1px 4px rgba(160,115,25,.25)}
 .ksp b{min-width:38px;text-align:center;font-size:13px;color:#8a5e05}
-[dir=ltr] .rseek,[dir=ltr] #kSeek,.rseek:dir(ltr),#kSeek:dir(ltr){--sd:90deg}
+/* الخط يمشي من اليسار لليمين دايم، عشان الدائرة والتعبئة يمشون نفس الاتجاه في كل الجوالات */
+.rseek,#kSeek{direction:ltr;--sd:90deg}
 .ctry{width:100%;margin:8px 0 2px;font-size:13px;font-weight:700;color:var(--mut)}
 .rexit{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;z-index:6;width:42px;height:42px;border-radius:50%;border:0;display:grid;place-items:center;color:#fff;background:rgba(0,0,0,.35);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 </style>
