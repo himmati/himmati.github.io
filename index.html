@@ -558,6 +558,20 @@ html.friday .core small{color:#a8740c}
 .vw b{flex:1;font-weight:500}.vw i{font-style:normal;font-size:12px;color:var(--mut)}.vw.off{opacity:.55}
 .vwh{margin:10px 0 2px;font-size:13px;color:var(--mut);font-weight:700}
 html.friday .vw{background:rgba(212,160,23,.1)}
+
+/* ===== لمسات الفيديو + شريط رفيع ===== */
+.reel{touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.reel video{-webkit-touch-callout:none;pointer-events:none}
+.reel .rcap{padding-bottom:48px}
+.reels .rdel{bottom:70px}
+.rbar{bottom:12px;inset-inline:12px;gap:0}
+.rseek{-webkit-appearance:none;appearance:none;height:22px!important;background:transparent!important;cursor:pointer;--p:0%}
+.rseek::-webkit-slider-runnable-track{height:3px;border-radius:3px;background:linear-gradient(90deg,#fff var(--p),rgba(255,255,255,.3) var(--p))}
+.rseek::-moz-range-track{height:3px;border-radius:3px;background:rgba(255,255,255,.3)}.rseek::-moz-range-progress{height:3px;border-radius:3px;background:#fff}
+.rseek::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:#fff;margin-top:-4px;box-shadow:0 0 4px rgba(0,0,0,.5)}
+.rseek::-moz-range-thumb{width:11px;height:11px;border:0;border-radius:50%;background:#fff}
+.rind{position:absolute;top:50%;z-index:2;transform:translateY(-50%);padding:10px 18px;border-radius:999px;background:rgba(0,0,0,.5);color:#fff;font:700 18px "IBM Plex Sans Arabic",sans-serif;opacity:0;pointer-events:none;transition:opacity .2s;direction:ltr}
+.rind.on{opacity:1}.rind.r{right:8%}.rind.l{left:8%}.rind.hold{top:84px;left:50%;transform:translateX(-50%)}
 </style>
 </head>
 <body>
@@ -1777,9 +1791,8 @@ S.msgReady=true;renderMsgs();
    const items=reelItems();
    L.innerHTML=items.length?items.map(r=>r.t==='v'?`<section class="reel" data-c="reels" data-id="${esc(r.id)}"><video src="${opt(r.url)}" poster="${poster(r.url)}" playsinline loop preload="metadata" ${MUTED?'muted':''}></video>
      <div class="rcap">${r.caption?`<p>${esc(r.caption)}</p>`:''}</div>${adm(r)}
-     <div class="rctl"><button type="button" data-sk="-10" aria-label="ترجيع ١٠ ثواني">⟲ ١٠</button><button type="button" data-pp aria-label="تشغيل/إيقاف" class="pp">⏯</button><button type="button" data-sk="10" aria-label="تقديم ١٠ ثواني">١٠ ⟳</button><button type="button" data-sp aria-label="السرعة">${SPEED}x</button></div>
-     <div class="rbar"><input type="range" class="rseek" min="0" max="1000" value="0" aria-label="مكان الفيديو"><span class="rtime">٠:٠٠</span></div>
-     ${S.admin?`<button type="button" class="rbtn rdel" data-rdel="${esc(r.id)}">🗑</button>`:''}<div class="rplay">▶</div></section>`
+     <div class="rbar"><input type="range" class="rseek" min="0" max="1000" value="0" aria-label="مكان الفيديو"></div>
+     ${S.admin?`<button type="button" class="rbtn rdel" data-rdel="${esc(r.id)}">🗑</button>`:''}<div class="rplay">▶</div><div class="rind"></div></section>`
      :`<section class="reel rpost" data-c="posts" data-id="${esc(r.id)}"><div class="rpc">${r.text?`<p class="rpt">${esc(r.text)}</p>`:''}${(Array.isArray(r.media)?r.media:[]).length?`<div class="pm n${Math.min(r.media.length,4)}">${r.media.slice(0,4).map(media).join('')}</div>`:''}</div>${adm(r)}
      ${S.admin?`<button type="button" class="rbtn rdel" data-pdel="${esc(r.id)}">🗑</button>`:''}</section>`).join('')
      :'<div class="empty" style="margin:30vh 20px">ما فيه ريلز للحين 🎬</div>';
@@ -1788,10 +1801,25 @@ S.msgReady=true;renderMsgs();
      clearTimeout(sec.__vt);if(on)sec.__vt=setTimeout(()=>markView(sec.dataset.c,sec.dataset.id),2500);
      if(!v)continue;if(on){v.muted=MUTED;v.play().catch(()=>{})}else{v.pause()}}},{threshold:[0,.6,1]});
    L.querySelectorAll('.reel').forEach(x=>IO.observe(x));
-   L.querySelectorAll('.reel video').forEach(v=>{const sec=v.closest('.reel'),rg=sec.querySelector('.rseek'),tt=sec.querySelector('.rtime');v.playbackRate=SPEED;
-     v.addEventListener('play',()=>{v.playbackRate=SPEED;sec.classList.remove('paused')});v.addEventListener('pause',()=>sec.classList.add('paused'));
-     v.addEventListener('timeupdate',()=>{if(sec.__drag)return;if(v.duration)rg.value=Math.round(v.currentTime/v.duration*1000);tt.textContent=mmss(v.currentTime)+' / '+mmss(v.duration)});
-     v.addEventListener('loadedmetadata',()=>{tt.textContent=mmss(0)+' / '+mmss(v.duration)})})}
+   L.querySelectorAll('.reel video').forEach(v=>{const sec=v.closest('.reel'),rg=sec.querySelector('.rseek');v.playbackRate=1;
+     v.addEventListener('play',()=>sec.classList.remove('paused'));v.addEventListener('pause',()=>sec.classList.add('paused'));
+     v.addEventListener('timeupdate',()=>{if(sec.__drag||!v.duration)return;const p=v.currentTime/v.duration;rg.value=Math.round(p*1000);rg.style.setProperty('--p',p*100+'%')});
+     gest(sec,v)})}
+ /* لمسات الفيديو: ضغط مطوّل يمين = سرعة ×٢ ، ضغطتين يمين = +١٠ ث ، ضغطتين يسار = −١٠ ث ، ضغطة بالنص = تشغيل/إيقاف */
+ function flash(sec,txt,side){const el=sec.querySelector('.rind');if(!el)return;el.textContent=txt;el.className='rind on '+side;clearTimeout(el.__t);el.__t=setTimeout(()=>el.className='rind',side==='hold'?99999:650)}
+ function gest(sec,v){let lp=null,held=false,down=null,last=null;
+   const zone=x=>{const r=sec.getBoundingClientRect(),f=(x-r.left)/r.width;return f<.35?'L':f>.65?'R':'M'};
+   const skip=e=>e.target.closest('.rbar,.radm,.rdel,.rbtn,.rhid,button,input');
+   sec.addEventListener('contextmenu',e=>e.preventDefault());
+   sec.addEventListener('pointerdown',e=>{if(skip(e))return;down={x:e.clientX,y:e.clientY,z:zone(e.clientX)};held=false;
+     if(down.z==='R')lp=setTimeout(()=>{held=true;v.playbackRate=2;if(v.paused)v.play().catch(()=>{});flash(sec,'⏩ ×٢','hold');vib(15)},450)});
+   sec.addEventListener('pointermove',e=>{if(down&&Math.hypot(e.clientX-down.x,e.clientY-down.y)>12){clearTimeout(lp);down=null}});
+   const end=e=>{clearTimeout(lp);if(held){held=false;v.playbackRate=1;const el=sec.querySelector('.rind');el.className='rind';down=null;return}
+     if(!down||e.type==='pointercancel'){down=null;return}const z=down.z;down=null;const now=Date.now();
+     if(z==='M'){last=null;if(v.paused)v.play().catch(()=>{});else v.pause();return}
+     if(last&&last.z===z&&now-last.t<320){last={z,t:now};const d=z==='R'?10:-10;v.currentTime=Math.max(0,Math.min((v.duration||0)-0.1,v.currentTime+d));flash(sec,z==='R'?'١٠ ⏩':'⏪ ١٠',z==='R'?'r':'l');vib(10)}
+     else last={z,t:now}};
+   sec.addEventListener('pointerup',end);sec.addEventListener('pointercancel',end)}
  window.__reelsDraw=()=>{if(!$('#reels').hidden)draw();dotUpd()};
  const newestAll=()=>Math.max(0,...S.reels.filter(r=>!r.hidden).map(r=>r.at||0),...(S.posts||[]).filter(p=>!p.hidden).map(p=>p.at||0));
  const seenAll=()=>{try{return +localStorage.getItem('wird-seen')||0}catch(_){return 0}};
@@ -1825,7 +1853,7 @@ S.msgReady=true;renderMsgs();
    const d=e.target.closest('[data-rdel]');
    if(d){if(d.dataset.sure!=='1'){d.dataset.sure='1';d.textContent='حذف؟';setTimeout(()=>{d.dataset.sure='';d.textContent='🗑'},3000);return}
      if(await wr(S.db.doc('reels/'+d.dataset.rdel).delete()))toast('انحذف الريلز');return}
-   const sec=e.target.closest('.reel');if(!sec)return;const v=sec.querySelector('video');if(v.paused){v.play().catch(()=>{});sec.classList.remove('paused')}else{v.pause();sec.classList.add('paused')}});
+   });
  $('#rSetup').hidden=clOk;
  $('#rFile').onchange=e=>{const f=e.target.files[0];$('#rName').textContent=f?`${f.name} — ${(f.size/1048576).toFixed(1)} ميغا`+(f.size>100*1048576?' (أكبر من ١٠٠ ميغا، ما ينرفع)':''):''};
  $('#fReel').onsubmit=e=>{e.preventDefault();if(!S.admin||!S.db)return;if(!clOk){toast('حطي إعدادات Cloudinary في config.js أول');return}
