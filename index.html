@@ -553,7 +553,7 @@ html.friday .core small{color:#a8740c}
 .rpost .radm .rbtn{background:rgba(255,255,255,.22)}
 
 /* ===== مين شاف الريلز ===== */
-.rvw{z-index:50}#board .row.tap{cursor:pointer;-webkit-user-select:none;user-select:none}#board .row.tap:active{transform:scale(.98)}.udb{width:min(100%,440px);padding:18px 14px}.udb .vwl{max-height:62vh;gap:8px}.udh{display:flex;align-items:center;gap:10px;text-align:start;margin-bottom:10px}.udh h3{margin:0;font-size:22px}.udh small{display:block;color:var(--mut)}.uds{padding:10px 12px;border-radius:16px;background:rgba(127,127,160,.1);border:1px solid var(--line)}.uds h4{margin:0 0 6px;font-size:15px}.udd{display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:5px 0;border-top:1px solid var(--line);font-size:13px}.udd:first-of-type{border-top:0}.udd b{min-width:92px;font-weight:600}.udp{display:inline-grid;place-items:center;min-width:44px;padding:2px 6px;border-radius:10px;font-size:12px;background:rgba(127,127,160,.15);color:var(--mut)}.udp.ok{background:#2e9d6a;color:#fff}.udg{display:flex;flex-wrap:wrap;gap:6px}.udg span{padding:4px 8px;border-radius:10px;background:rgba(127,127,160,.15);font-size:13px}.vwl{max-height:55vh;overflow-y:auto;text-align:start;display:grid;gap:6px}
+.rvw{z-index:50}.vwl{max-height:55vh;overflow-y:auto;text-align:start;display:grid;gap:6px}
 .vw{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:16px;background:rgba(255,255,255,.07)}
 .vw b{flex:1;font-weight:500}.vw i{font-style:normal;font-size:12px;color:var(--mut)}.vw.off{opacity:.55}
 .vwh{margin:10px 0 2px;font-size:13px;color:var(--mut);font-weight:700}
@@ -624,7 +624,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
 .gift[data-fx=moon]{background:radial-gradient(circle at 80% 10%,rgba(255,240,200,.35),rgba(12,18,50,.85) 55%)}
 .gift[data-fx=lanterns]{background:radial-gradient(circle at 50% 40%,rgba(120,40,10,.55),rgba(25,10,40,.85))}
 @media(prefers-reduced-motion:reduce){.fw i,.spin3{animation:none}}
-.nkbtn{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;padding:6px 12px;border-radius:16px;color:var(--ink);background:rgba(127,127,160,.13);border:1px solid var(--line,rgba(127,127,160,.25));cursor:pointer;text-align:start;font:inherit;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}.nkbtn span.t{flex:1}.nkbtn .ar{transition:transform .2s}.nkbtn.on .ar{transform:rotate(180deg)}.nklist{display:grid;gap:4px;max-height:260px;overflow-y:auto;margin-top:8px}.nkit{-webkit-user-select:none;user-select:none;font:inherit;display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:12px;background:rgba(255,255,255,.04);border:0;width:100%;text-align:start;cursor:pointer;color:inherit}.nkit:active{background:rgba(255,255,255,.1)}.nkit small{opacity:.6;margin-inline-start:auto;font-size:12px}#aNick .nk{margin-top:10px}.nk{align-items:flex-start}.acc{margin:0 0 10px;border-radius:18px;background:rgba(255,255,255,.045);border:1px solid rgba(214,204,255,.1);overflow:hidden}.acch{display:flex;align-items:center;gap:10px;width:100%;padding:14px 16px;background:none;border:0;color:var(--ink);cursor:pointer;text-align:start;font-size:17px;font-weight:700}.acch span{flex:1}.acch .ar{flex:0;transition:transform .2s;opacity:.7}.acc.on .acch .ar{transform:rotate(180deg)}.accb{padding:0 12px 12px}.accb>.note:first-child{margin-top:0}h3.sub{margin:16px 4px 8px;font-size:16px}.nkr{display:flex;gap:6px;margin-top:6px;align-items:center}.nkr input{flex:1;min-width:0;min-height:38px}.nkr .btn{margin:0;min-height:38px}
+.nk{align-items:flex-start}.nkr{display:flex;gap:6px;margin-top:6px;align-items:center}.nkr input{flex:1;min-width:0;min-height:38px}.nkr .btn{margin:0;min-height:38px}
 
 /* ===== انفجار الجائزة من النص ===== */
 .gb{position:absolute;width:0;height:0;display:grid;place-items:center;pointer-events:none}
@@ -690,7 +690,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       <div class="jdua"><b>🤲 دعواتي لساعة الاستجابة</b>
         <p class="jnow" id="jNow" hidden>⏳ الحين آخر ساعة من الجمعة — وقت يُستجاب فيه الدعاء بإذن الله</p>
         <textarea id="duaT" rows="3" maxlength="1500" placeholder="اكتبي هنا الدعاء اللي تتمنينه…"></textarea>
-        <small>«فيها ساعة لا يوافقها عبد مسلم يسأل الله شيئًا إلا أعطاه إياه، فالتمسوها آخر ساعة بعد العصر». دعواتك تنحفظ في حسابك وتشوفها المنظمة، ويجيك تذكير قبل أذان المغرب بساعة.</small>
+        <small>«فيها ساعة لا يوافقها عبد مسلم يسأل الله شيئًا إلا أعطاه إياه، فالتمسوها آخر ساعة بعد العصر». دعواتك تنحفظ في جوالك، ويجيك تذكير قبل أذان المغرب بساعة.</small>
         <button type="button" class="btn sm" id="duaIcs">📅 أضيفي التذكير لتقويم جوالي كل جمعة</button></div></div>
     <div class="pray" id="pray">
       <div class="ph1"><div><b id="prNext">مواقيت الصلاة</b><small id="prLeft"></small></div>
@@ -818,7 +818,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
   </section>
 
   <section class="view" id="v-admin">
-    <h2>إظهار الأعضاء 👁️</h2>
+    <h2>إظهار الأعضاء</h2>
     <form class="box vis" onsubmit="return false">
       <div><b>لوحة الترتيب (الأعضاء ونقاطهم)</b><p class="note" id="visTxt" style="margin:2px 0 0"></p></div>
       <button type="button" class="btn" id="visBtn"></button>
@@ -827,14 +827,14 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
     <h2>أسماء الأعضاء ✏️</h2>
     <p class="note">سمّي الأعضاء بالأسماء اللي تعرفينهم فيها. <b>أنتِ بس تشوفين هذي الأسماء</b>، والباقي يشوفون الاسم اللي سجّل فيه العضو.</p>
     <div id="aNick"></div>
-    <h2>الشات 💬</h2>
+    <h2>الشات</h2>
     <form class="box" id="fChat" onsubmit="return false">
       <div class="seg" id="chMode" style="margin:0"><button type="button" data-c="all">مفتوح للكل</button><button type="button" data-c="some">لأشخاص معيّنين</button><button type="button" data-c="none">مقفل للكل</button></div>
       <p class="note" id="chTxt" style="margin:0"></p>
       <div id="chPeople" class="chpeople" hidden></div>
     </form>
 
-    <h2>المتجر والأسعار 🛍️</h2>
+    <h2>المتجر والأسعار</h2>
     <form class="box" id="fShop" onsubmit="return false">
       <p class="note" style="margin:0">اختاري شكل أو لون، وبعدها غيّري سعره، أو افتحيه أو اقفليه على شخص معيّن أو على الكل.</p>
       <div class="seg" id="shType"><button type="button" data-t="av">الشخصيات</button><button type="button" data-t="bg">الخلفية</button><button type="button" data-t="fd">الصورة والتفاصيل</button><button type="button" data-t="bead">المسبحة</button></div>
@@ -851,12 +851,12 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       </div>
     </form>
 
-    <h2>الريلز 🎬</h2>
+    <h2>إدارة الريلز 🎬</h2>
     <p class="note">من هنا ترتّبين الريلز والمنشورات، وتخفينها، وتشوفين مين شافها. شاشة الريلز نفسها نظيفة: فيديو وخط بس.</p>
     <div id="rAdm"></div>
-    <h3 class="sub">إضافة ريلز</h3>
+    <h2>إضافة ريلز 🎬</h2>
     <form class="box" id="fReel">
-      <label class="upl">الفيديو من الاستديو<span class="btn sm upb">اختاري فيديو</span><input id="rFile" type="file" accept="video/*"></label>
+      <label class="upl">الفيديو من الاستديو<span class="btn sm upb">اختاري فيديو أو أكثر</span><input id="rFile" type="file" accept="video/*" multiple></label>
       <p class="note" id="rName" style="margin:0"></p>
       <label>وصف (اختياري)<input id="rCap" maxlength="150" placeholder="مثال: فضل الاستغفار"></label>
       <div class="bar" id="rBar" hidden><i style="width:0%"></i></div>
@@ -865,7 +865,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       <button class="btn p" id="rBtn">رفع ونشر</button>
     </form>
 
-    <h2>إضافة منشور 📝</h2>
+    <h2>إضافة منشور</h2>
     <form class="box" id="fPost">
       <label>الكتابة<textarea id="poText" rows="4" maxlength="3000" placeholder="اكتبي هنا رسالة أو إعلان للأعضاء"></textarea></label>
       <label class="upl">صور (اختياري، لين ٤ صور)<span class="btn sm upb">اختاري صور</span><input id="poFiles" type="file" accept="image/*" multiple></label>
@@ -876,7 +876,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       <button class="btn p" id="poBtn">نشر</button>
     </form>
 
-    <h2>المهام 📋</h2>
+    <h2>إضافة مهمة</h2>
     <form class="box" id="fTask">
       <label>عنوان المهمة<input id="tTitle" required maxlength="80" placeholder="مثال: ١٠٠٠ استغفار اليوم"></label>
       <label>تفاصيل (اختياري)<textarea id="tNote" rows="2" maxlength="200"></textarea></label>
@@ -891,8 +891,6 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       <p class="note" style="margin:0">إذا انتهى الموعد وما أتمّ الشخص المهمة، تنقص منه نقطة زرقاء.</p>
       <button class="btn p">إضافة المهمة</button>
     </form>
-    <h3 class="sub">المهام الحالية</h3>
-    <div id="aTasks"></div>
 
     <h2>إرسال جائزة 🎁</h2>
     <form class="box" id="fGift" onsubmit="return false">
@@ -903,7 +901,7 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       <div class="shrow"><button type="button" class="btn p" id="gSend">🎁 إرسال الجائزة</button><button type="button" class="btn" id="gPrev">👀 جربيها على شاشتي</button></div>
     </form>
     <div id="gList"></div>
-    <h2>زيادة نقاط لعضو ⭐</h2>
+    <h2>زيادة نقاط لعضو</h2>
     <form class="box" id="fBonus">
       <label>العضو<select id="bTo" required></select></label>
       <div class="pick" id="bMed"></div>
@@ -912,7 +910,9 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
       <button class="btn p">إضافة النقاط</button>
     </form>
 
-    <h3 class="sub">آخر النقاط المضافة</h3>
+    <h2>المهام الحالية</h2>
+    <div id="aTasks"></div>
+    <h2>آخر النقاط المضافة</h2>
     <div id="aBonus"></div>
   </section>
 </main>
@@ -958,7 +958,6 @@ html.friday .gfxb{background:rgba(212,160,23,.1)}
 <div id="duaA" class="alarm" hidden role="alertdialog" aria-labelledby="duaH"><div class="abox"><div style="font-size:54px;line-height:1">🤲</div>
   <h3 id="duaH">ساعة الاستجابة</h3><p>باقي ساعة على أذان المغرب، وهي آخر ساعة من الجمعة يُرجى فيها قبول الدعاء</p><div class="duaq" id="duaQ"></div>
   <div class="arow"><button class="btn p" id="duaGo">افتحي دعواتي</button><button class="btn" id="duaX">تمام</button></div></div></div>
-<div id="ud" class="alarm rvw" hidden role="dialog" aria-labelledby="udT"><div class="abox udb"><div id="udH"></div><div class="vwl" id="udL"></div><button type="button" class="btn" id="udX" style="width:100%;margin-top:12px">إغلاق</button></div></div>
 <div id="rvw" class="alarm rvw" hidden role="dialog" aria-labelledby="rvwT"><div class="abox"><h3 id="rvwT"></h3><div class="vwl" id="rvwL"></div><button type="button" class="btn" id="rvwX" style="width:100%;margin-top:12px">إغلاق</button></div></div>
 <div id="raud" class="alarm rvw" hidden role="dialog" aria-labelledby="raudT"><div class="abox"><h3 id="raudT">👥 مين يشوف هذا الريلز؟</h3>
   <p id="raudN"></p><div class="chpeople" id="raudL" style="text-align:start"></div>
@@ -1389,55 +1388,10 @@ $('#myTasks').addEventListener('click',async e=>{const g=e.target.closest('[data
 function renderBoard(){
   const ids=Object.keys(S.members),d=today();
   const rows=ids.map(id=>({id,p:pts(id),a:S.members[id]?.adhkar?.[d]||{}})).sort((x,y)=>y.p.total-x.p.total);
-  $('#board').innerHTML=(S.admin&&rows.length?'<p class="note" style="margin:0 4px 8px">👆 اضغطي على أي عضو تشوفين دعواته وصلواته وكل نشاطه</p>':'')+(rows.length?rows.map((r,i)=>`<div class="row${S.admin?' tap':''}"${S.admin?` data-ud="${esc(r.id)}"`:''}><span class="rk">${ar(i+1)}</span>${avatar(r.id,38)}<span class="nm">${esc(nm(r.id))} ${lvChip(r.id)}<small>${[r.a.m?'الصباح ✓':'',r.a.e?'المساء ✓':'',r.a.n?'النوم ✓':''].filter(Boolean).join(' · ')||'—'}</small></span>
+  $('#board').innerHTML=rows.length?rows.map((r,i)=>`<div class="row"><span class="rk">${ar(i+1)}</span>${avatar(r.id,38)}<span class="nm">${esc(nm(r.id))} ${lvChip(r.id)}<small>${[r.a.m?'الصباح ✓':'',r.a.e?'المساء ✓':'',r.a.n?'النوم ✓':''].filter(Boolean).join(' · ')||'—'}</small></span>
     <span class="ms">${Object.entries(MED).map(([k,m])=>`<span title="${m.n}">${gem(k,16)}${ar(r.p[k])}</span>`).join('')}</span></div>`).join('')
-    :'<div class="empty">ما فيه أعضاء بعد.</div>');
+    :'<div class="empty">ما فيه أعضاء بعد.</div>';
 }
-
-/* ===== تفاصيل العضو (للمنظم من الترتيب) ===== */
-S.duas=S.duas||{};
-const UD_PR={fajr:'الفجر',dhuhr:'الظهر',asr:'العصر',maghrib:'المغرب',isha:'العشاء'};
-const udDay=(n)=>{const d=new Date();d.setDate(d.getDate()-n);return{k:d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(),t:n===0?'اليوم':n===1?'أمس':d.toLocaleDateString('ar-SA-u-ca-gregory',{weekday:'long',day:'numeric',month:'numeric'})}};
-const udTm=ms=>{try{return new Date(ms).toLocaleTimeString('ar-SA-u-nu-arab',{hour:'numeric',minute:'2-digit'})}catch(_){return ''}};
-function openUD(id){if(!S.admin)return;const m=S.members[id]||{},p=pts(id);
-  $('#udH').innerHTML=`<div class="udh">${avatar(id,52)}<div><h3 id="udT">${esc(nm(id))}</h3><small>${nickOf(id)?'اسمه المسجّل: '+esc(realNm(id))+' · ':''}${Object.entries(MED).map(([k])=>`${gem(k,14)}${ar(p[k])}`).join(' ')}</small></div></div>`;
-  const days=[...Array(7)].map((_,i)=>udDay(i)),out=[];
-  // الصلوات
-  let pc=0;const prRows=days.map(d=>{const x=m.prayers?.[d.k]||{};return `<div class="udd"><b>${d.t}</b>${Object.entries(UD_PR).map(([k,n])=>{if(x[k])pc++;return `<span class="udp${x[k]?' ok':''}" title="${x[k]?udTm(x[k]):''}">${n}</span>`}).join('')}</div>`}).join('');
-  out.push(`<div class="uds"><h4>🕌 الصلوات (آخر ٧ أيام: ${ar(pc)} من ${ar(35)})</h4>${prRows}</div>`);
-  // الأذكار
-  const adRows=days.map(d=>{const x=m.adhkar?.[d.k]||{};const got=Object.keys(MODE).filter(k=>x[k]);
-    return `<div class="udd"><b>${d.t}</b>${got.length?got.map(k=>`<span class="udp ok">${MODE[k].replace('أذكار ','')}${k==='a'&&x.a?.p?' ×'+ar(x.a.p):''}${x[k]?.at?' '+udTm(x[k].at):''}</span>`).join(''):'<span class="udp">ما سجّل</span>'}</div>`}).join('');
-  out.push(`<div class="uds"><h4>📖 الأذكار</h4>${adRows}</div>`);
-  // المسبحة
-  const tl=m.tally||{},tk=Object.keys(tl).filter(k=>+tl[k]>0);
-  out.push(`<div class="uds"><h4>📿 المسبحة (المجموع الكلي)</h4>${tk.length?`<div class="udg">${tk.map(k=>`<span>${esc(DZ[k]||k)}: ${ar(+tl[k])}</span>`).join('')}</div>`:'<p class="note" style="margin:0">ما سبّح للحين.</p>'}</div>`);
-  // المهام
-  const dn=m.done||{},mine=S.tasks.filter(t=>t.to==='all'||t.to===id);
-  const okT=mine.filter(t=>dn[t.id]),noT=mine.filter(t=>!dn[t.id]);
-  out.push(`<div class="uds"><h4>✅ المهام (${ar(okT.length)} من ${ar(mine.length)})</h4>${okT.map(t=>`<div class="udd"><span class="udp ok">✓</span>${esc(t.title)}${typeof dn[t.id]==='number'&&dn[t.id]>1?` <small style="color:var(--mut)">${fmt(dn[t.id])}</small>`:''}</div>`).join('')}${noT.map(t=>`<div class="udd"><span class="udp">—</span>${esc(t.title)}</div>`).join('')}${mine.length?'':'<p class="note" style="margin:0">ما عنده مهام.</p>'}</div>`);
-  // النقاط المضافة
-  const bn=S.bonus.filter(b=>b.uid===id);
-  if(bn.length)out.push(`<div class="uds"><h4>🎁 نقاط أضفتيها له</h4>${bn.slice(0,15).map(b=>`<div class="udd">${gem(b.medal,14)}${ar(b.pts)}${b.why?' — '+esc(b.why):''}${b.at?` <small style="color:var(--mut)">${fmt(b.at)}</small>`:''}</div>`).join('')}</div>`);
-  // المشتريات
-  const ow=Object.entries(m.owned||{}).filter(([,x])=>x&&typeof x==='object').sort((a,b)=>(b[1].at||0)-(a[1].at||0));
-  const fe=Object.values(m.fees||{}).filter(x=>x&&typeof x==='object');
-  out.push(`<div class="uds"><h4>🛍️ المتجر</h4>${ow.length?ow.slice(0,20).map(([k,x])=>{const [t,v]=[k.slice(0,k.indexOf(':')),k.slice(k.indexOf(':')+1)];
-    return `<div class="udd">${t==='av'&&AV[v]?ico(v,'#4f46e5','#fff','#ffd166',22)+' '+esc(AV[v][0]):t==='av'?'شكل':`<span class="bsw" style="--c:${esc(v)};width:18px;height:18px"></span> لون`} · ${gem(x.m,13)}${ar(x.n)}${x.at?` <small style="color:var(--mut)">${fmt(x.at)}</small>`:''}</div>`}).join(''):'<p class="note" style="margin:0">ما اشترى شي.</p>'}${fe.length?`<div class="udd">✏️ غيّر اسمه ${ar(fe.length)} مرة</div>`:''}</div>`);
-  // آخر النشاطات (كل شي سوّاه مرتّب بالوقت)
-  const ev=[];
-  for(const dk in m.prayers||{}){const x=m.prayers[dk]||{};for(const k in UD_PR)if(+x[k]>1)ev.push([+x[k],'🕌 صلّى '+UD_PR[k]])}
-  for(const dk in m.adhkar||{}){const x=m.adhkar[dk]||{};for(const k in MODE)if(x[k]&&+x[k].at>1)ev.push([+x[k].at,'📖 قرأ '+MODE[k]])}
-  for(const tid in dn)if(+dn[tid]>1){const t=S.tasks.find(z=>z.id===tid);ev.push([+dn[tid],'✅ أتمّ مهمة'+(t?' «'+esc(t.title)+'»':'')])}
-  for(const [k,x] of Object.entries(m.owned||{}))if(x&&+x.at>1)ev.push([+x.at,'🛍️ اشترى من المتجر ('+gem(x.m,13)+ar(x.n)+')'])
-  const du=S.duas[id];if(du&&+du.at>1)ev.push([+du.at,'🤲 كتب دعاء']);
-  ev.sort((a,b)=>b[0]-a[0]);
-  out.unshift(`<div class="uds"><h4>🕒 آخر نشاطاته</h4>${ev.length?ev.slice(0,30).map(([t,x])=>`<div class="udd">${x} <small style="color:var(--mut)">${fmt(t)}</small></div>`).join(''):'<p class="note" style="margin:0">ما فيه نشاط مسجّل للحين.</p>'}</div>`);
-  out.unshift(`<div class="uds"><h4>🤲 دعواته لساعة الاستجابة</h4>${du&&(du.t||'').trim()?`<div class="duaq" style="margin:0">${esc(du.t)}</div>${du.at?`<small style="color:var(--mut)">آخر تعديل: ${fmt(du.at)}</small>`:''}`:'<p class="note" style="margin:0">ما كتب دعاء للحين.</p>'}</div>`);
-  $('#udL').innerHTML=out.join('');$('#udL').scrollTop=0;$('#ud').hidden=false;$('#ud').dataset.id=id}
-$('#board').addEventListener('click',e=>{const r=e.target.closest('[data-ud]');if(r&&S.admin)openUD(r.dataset.ud)});
-$('#udX').onclick=()=>{$('#ud').hidden=true};
-$('#ud').addEventListener('click',e=>{if(e.target.id==='ud')$('#ud').hidden=true});
 
 /* ===== لوحة المنظم ===== */
 const pick=n=>Object.entries(MED).map(([k,m],i)=>`<label style="--c:${m.c}"><input type="radio" name="${n}" value="${k}" ${i===0?'checked':''}>${gem(k,20)}${m.n}</label>`).join('');
@@ -1478,27 +1432,16 @@ $('#chMode').addEventListener('click',async e=>{const b=e.target.closest('[data-
 $('#chPeople').addEventListener('click',async e=>{const b=e.target.closest('[data-u]');if(!b)return;const u=b.dataset.u,on=!(chatCfg().allow[u]===true);
   if(await shopWrite({chat:{allow:{[u]:on}}})){S.shop.chat={...(S.shop.chat||{}),allow:{...((S.shop.chat||{}).allow||{}),[u]:on}};render();toast(on?'صار يقدر يستخدم الشات':'انمنع من الشات')}});
 $('#visBtn').onclick=async()=>{const h=!boardHidden();if(await shopWrite({hideBoard:h})){S.shop.hideBoard=h;render();toast(h?'انخفت لوحة الترتيب عن الأعضاء':'صارت لوحة الترتيب ظاهرة للكل')}};
-const NK={open:false,sel:null,q:''};
-function renderNicks(){const el=$('#aNick');if(!el||!S.admin)return;{const ae=document.activeElement;if(el.contains(ae)&&ae.matches('input[data-nk]'))return}
+function renderNicks(){const el=$('#aNick');if(!el||!S.admin)return;if(el.contains(document.activeElement))return;
   const ids=Object.keys(S.members).filter(id=>S.members[id]?.org!==true);
-  if(!ids.length){el.innerHTML='<div class="empty">ما فيه أعضاء للحين.</div>';return}
-  if(NK.sel&&!ids.includes(NK.sel))NK.sel=null;const id=NK.sel,q=NK.q.trim();
-  const list=ids.filter(i=>!q||nm(i).includes(q)||realNm(i).includes(q));
-  const hadQ=document.activeElement?.matches?.('#nkQ');
-  el.innerHTML=`<button type="button" class="nkbtn${NK.open?' on':''}" id="nkTog">✏️<span class="t">${id?esc(nm(id)):'اختاري العضو اللي تبين تغيّرين اسمه'}</span><span class="ar">▾</span></button>`
-   +(NK.open?`${ids.length>6?`<input id="nkQ" placeholder="ابحثي عن اسم…" autocomplete="off" value="${esc(NK.q)}" style="margin-top:8px">`:''}<div class="nklist">${list.map(i=>`<button type="button" class="nkit" data-nkp="${esc(i)}">${avatar(i,28)}<span>${esc(nm(i))}</span>${nickOf(i)?'<small>✏️ مسمّى</small>':''}</button>`).join('')||'<p class="note" style="margin:4px">ما فيه اسم كذا.</p>'}</div>`:'')
-   +(id&&!NK.open?`<div class="task nk">${avatar(id,38)}<div class="tx"><h3>${esc(nm(id))}</h3><p>${nickOf(id)?'اسمه المسجّل: '+esc(realNm(id)):'ما سمّيتيه للحين'}</p>
-    <div class="nkr"><input type="text" maxlength="40" data-nk="${esc(id)}" value="${esc(nickOf(id))}" placeholder="اكتبي الاسم اللي تبينه"><button type="button" class="btn sm p" data-nks="${esc(id)}">حفظ</button>${nickOf(id)?`<button type="button" class="btn sm x" data-nkd="${esc(id)}">رجّعيه</button>`:''}</div></div></div>`:'');
-  if(hadQ){const i=$('#nkQ');if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length)}}}
-$('#aNick').addEventListener('input',e=>{if(e.target.matches('#nkQ')){NK.q=e.target.value;renderNicks()}});
-$('#aNick').addEventListener('click',e=>{const t=e.target.closest('#nkTog'),pk=e.target.closest('[data-nkp]');
-  if(t){NK.open=!NK.open;NK.q='';renderNicks();return}
-  if(pk){NK.sel=pk.dataset.nkp;NK.open=false;NK.q='';renderNicks();const i=$('#aNick').querySelector('[data-nk]');if(i)i.focus()}});
+  el.innerHTML=ids.length?ids.map(id=>`<div class="task nk">${avatar(id,38)}<div class="tx"><h3>${esc(nm(id))}</h3><p>${nickOf(id)?'اسمه المسجّل: '+esc(realNm(id)):'ما سمّيتيه للحين'}</p>
+    <div class="nkr"><input type="text" maxlength="40" data-nk="${esc(id)}" value="${esc(nickOf(id))}" placeholder="اكتبي الاسم اللي تبينه"><button type="button" class="btn sm p" data-nks="${esc(id)}">حفظ</button>${nickOf(id)?`<button type="button" class="btn sm x" data-nkd="${esc(id)}">رجّعيه</button>`:''}</div></div></div>`).join('')
+    :'<div class="empty">ما فيه أعضاء للحين.</div>'}
 $('#aNick').addEventListener('click',async e=>{const sv=e.target.closest('[data-nks]'),dl=e.target.closest('[data-nkd]');if(!(sv||dl)||!S.admin||!S.db||!S.me)return;
   const id=(sv||dl).dataset.nks||(sv||dl).dataset.nkd,v=dl?'':($('#aNick').querySelector(`[data-nk="${CSS.escape(id)}"]`)?.value||'').trim().slice(0,40);
   const me=S.members[S.me]=S.members[S.me]||{};me.nicks={...(me.nicks||{})};if(v)me.nicks[id]=v;else delete me.nicks[id];
   document.activeElement?.blur?.();
-  if(await wr(S.db.doc('members/'+S.me).update({nicks:{[id]:v?v:(window.firebase?firebase.firestore.FieldValue.delete():null)}}))){toast(v?'صار اسمه عندك: '+v:'رجع لاسمه المسجّل');NK.sel=null;render()}});
+  if(await wr(S.db.doc('members/'+S.me).update({nicks:{[id]:v?v:(window.firebase?firebase.firestore.FieldValue.delete():null)}}))){toast(v?'صار اسمه عندك: '+v:'رجع لاسمه المسجّل');render()}});
 $('#aNick').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('[data-nk]')){e.preventDefault();$('#aNick').querySelector(`[data-nks="${CSS.escape(e.target.dataset.nk)}"]`).click()}});
 function renderAdmin(){if(!S.admin)return;renderShop();renderNicks();
   const ids=Object.keys(S.members),opt=ids.map(id=>`<option value="${esc(id)}">${esc(nm(id))}</option>`).join('');
@@ -1632,7 +1575,7 @@ function applyVis(){const h=boardHidden();$('#navBoard').hidden=h&&!S.admin;
     $('#chTxt').textContent=c.mode==='all'?'كل الأعضاء يقدرون يستخدمون الشات.':c.mode==='none'?'الشات مقفل عن كل الأعضاء (أنتِ بس تقدرين تفتحينه).':'اختاري تحت مين يقدر يستخدم الشات:';
     const box=$('#chPeople');box.hidden=c.mode!=='some';
     if(c.mode==='some')box.innerHTML=Object.keys(S.members).filter(id=>id!==S.me).map(id=>{const on=c.allow[id]===true;return `<button type="button" class="chp${on?' on':''}" data-u="${esc(id)}">${avatar(id,36)}<b>${esc(nm(id))}</b><i>${on?'✓ مسموح':'ممنوع'}</i></button>`}).join('')||'<p class="note">ما فيه أعضاء للحين.</p>'}}
-function render(){if(!$('#ud').hidden&&$('#ud').dataset.id){const sc=$('#udL').scrollTop;openUD($('#ud').dataset.id);$('#udL').scrollTop=sc}applyVis();renderAdhkar();renderTb();renderTasks();renderBoard();renderAdmin();renderProfile();renderFeed();renderMsgs();window.__rAdm&&window.__rAdm();window.__upa&&window.__upa();window.__gifts&&window.__gifts()}
+function render(){applyVis();renderAdhkar();renderTb();renderTasks();renderBoard();renderAdmin();renderProfile();renderFeed();renderMsgs();window.__rAdm&&window.__rAdm();window.__upa&&window.__upa();window.__gifts&&window.__gifts()}
 
 
 /* ===== سماء النجوم والشهب ===== */
@@ -1742,8 +1685,7 @@ $('#jum').addEventListener('click',e=>{if(e.target.closest('#kOpen')){openKahf()
   renderJum()});
 /* دعواتي: تنحفظ في الجوال */
 try{$('#duaT').value=localStorage.getItem('wird-dua')||''}catch(_){}
-let duaW,duaUp;$('#duaT').addEventListener('input',()=>{clearTimeout(duaW);duaW=setTimeout(()=>{try{localStorage.setItem('wird-dua',$('#duaT').value)}catch(_){}},400);
-  clearTimeout(duaUp);duaUp=setTimeout(()=>{if(S.db&&S.me)S.db.doc('duas/'+S.me).set({t:$('#duaT').value.slice(0,1500),at:Date.now()}).catch(e=>console.error(e))},1500)});
+let duaW;$('#duaT').addEventListener('input',()=>{clearTimeout(duaW);duaW=setTimeout(()=>{try{localStorage.setItem('wird-dua',$('#duaT').value)}catch(_){}},400)});
 /* تذكير ساعة الاستجابة: قبل أذان المغرب بساعة يوم الجمعة */
 function checkDua(){if(!duaHour()){renderJum();return}const k='wird-duaf-'+today();let f=null;try{f=localStorage.getItem(k)}catch(_){}renderJum();if(f)return;
   try{localStorage.setItem(k,'1')}catch(_){}const t=($('#duaT').value||'').trim();
@@ -2134,18 +2076,26 @@ S.msgReady=true;renderMsgs();
      if(await wr(S.db.doc('reels/'+d.dataset.rdel).delete()))toast('انحذف الريلز');return}
    });
  $('#rSetup').hidden=clOk;
- $('#rFile').onchange=e=>{const f=e.target.files[0];$('#rName').textContent=f?`${f.name} — ${(f.size/1048576).toFixed(1)} ميغا`+(f.size>100*1048576?' (أكبر من ١٠٠ ميغا، ما ينرفع)':''):''};
- $('#fReel').onsubmit=e=>{e.preventDefault();if(!S.admin||!S.db)return;if(!clOk){toast('حطي إعدادات Cloudinary في config.js أول');return}
-   const f=$('#rFile').files[0];if(!f){toast('اختاري فيديو');return}if(!upOk('rAud'))return;const only=upOnly('rAud');if(!f.type.startsWith('video/')){toast('الملف لازم يكون فيديو');return}if(f.size>100*1048576){toast('الفيديو أكبر من ١٠٠ ميغا');return}
-   const fd=new FormData();fd.append('file',f);fd.append('upload_preset',CL.uploadPreset);fd.append('folder','himmati');
-   const x=new XMLHttpRequest(),bar=$('#rBar'),bi=bar.querySelector('i'),btn=$('#rBtn');bar.hidden=false;btn.disabled=true;btn.textContent='جاري الرفع…';
-   x.upload.onprogress=ev=>{if(ev.lengthComputable){const p=Math.round(ev.loaded/ev.total*100);bi.style.width=p+'%';btn.textContent='جاري الرفع… '+ar(p)+'٪'}};
-   x.onload=async()=>{let r={};try{r=JSON.parse(x.responseText)}catch(_){}
-     if(x.status>=200&&x.status<300&&okUrl(r.secure_url)){if(await wr(S.db.collection('reels').add({url:r.secure_url,pid:r.public_id||'',caption:$('#rCap').value.trim().slice(0,150),at:Date.now(),only}))){toast(only.length?'انتشر الريلز لـ '+(only.length===1?nm(only[0]):ar(only.length)+' أشخاص')+' 🎬':'انتشر الريلز 🎬');e.target.reset();$('#rName').textContent='';upReset('rAud')}}
-     else toast('ما انرفع: '+((r.error&&r.error.message)||'خطأ في الرفع'));done()};
-   x.onerror=()=>{toast('انقطع الاتصال، جربي مرة ثانية');done()};
-   const done=()=>{bar.hidden=true;bi.style.width='0%';btn.disabled=false;btn.textContent='رفع ونشر'};
-   x.open('POST','https://api.cloudinary.com/v1_1/'+encodeURIComponent(CL.cloudName)+'/video/upload');x.send(fd)};
+ /* رفع أكثر من فيديو مرة وحدة: ينرفعون ورا بعض، وكل واحد ينشر لحاله بنفس الإعدادات */
+ const MB=1048576;
+ $('#rFile').onchange=e=>{const fs=[...e.target.files];if(!fs.length){$('#rName').textContent='';return}
+   $('#rName').innerHTML=(fs.length>1?`<b>${ar(fs.length)} ملفات</b> — تنرفع وتطلع بنفس الترتيب:<br>`:'')+fs.map((f,i)=>`${fs.length>1?ar(i+1)+'. ':''}${esc(f.name)} — ${(f.size/MB).toFixed(1)} ميغا${!f.type.startsWith('video/')?' <b>(مو فيديو، ما ينرفع)</b>':f.size>100*MB?' <b>(أكبر من ١٠٠ ميغا، ما ينرفع)</b>':''}`).join('<br>')};
+ const upOne=(f,onp)=>new Promise(res=>{const fd=new FormData();fd.append('file',f);fd.append('upload_preset',CL.uploadPreset);fd.append('folder','himmati');
+   const x=new XMLHttpRequest();x.upload.onprogress=ev=>{if(ev.lengthComputable)onp(ev.loaded/ev.total)};
+   x.onload=()=>{let r={};try{r=JSON.parse(x.responseText)}catch(_){}res(x.status>=200&&x.status<300&&okUrl(r.secure_url)?{ok:1,r}:{err:(r.error&&r.error.message)||'خطأ في الرفع'})};
+   x.onerror=()=>res({err:'انقطع الاتصال'});x.open('POST','https://api.cloudinary.com/v1_1/'+encodeURIComponent(CL.cloudName)+'/video/upload');x.send(fd)});
+ $('#fReel').onsubmit=async e=>{e.preventDefault();if(!S.admin||!S.db)return;if(!clOk){toast('حطي إعدادات Cloudinary في config.js أول');return}
+   const all=[...$('#rFile').files];if(!all.length){toast('اختاري فيديو');return}if(!upOk('rAud'))return;
+   const fs=all.filter(f=>f.type.startsWith('video/')&&f.size<=100*MB),skip=all.length-fs.length;if(!fs.length){toast('الملفات لازم تكون فيديو وأصغر من ١٠٠ ميغا');return}
+   const only=upOnly('rAud'),cap=$('#rCap').value.trim().slice(0,150),bar=$('#rBar'),bi=bar.querySelector('i'),btn=$('#rBtn'),n=fs.length,base=Date.now();
+   bar.hidden=false;btn.disabled=true;let ok=0,bad=[];
+   for(let i=0;i<n;i++){const lbl=n>1?'فيديو '+ar(i+1)+' من '+ar(n)+' — ':'';btn.textContent='جاري الرفع… '+lbl;
+     const res=await upOne(fs[i],p=>{bi.style.width=Math.round((i+p)/n*100)+'%';btn.textContent='جاري الرفع… '+lbl+ar(Math.round(p*100))+'٪'});
+     if(res.ok&&await wr(S.db.collection('reels').add({url:res.r.secure_url,pid:res.r.public_id||'',caption:cap,at:base-i,only})))ok++;else bad.push(fs[i].name)}
+   bar.hidden=true;bi.style.width='0%';btn.disabled=false;btn.textContent='رفع ونشر';
+   const who=only.length?' لـ '+(only.length===1?nm(only[0]):ar(only.length)+' أشخاص'):'';
+   if(ok){toast((n>1?'انتشر '+ar(ok)+' من '+ar(n)+' ريلز':'انتشر الريلز')+who+' 🎬'+(bad.length?' — ما انرفع: '+bad.slice(0,2).join('، '):'')+(skip?' — تخطّيت '+ar(skip)+' ملف':''));e.target.reset();$('#rName').textContent='';upReset('rAud')}
+   else toast('ما انرفع شي — تأكدي من الإنترنت وجربي مرة ثانية')};
 }
 
 /* ===== الغيوم ===== */
@@ -2171,6 +2121,7 @@ $('#lMode').addEventListener('click',e=>{const b=e.target.closest('[data-m]');if
 function showLogin(setup){document.body.classList.add('locked');$('#login').hidden=false;$('#lSetup').hidden=!setup;$('#fLogin').hidden=!!setup}
 function hideLogin(){document.body.classList.remove('locked');$('#login').hidden=true}
 (async()=>{
+  if(!window.firebase){showLogin(true);$('#lSetup').innerHTML='ما قدرنا نتصل بالإنترنت، فما اشتغل تسجيل الدخول 📶<br>تأكدي من الاتصال وجربي مرة ثانية.<br><button type="button" class="btn p" style="margin-top:12px;width:100%" onclick="location.reload()">إعادة المحاولة</button>';return}
   if(!fbOk()){showLogin(true);return}
   firebase.initializeApp(CFG.firebase);
   const auth=firebase.auth(),fs=firebase.firestore();
@@ -2206,8 +2157,6 @@ function start(u,fs){if(S.started===u.uid)return;S.started=u.uid;
   sub(msgQ.onSnapshot(s=>{S.msgs=s.docs.map(d=>({id:d.id,...d.data()}));renderMsgs()},e=>console.error(e)));
   sub(db.collection('reels').onSnapshot(s=>{S.reels=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.at||0)-(a.at||0));window.__reelsDraw&&window.__reelsDraw()},e=>console.error(e)));
   sub(db.collection('posts').onSnapshot(s=>{S.posts=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.at||0)-(a.at||0));renderFeed();window.__reelsDraw&&window.__reelsDraw()},err));
-  if(S.admin)sub(db.collection('duas').onSnapshot(s=>{S.duas={};s.docs.forEach(d=>S.duas[d.id]=d.data())},e=>console.error(e)));
-  else db.doc('duas/'+S.me).get().then(d=>{const t=d.exists&&d.data().t;if(t&&!$('#duaT').value.trim()){$('#duaT').value=t;try{localStorage.setItem('wird-dua',t)}catch(_){}}}).catch(()=>{});
   sub(db.collection('bonus').onSnapshot(s=>{S.bonus=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.at||0)-(a.at||0));render()},err));
   sub(db.collection('members').onSnapshot(s=>{
     S.members={};s.docs.forEach(d=>S.members[d.id]=d.data());
@@ -2229,14 +2178,6 @@ addEventListener('appinstalled',()=>{$('#installBox').hidden=true;toast('انث�
 if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!standalone()){$('#installBox').hidden=false;$('#installBtn').hidden=true;$('#installTxt').textContent='عشان تثبّتين «هِمتي»: اضغطي زر المشاركة في Safari وبعدها «إضافة إلى الشاشة الرئيسية»'}
 $('#installBtn').onclick=async()=>{if(!DEFER)return;DEFER.prompt();try{await DEFER.userChoice}catch(_){}DEFER=null;$('#installBox').hidden=true};
 if('serviceWorker' in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
-/* ===== صفحة المنظم: كل قسم خانة تنفتح بالضغط ===== */
-(function(){const v=$('#v-admin');if(!v)return;const kids=[...v.children];let cur=null;
-  kids.forEach(n=>{if(n.tagName==='H2'){const a=document.createElement('div');a.className='acc';
-      const b=document.createElement('button');b.type='button';b.className='acch';b.innerHTML='<span></span><i class="ar">▾</i>';b.firstChild.textContent=n.textContent;
-      const d=document.createElement('div');d.className='accb';d.hidden=true;a.append(b,d);n.replaceWith(a);cur=d;
-      b.onclick=()=>{const open=d.hidden;v.querySelectorAll('.acc').forEach(x=>{x.classList.remove('on');x.querySelector('.accb').hidden=true});
-        if(open){d.hidden=false;a.classList.add('on');setTimeout(()=>a.scrollIntoView({behavior:'smooth',block:'start'}),30)}}}
-    else if(cur)cur.append(n)})})();
 }
 </script>
 </body>
