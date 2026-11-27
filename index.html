@@ -545,6 +545,19 @@ html.friday .core::before{content:"";position:absolute;inset:6px;border-radius:5
 html.friday .core span{color:#7a5208;text-shadow:0 1px 0 #fff,0 0 10px rgba(255,210,110,.6)}
 html.friday .core small{color:#a8740c}
 @media(prefers-reduced-motion:reduce){html.friday .orn-spin,html.friday .orn-spin2{animation:none}}
+
+/* ===== تحكم المنظم بالريلز ===== */
+.radm{position:absolute;top:70px;inset-inline-start:14px;z-index:3;display:grid;gap:8px}
+.radm .rbtn{width:auto;height:38px;padding:0 14px;border-radius:999px;font:600 13px 'IBM Plex Sans Arabic',sans-serif;justify-self:start}
+.rhid{position:absolute;top:72px;left:50%;transform:translateX(-50%);z-index:3;padding:6px 14px;border-radius:999px;background:rgba(0,0,0,.55);color:#fff;font-size:13px;white-space:nowrap}
+.rpost .radm .rbtn{background:rgba(255,255,255,.22)}
+
+/* ===== مين شاف الريلز ===== */
+.rvw{z-index:50}.vwl{max-height:55vh;overflow-y:auto;text-align:start;display:grid;gap:6px}
+.vw{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:16px;background:rgba(255,255,255,.07)}
+.vw b{flex:1;font-weight:500}.vw i{font-style:normal;font-size:12px;color:var(--mut)}.vw.off{opacity:.55}
+.vwh{margin:10px 0 2px;font-size:13px;color:var(--mut);font-weight:700}
+html.friday .vw{background:rgba(212,160,23,.1)}
 </style>
 </head>
 <body>
@@ -837,6 +850,7 @@ html.friday .core small{color:#a8740c}
 <div id="duaA" class="alarm" hidden role="alertdialog" aria-labelledby="duaH"><div class="abox"><div style="font-size:54px;line-height:1">🤲</div>
   <h3 id="duaH">ساعة الاستجابة</h3><p>باقي ساعة على أذان المغرب، وهي آخر ساعة من الجمعة يُرجى فيها قبول الدعاء</p><div class="duaq" id="duaQ"></div>
   <div class="arow"><button class="btn p" id="duaGo">افتحي دعواتي</button><button class="btn" id="duaX">تمام</button></div></div></div>
+<div id="rvw" class="alarm rvw" hidden role="dialog" aria-labelledby="rvwT"><div class="abox"><h3 id="rvwT"></h3><div class="vwl" id="rvwL"></div><button type="button" class="btn" id="rvwX" style="width:100%;margin-top:12px">إغلاق</button></div></div>
 <div id="toast" role="status"></div>
 
 <script>
@@ -1584,9 +1598,9 @@ function shrink(file,max=1000,q=.72){return new Promise((res,rej)=>{const u=URL.
   im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
     c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',q))};
   im.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('img'))};im.src=u})}
-function renderFeed(){const f=$('#feed');if(!f)return;const PS=S.posts||[];
+function renderFeed(){const f=$('#feed');if(!f)return;const PS=(S.posts||[]).filter(p=>S.admin||!p.hidden).sort((a,b)=>(typeof b.ord==='number'?b.ord:b.at||0)-(typeof a.ord==='number'?a.ord:a.at||0));
   f.innerHTML=PS.length?PS.map(p=>{const ms=(Array.isArray(p.media)?p.media:[]).slice(0,10);
-    return `<article class="post"><div class="ph"><span class="pd">${esc(fmt(p.at||0))}</span>${S.admin?`<button class="btn x" data-dpost="${esc(p.id)}">حذف</button>`:''}</div>
+    return `<article class="post"><div class="ph"><span class="pd">${p.hidden?'🙈 مخفي':''}</span>${S.admin?`<button class="btn x" data-dpost="${esc(p.id)}">حذف</button>`:''}</div>
     ${p.text?`<p class="pt">${esc(p.text)}</p>`:''}${ms.length?`<div class="pm n${Math.min(ms.length,4)}">${ms.map(media).join('')}</div>`:''}</article>`}).join('')
     :'<div class="empty">ما فيه منشورات للحين.</div>';
   let seen=0;try{seen=+localStorage.getItem('wird-seen')||0}catch(_){}
@@ -1742,26 +1756,44 @@ S.msgReady=true;renderMsgs();
  const poster=u=>u.replace('/video/upload/','/video/upload/so_0,w_540,f_jpg/').replace(/\.[a-z0-9]+$/i,'.jpg');
  let MUTED=true,IO=null,SPEED=1;const SPEEDS=[1,1.5,2,0.5];
  const mmss=t=>{t=Math.max(0,Math.floor(t||0));return ar(Math.floor(t/60))+':'+String(t%60).padStart(2,'0').replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d])};
+ /* ترتيب وإخفاء الريلز: ord يحدد المكان (الأكبر أول)، hidden يخفيه عن الأعضاء */
+ const rkey=r=>typeof r.ord==='number'?r.ord:(r.at||0);
+ const allItems=()=>[...S.reels.filter(r=>okUrl(r.url)).map(r=>({t:'v',c:'reels',...r})),...(S.posts||[]).map(p=>({t:'p',c:'posts',...p}))];
+ const reelItems=()=>allItems().filter(r=>S.admin||!r.hidden).sort((a,b)=>rkey(b)-rkey(a));
+ window.__reelItems=reelItems;
+ /* مين شاف: كل عضو يسجّل في ملفه (seen) الريلز اللي شافه ٢.٥ ثانية أو أكثر */
+ function markView(c,id){if(!c||!id||!S.db||!S.me||S.admin||!S.canWrite)return;const k=c+':'+id,m=S.members[S.me];if(m?.seen?.[k])return;
+   if(m){m.seen={...(m.seen||{}),[k]:Date.now()}}S.db.doc('members/'+S.me).update({seen:{[k]:Date.now()}}).catch(()=>{})}
+ const isOrg=id=>S.members[id]?.org===true;
+ const viewers=k=>Object.keys(S.members).filter(id=>!isOrg(id)&&S.members[id]?.seen?.[k]).sort((a,b)=>S.members[b].seen[k]-S.members[a].seen[k]);
+ function openViewers(k){const v=viewers(k),not=Object.keys(S.members).filter(id=>!isOrg(id)&&!S.members[id]?.seen?.[k]);
+   $('#rvwT').textContent='👀 شافه '+ar(v.length)+' من '+ar(v.length+not.length);
+   $('#rvwL').innerHTML=(v.length?v.map(id=>`<div class="vw">${avatar(id,34)}<b>${esc(nm(id))}</b><i>${esc(rel(S.members[id].seen[k]))}</i></div>`).join(''):'<p class="note">ما أحد شافه للحين.</p>')+
+     (not.length?`<p class="vwh">ما شافوه (${ar(not.length)})</p>`+not.map(id=>`<div class="vw off">${avatar(id,34)}<b>${esc(nm(id))}</b></div>`).join(''):'');
+   $('#rvw').hidden=false}
+ $('#rvwX').onclick=()=>{$('#rvw').hidden=true};
+ const adm=r=>S.admin?`<div class="radm"><button type="button" class="rbtn" data-adm="top" data-c="${r.c}" data-id="${esc(r.id)}" >⬆ الأول</button><button type="button" class="rbtn" data-adm="bot" data-c="${r.c}" data-id="${esc(r.id)}" >⬇ الأخير</button><button type="button" class="rbtn" data-vw="${r.c}:${esc(r.id)}">👀 ${ar(viewers(r.c+':'+r.id).length)}</button><button type="button" class="rbtn" data-adm="hide" data-c="${r.c}" data-id="${esc(r.id)}" >${r.hidden?'👁 إظهار':'🙈 إخفاء'}</button></div>${r.hidden?'<span class="rhid">🙈 مخفي عن الأعضاء</span>':''}`:'';
  function draw(){const L=$('#rList');if(!L)return;
-   const items=[...S.reels.filter(r=>okUrl(r.url)).map(r=>({t:'v',...r})),...(S.posts||[]).map(p=>({t:'p',...p}))].sort((a,b)=>(b.at||0)-(a.at||0));
-   L.innerHTML=items.length?items.map(r=>r.t==='v'?`<section class="reel" data-id="${esc(r.id)}"><video src="${opt(r.url)}" poster="${poster(r.url)}" playsinline loop preload="metadata" ${MUTED?'muted':''}></video>
-     <div class="rcap">${r.caption?`<p>${esc(r.caption)}</p>`:''}<small>${esc(fmt(r.at||0))}</small></div>
+   const items=reelItems();
+   L.innerHTML=items.length?items.map(r=>r.t==='v'?`<section class="reel" data-c="reels" data-id="${esc(r.id)}"><video src="${opt(r.url)}" poster="${poster(r.url)}" playsinline loop preload="metadata" ${MUTED?'muted':''}></video>
+     <div class="rcap">${r.caption?`<p>${esc(r.caption)}</p>`:''}</div>${adm(r)}
      <div class="rctl"><button type="button" data-sk="-10" aria-label="ترجيع ١٠ ثواني">⟲ ١٠</button><button type="button" data-pp aria-label="تشغيل/إيقاف" class="pp">⏯</button><button type="button" data-sk="10" aria-label="تقديم ١٠ ثواني">١٠ ⟳</button><button type="button" data-sp aria-label="السرعة">${SPEED}x</button></div>
      <div class="rbar"><input type="range" class="rseek" min="0" max="1000" value="0" aria-label="مكان الفيديو"><span class="rtime">٠:٠٠</span></div>
      ${S.admin?`<button type="button" class="rbtn rdel" data-rdel="${esc(r.id)}">🗑</button>`:''}<div class="rplay">▶</div></section>`
-     :`<section class="reel rpost"><div class="rpc">${r.text?`<p class="rpt">${esc(r.text)}</p>`:''}${(Array.isArray(r.media)?r.media:[]).length?`<div class="pm n${Math.min(r.media.length,4)}">${r.media.slice(0,4).map(media).join('')}</div>`:''}<small>${esc(fmt(r.at||0))}</small></div>
+     :`<section class="reel rpost" data-c="posts" data-id="${esc(r.id)}"><div class="rpc">${r.text?`<p class="rpt">${esc(r.text)}</p>`:''}${(Array.isArray(r.media)?r.media:[]).length?`<div class="pm n${Math.min(r.media.length,4)}">${r.media.slice(0,4).map(media).join('')}</div>`:''}</div>${adm(r)}
      ${S.admin?`<button type="button" class="rbtn rdel" data-pdel="${esc(r.id)}">🗑</button>`:''}</section>`).join('')
      :'<div class="empty" style="margin:30vh 20px">ما فيه ريلز للحين 🎬</div>';
    markSeen();
-   IO&&IO.disconnect();IO=new IntersectionObserver(es=>{for(const e of es){const v=e.target.querySelector('video');if(!v)continue;
-     if(e.isIntersecting&&e.intersectionRatio>.6){v.muted=MUTED;v.play().catch(()=>{})}else{v.pause()}}},{threshold:[0,.6,1]});
+   IO&&IO.disconnect();IO=new IntersectionObserver(es=>{for(const e of es){const sec=e.target,v=sec.querySelector('video'),on=e.isIntersecting&&e.intersectionRatio>.6;
+     clearTimeout(sec.__vt);if(on)sec.__vt=setTimeout(()=>markView(sec.dataset.c,sec.dataset.id),2500);
+     if(!v)continue;if(on){v.muted=MUTED;v.play().catch(()=>{})}else{v.pause()}}},{threshold:[0,.6,1]});
    L.querySelectorAll('.reel').forEach(x=>IO.observe(x));
    L.querySelectorAll('.reel video').forEach(v=>{const sec=v.closest('.reel'),rg=sec.querySelector('.rseek'),tt=sec.querySelector('.rtime');v.playbackRate=SPEED;
      v.addEventListener('play',()=>{v.playbackRate=SPEED;sec.classList.remove('paused')});v.addEventListener('pause',()=>sec.classList.add('paused'));
      v.addEventListener('timeupdate',()=>{if(sec.__drag)return;if(v.duration)rg.value=Math.round(v.currentTime/v.duration*1000);tt.textContent=mmss(v.currentTime)+' / '+mmss(v.duration)});
      v.addEventListener('loadedmetadata',()=>{tt.textContent=mmss(0)+' / '+mmss(v.duration)})})}
  window.__reelsDraw=()=>{if(!$('#reels').hidden)draw();dotUpd()};
- const newestAll=()=>Math.max(0,...S.reels.map(r=>r.at||0),...(S.posts||[]).map(p=>p.at||0));
+ const newestAll=()=>Math.max(0,...S.reels.filter(r=>!r.hidden).map(r=>r.at||0),...(S.posts||[]).filter(p=>!p.hidden).map(p=>p.at||0));
  const seenAll=()=>{try{return +localStorage.getItem('wird-seen')||0}catch(_){return 0}};
  function markSeen(){const n=newestAll();if(n>seenAll()){try{localStorage.setItem('wird-seen',n)}catch(_){}}dotUpd()}
  function dotUpd(){const d=document.querySelector('#navPosts .dot');if(d)d.hidden=$('#reels').hidden?!(newestAll()>seenAll()):true}
@@ -1776,6 +1808,11 @@ S.msgReady=true;renderMsgs();
    if(v.duration)v.currentTime=rg.value/1000*v.duration;clearTimeout(sec.__dt);sec.__dt=setTimeout(()=>sec.__drag=false,250)});
  $('#rList').addEventListener('click',async e=>{
    if(e.target.closest('.rseek,.rbar'))return;
+   const vb=e.target.closest('[data-vw]');if(vb){if(S.admin)openViewers(vb.dataset.vw);return}
+   const ab=e.target.closest('[data-adm]');if(ab){if(!S.admin||!S.db)return;const op=ab.dataset.adm,c=ab.dataset.c,id=ab.dataset.id,all=allItems(),it=all.find(x=>x.c===c&&x.id===id);if(!it)return;
+     const ks=all.filter(x=>x!==it).map(rkey);let upd;
+     if(op==='top')upd={ord:(ks.length?Math.max(...ks):Date.now())+1000};else if(op==='bot')upd={ord:(ks.length?Math.min(...ks):Date.now())-1000};else upd={hidden:!it.hidden};
+     ab.disabled=true;if(await wr(S.db.doc(c+'/'+id).update(upd)))toast(op==='top'?'صار الأول ⤒':op==='bot'?'صار الأخير ⤓':upd.hidden?'انخفى عن الأعضاء 🙈':'صار ظاهر للكل 👁');ab.disabled=false;return}
    const cb=e.target.closest('.rctl button');if(cb){const sec=cb.closest('.reel'),v=sec.querySelector('video');
      if(cb.dataset.sk){v.currentTime=Math.max(0,Math.min((v.duration||0)-0.1,v.currentTime+(+cb.dataset.sk)))}
      else if(cb.hasAttribute('data-pp')){v.paused?v.play().catch(()=>{}):v.pause()}
