@@ -681,6 +681,7 @@ details.acc[open]>summary{border-bottom:1px solid var(--line)}
 .ksp button{width:30px;height:30px;border-radius:50%;border:0;background:#fff;color:#8a5e05;font:700 18px/1 sans-serif;box-shadow:0 1px 4px rgba(160,115,25,.25)}
 .ksp b{min-width:38px;text-align:center;font-size:13px;color:#8a5e05}
 [dir=ltr] .rseek,[dir=ltr] #kSeek,.rseek:dir(ltr),#kSeek:dir(ltr){--sd:90deg}
+.ctry{width:100%;margin:8px 0 2px;font-size:13px;font-weight:700;color:var(--mut)}
 </style>
 </head>
 <body>
@@ -1941,22 +1942,26 @@ $('#feed').addEventListener('click',async e=>{const b=e.target.closest('[data-dp
 {const PT=(()=>{const r=Math.PI/180,s=x=>Math.sin(x*r),c=x=>Math.cos(x*r),t=x=>Math.tan(x*r),as=x=>Math.asin(x)/r,ac=x=>Math.acos(Math.max(-1,Math.min(1,x)))/r,at2=(y,x)=>Math.atan2(y,x)/r,fix=(a,b)=>((a%b)+b)%b;
  function sun(jd){const D=jd-2451545,g=fix(357.529+0.98560028*D,360),q=fix(280.459+0.98564736*D,360),L=fix(q+1.915*s(g)+0.02*s(2*g),360),e=23.439-0.00000036*D;
   const RA=fix(at2(c(e)*s(L),c(L))/15,24);let eqt=q/15-RA;if(eqt>12)eqt-=24;if(eqt<-12)eqt+=24;return{decl:as(s(e)*s(L)),eqt}}
- return(date,lat,lng)=>{const y=date.getFullYear(),m=date.getMonth(),d=date.getDate(),{decl,eqt}=sun(Date.UTC(y,m,d,12)/864e5+2440587.5-lng/360);
+ /* طرق الحساب: uq أم القرى (السعودية)، mwl رابطة العالم الإسلامي (العراق)، tn وزارة الشؤون الدينية (تونس) */
+ const MTH={uq:{f:18.5,iMin:90},mwl:{f:18,i:17},tn:{f:18,i:18}};
+ return(date,lat,lng,mk)=>{const M=MTH[mk]||MTH.uq,y=date.getFullYear(),m=date.getMonth(),d=date.getDate(),{decl,eqt}=sun(Date.UTC(y,m,d,12)/864e5+2440587.5-lng/360);
   const noon=12-eqt-lng/15,ha=alt=>ac((s(alt)-s(decl)*s(lat))/(c(decl)*c(lat)))/15,asrAlt=at2(1,1+t(Math.abs(lat-decl)));
   let ram=false;try{ram=new Intl.DateTimeFormat('en-u-ca-islamic-umalqura',{month:'numeric'}).format(date)==='9'}catch(_){}
   const base=Date.UTC(y,m,d),T=h=>new Date(base+h*36e5),ss=noon+ha(-0.833);
-  return{fajr:T(noon-ha(-18.5)),sunrise:T(noon-ha(-0.833)),dhuhr:T(noon+1/60),asr:T(noon+ha(asrAlt)),maghrib:T(ss),isha:T(ss+(ram?2:1.5))}}})();
+  return{fajr:T(noon-ha(-M.f)),sunrise:T(noon-ha(-0.833)),dhuhr:T(noon+1/60),asr:T(noon+ha(asrAlt)),maghrib:T(ss),isha:M.iMin?T(ss+(ram?120:M.iMin)/60):T(noon+ha(-M.i))}}})();
  const NAMES={fajr:'الفجر',sunrise:'الشروق',dhuhr:'الظهر',asr:'العصر',maghrib:'المغرب',isha:'العشاء'};
- const CITIES=[['ذهبان',21.94,39.11],['جدة',21.543,39.173],['مكة المكرمة',21.4225,39.826],['المدينة المنورة',24.467,39.611],['الرياض',24.714,46.675],['الطائف',21.27,40.415],['رابغ',22.8,39.033],['ينبع',24.089,38.064],['الدمام',26.434,50.103],['أبها',18.216,42.505],['تبوك',28.383,36.567],['حائل',27.52,41.69],['بريدة',26.326,43.975],['جازان',16.889,42.551],['نجران',17.493,44.128],['الباحة',20.012,41.465]];
+ const CITIES=[['ذهبان',21.94,39.11,'uq','Asia/Riyadh','sa'],['جدة',21.543,39.173,'uq','Asia/Riyadh','sa'],['مكة المكرمة',21.4225,39.826,'uq','Asia/Riyadh','sa'],['المدينة المنورة',24.467,39.611,'uq','Asia/Riyadh','sa'],['الرياض',24.714,46.675,'uq','Asia/Riyadh','sa'],['الطائف',21.27,40.415,'uq','Asia/Riyadh','sa'],['رابغ',22.8,39.033,'uq','Asia/Riyadh','sa'],['ينبع',24.089,38.064,'uq','Asia/Riyadh','sa'],['الدمام',26.434,50.103,'uq','Asia/Riyadh','sa'],['أبها',18.216,42.505,'uq','Asia/Riyadh','sa'],['تبوك',28.383,36.567,'uq','Asia/Riyadh','sa'],['حائل',27.52,41.69,'uq','Asia/Riyadh','sa'],['بريدة',26.326,43.975,'uq','Asia/Riyadh','sa'],['جازان',16.889,42.551,'uq','Asia/Riyadh','sa'],['نجران',17.493,44.128,'uq','Asia/Riyadh','sa'],['الباحة',20.012,41.465,'uq','Asia/Riyadh','sa'],['أربيل',36.191,44.009,'mwl','Asia/Baghdad','iq'],['السليمانية',35.557,45.435,'mwl','Asia/Baghdad','iq'],['دهوك',36.867,42.988,'mwl','Asia/Baghdad','iq'],['بغداد',33.315,44.366,'mwl','Asia/Baghdad','iq'],['أريانة',36.862,10.195,'tn','Africa/Tunis','tn'],['تونس العاصمة',36.806,10.181,'tn','Africa/Tunis','tn'],['صفاقس',34.74,10.76,'tn','Africa/Tunis','tn'],['سوسة',35.825,10.636,'tn','Africa/Tunis','tn'],['بنزرت',37.274,9.874,'tn','Africa/Tunis','tn']];
+ const CTRY={sa:'🇸🇦 السعودية',iq:'🇮🇶 العراق',tn:'🇹🇳 تونس'};
  let LOC=null;try{LOC=JSON.parse(localStorage.getItem('wird-loc'))}catch(_){}
  if(!LOC||typeof LOC.lat!=='number')LOC={n:'جدة',lat:21.543,lng:39.173};
+ if(!LOC.m){const c=CITIES.find(x=>x[0]===LOC.n);LOC.m=c?c[3]:'uq';LOC.tz=c?c[4]:'Asia/Riyadh'}
  let ALM=false;try{ALM=localStorage.getItem('wird-adhan')==='1'}catch(_){}
  $('#prAlarm').checked=ALM;
- const hm=d=>d.toLocaleTimeString('ar-SA-u-nu-arab',{hour:'numeric',minute:'2-digit'});
+ const hm=d=>{try{return d.toLocaleTimeString('ar-SA-u-nu-arab',{hour:'numeric',minute:'2-digit',...(LOC.tz?{timeZone:LOC.tz}:{})})}catch(_){return d.toLocaleTimeString('ar-SA-u-nu-arab',{hour:'numeric',minute:'2-digit'})}};
  const left=ms=>{const m=Math.max(0,Math.round(ms/6e4)),h=Math.floor(m/60),mm=m%60;return h?`${ar(h)} س و${ar(mm)} د`:`${ar(mm)} دقيقة`};
  let fired='';
- function draw(){const now=new Date(),p=PT(now,LOC.lat,LOC.lng),keys=Object.keys(NAMES).filter(k=>k!=='sunrise');
-   let nk=keys.find(k=>p[k]>now),nt;if(!nk){const tm=new Date(now);tm.setDate(tm.getDate()+1);nk='fajr';nt=PT(tm,LOC.lat,LOC.lng).fajr}else nt=p[nk];
+ function draw(){const now=new Date(),p=PT(now,LOC.lat,LOC.lng,LOC.m),keys=Object.keys(NAMES).filter(k=>k!=='sunrise');
+   let nk=keys.find(k=>p[k]>now),nt;if(!nk){const tm=new Date(now);tm.setDate(tm.getDate()+1);nk='fajr';nt=PT(tm,LOC.lat,LOC.lng,LOC.m).fajr}else nt=p[nk];
    $('#prNext').textContent=`الصلاة القادمة: ${NAMES[nk]} ${hm(nt)}`;$('#prLeft').textContent='باقي '+left(nt-now);
    $('#prCity').textContent=LOC.n;
    drawChk(p,keys,now);
@@ -1965,12 +1970,12 @@ $('#feed').addEventListener('click',async e=>{const b=e.target.closest('[data-dp
    $('#prDate').textContent=hij;
    if(ALM)for(const k of keys){const d=now-p[k],key=k+p[k].toDateString();if(d>=0&&d<9e4&&fired!==key){fired=key;chime();vib([300,150,300]);toast('حان الآن وقت صلاة '+NAMES[k]+' 🕌 لا تنسين تسجّلين صلاتك');
      try{if(Notification.permission==='granted')navigator.serviceWorker?.getRegistration().then(r=>r&&r.showNotification('حان وقت صلاة '+NAMES[k],{body:'هِمتي — '+LOC.n,icon:'icon-192.png',tag:'adhan'}))}catch(_){}}}}
- $('#prCities').innerHTML=CITIES.map(([n],i)=>`<button type="button" class="chipb" data-ci="${i}">${n}</button>`).join('');
+ $('#prCities').innerHTML=Object.entries(CTRY).map(([c,t])=>`<p class="ctry">${t}</p>`+CITIES.map((x,i)=>x[5]===c?`<button type="button" class="chipb" data-ci="${i}">${x[0]}</button>`:'').join('')).join('');
  $('#prCityBtn').onclick=()=>{$('#prPick').hidden=!$('#prPick').hidden};
  const setLoc=l=>{LOC=l;try{localStorage.setItem('wird-loc',JSON.stringify(l))}catch(_){}$('#prPick').hidden=true;draw();applyPrefs();sky()};
- $('#prCities').addEventListener('click',e=>{const b=e.target.closest('[data-ci]');if(!b)return;const [n,lat,lng]=CITIES[+b.dataset.ci];setLoc({n,lat,lng})});
+ $('#prCities').addEventListener('click',e=>{const b=e.target.closest('[data-ci]');if(!b)return;const [n,lat,lng,m,tz]=CITIES[+b.dataset.ci];setLoc({n,lat,lng,m,tz})});
  $('#prGps').onclick=()=>{if(!navigator.geolocation){toast('الجوال ما يدعم تحديد الموقع');return}toast('جاري تحديد موقعك…');
-   navigator.geolocation.getCurrentPosition(p=>{setLoc({n:'موقعي',lat:+p.coords.latitude.toFixed(3),lng:+p.coords.longitude.toFixed(3)});toast('تم تحديد موقعك')},()=>toast('ما قدرت أحدد موقعك، اختاري مدينتك من القائمة'),{timeout:15000,maximumAge:864e5})};
+   navigator.geolocation.getCurrentPosition(p=>{const la=+p.coords.latitude.toFixed(3),lo=+p.coords.longitude.toFixed(3),m=(la>16&&la<32.5&&lo>34.5&&lo<56)?'uq':(la>30&&la<37.6&&lo>7.5&&lo<11.7)?'tn':'mwl';let tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone}catch(_){}setLoc({n:'موقعي',lat:la,lng:lo,m,tz});toast('تم تحديد موقعك')},()=>toast('ما قدرت أحدد موقعك، اختاري مدينتك من القائمة'),{timeout:15000,maximumAge:864e5})};
  $('#prAlarm').onchange=e=>{ALM=e.target.checked;try{localStorage.setItem('wird-adhan',ALM?'1':'0')}catch(_){}
    if(ALM&&'Notification' in window&&Notification.permission==='default')Notification.requestPermission().catch(()=>{});toast(ALM?'بيجيك تنبيه وقت الأذان':'تم إيقاف تنبيه الأذان')};
  function winEnd(p,k){const o=['fajr','dhuhr','asr','maghrib','isha'],i=o.indexOf(k);if(k==='fajr')return p.sunrise;if(k==='isha'){const e=new Date(p.isha);e.setHours(23,59,59,999);return e}return p[o[i+1]]}
@@ -1978,14 +1983,14 @@ $('#feed').addEventListener('click',async e=>{const b=e.target.closest('[data-dp
    $('#prChk').innerHTML=keys.map(k=>{const st=done[k]?'ok':now<p[k]?'wait':now<winEnd(p,k)?'now':'miss';
      return `<button type="button" class="pk ${st}" data-pk="${k}" ${st==='now'&&S.me&&S.canWrite?'':'disabled'}>${st==='ok'?'✓':st==='miss'?'–':''}<small>${NAMES[k]}</small></button>`}).join('')}
  $('#prChk').addEventListener('click',async e=>{const b=e.target.closest('[data-pk]');if(!b||b.disabled||!S.db||!S.me)return;const k=b.dataset.pk;b.disabled=true;
-   const p=PT(new Date(),LOC.lat,LOC.lng);if(!(new Date()>=p[k]&&new Date()<winEnd(p,k))){toast('انتهى وقت تسجيل هذي الصلاة');draw();return}
+   const p=PT(new Date(),LOC.lat,LOC.lng,LOC.m);if(!(new Date()>=p[k]&&new Date()<winEnd(p,k))){toast('انتهى وقت تسجيل هذي الصلاة');draw();return}
    if(await wr(S.db.doc('members/'+S.me).update({prayers:{[today()]:{[k]:Date.now()}}}))){const m=S.members[S.me];if(m){m.prayers=m.prayers||{};m.prayers[today()]={...(m.prayers[today()]||{}),[k]:Date.now()}}
      chime();toast('تقبّل الله — صلاة '+NAMES[k]+' +٢ نقاط زرقاء');render()}draw()});
  $('#prIcs').onclick=()=>{const z=ms=>new Date(ms).toISOString().replace(/[-:]/g,'').replace(/\.\d+/,''),L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//himmati//ar','X-WR-CALNAME:مواقيت الصلاة - هِمتي'];
-   const d0=new Date();for(let i=0;i<30;i++){const d=new Date(d0);d.setDate(d0.getDate()+i);const p=PT(d,LOC.lat,LOC.lng);
+   const d0=new Date();for(let i=0;i<30;i++){const d=new Date(d0);d.setDate(d0.getDate()+i);const p=PT(d,LOC.lat,LOC.lng,LOC.m);
      for(const k of ['fajr','dhuhr','asr','maghrib','isha']){const t=p[k].getTime();L.push('BEGIN:VEVENT','UID:'+k+'-'+t+'@himmati','DTSTAMP:'+z(Date.now()),'DTSTART:'+z(t),'DTEND:'+z(t+15*6e4),'SUMMARY:🕌 صلاة '+NAMES[k],'DESCRIPTION:هِمتي — سجّلي صلاتك في التطبيق','BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY','DESCRIPTION:حان وقت صلاة '+NAMES[k],'END:VALARM','END:VEVENT')}}
    L.push('END:VCALENDAR');try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([L.join('\r\n')],{type:'text/calendar'}));a.download='mawaqit-'+LOC.n+'.ics';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);toast('افتحي الملف واختاري التقويم عشان تنضاف المواقيت')}catch(_){toast('ما قدرت أجهّز الملف')}};
- window.__prDraw=draw;window.__maghrib=()=>PT(new Date(),LOC.lat,LOC.lng).maghrib;applyPrefs();sky();
+ window.__prDraw=draw;window.__maghrib=()=>PT(new Date(),LOC.lat,LOC.lng,LOC.m).maghrib;applyPrefs();sky();
  draw();setInterval(draw,30000);
 }
 
